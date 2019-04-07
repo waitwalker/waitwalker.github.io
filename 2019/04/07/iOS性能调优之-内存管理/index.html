@@ -1,0 +1,1103 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="iOS性能调优之--内存管理, Swift, iOS">
+    <meta name="description" content="前言&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;iOS内存管理无论是早期的MRC还是现在的ARC本质都是通过引用计数(Reference Counting)机制管理内存,当一个对象被创建出">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>iOS性能调优之--内存管理 | waitwalker&#39;s blog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+
+<!--导航-->
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    <!---->
+                    <!--<img src="/medias/logo.png" class="logo-img" alt="LOGO">-->
+                    <!---->
+                    <span class="logo-span">waitwalker's blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">waitwalker's blog</div>
+        <div class="logo-desc">
+            
+            Life is measured by thought and action not by time.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/waitwalker" class="github-corner tooltipped hide-on-med-and-down" target="_blank" data-tooltip="https://github.com/waitwalker" data-position="left" data-delay="50">
+    <svg viewbox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        iOS性能调优之--内存管理
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/iOS/" target="_blank">
+                                <span class="chip bg-color">iOS</span>
+                            </a>
+                        
+                            <a href="/tags/内存管理/" target="_blank">
+                                <span class="chip bg-color">内存管理</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/iOS开发/" class="post-category" target="_blank">
+                                iOS开发
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-04-07
+                </div>
+
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iOS内存管理无论是早期的MRC还是现在的ARC本质都是通过引用计数(Reference Counting)机制管理内存,当一个对象被创建出来时,它的引用计数从0到1,当有外部对象对它进行强引用时,它的应用计数会+1,当该对象收到一条release消息时,它的引用计数会-1;当对象的引用计数为0时,对象将被释放,对象指向的内存被回收.</p>
+<h2 id="1-ARC内存管理的本质"><a href="#1-ARC内存管理的本质" class="headerlink" title="1. ARC内存管理的本质"></a>1. ARC内存管理的本质</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>MRC时代需要程序员手动管理对象的生命周期,也就是对象的引用计数有程序员来控制,什么时候retain,什么时候release,完全自己掌握.ARC(Automatic Reference Counting)自动引用计数是编译器的一个特性,能够自动管理OC对象内存生命周期.在ARC中你需要专注于写你的代码, retain ,release, autorelease操作交给编译器去处理就行了.</strong><br><img src="https://upload-images.jianshu.io/upload_images/1715253-27c80639ff2b00b5.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="MRC_ARC_示意图_来源_Apple_Document.jpg"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ARC 下编译器如何自动管理内存,其中,能想到的是在类的 dealloc 方法中，对该类的所持有的成员变量(strong)执行 release 操作,让所有成员变量的引用计数为0。对于局部变量,更可能是的对象在出作用域之前,编译器自动给对象加上一条 release消息.这些工作都是编译器为我们处理了.</p>
+<pre><code>// 作用域
+    {
+        NSString *str = [[NSString alloc]initWithFormat:@&quot;%@&quot;,@&quot;str&quot;];
+
+        NSLog(@&quot;%@&quot;,str);
+
+        // 在对象出作用域时,编译器自动给对象发一条release消息
+        [str release];
+    }
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ARC,则无需我们自己显式持有(retain)和释放(release)对象,ARC通过对对像加上所有权修饰符(__strong等),编译器通过对象的所有权修饰符将会自动管理对象的引用计数.</p>
+<h2 id="2-所有权修饰符"><a href="#2-所有权修饰符" class="headerlink" title="2. 所有权修饰符"></a>2. 所有权修饰符</h2><blockquote>
+<p>基础知识:指针是其实也是一个对象,它指向一个内存地址单元,内存单元里存着各种变量.这样指针就可以指向这样变量,当我们用的时候我们就可以从内存单元取出变量内容.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Objective-C对象的ARC是通过所有权修饰符来管理对象的持有和释放。所有权修饰符一共有4种：</p>
+</blockquote>
+<h3 id="2-1-strong-修饰符"><a href="#2-1-strong-修饰符" class="headerlink" title="2.1 __strong 修饰符"></a>2.1 __strong 修饰符</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认的修饰符,只要有一个强指针指向这个对象,这个对象就一直不会销毁,这个对象指向的指针也不会置为NULL.</p>
+<pre><code>//这里person_one 可以理解为一个指针 指向 Person创建的出来的对象(指针)的内存,可以读取内存上的内容
+    Person * __strong person_one = [[Person alloc]init];
+
+    Person * __strong person_two = person_one;
+
+    person_one = nil;
+
+    NSLog(@&quot;person_one:%@,person_one地址:%p&quot;,person_one,person_one);
+    NSLog(@&quot;person_two:%@,person_two地址:%p&quot;,person_two,person_two);
+
+Log:
+2018-03-19 16:19:09.822168 TestARC[16592:5864784] person_one:(null),person_one地址:0x0
+2018-03-19 16:19:22.443524 TestARC[16592:5864784] person_two:&lt;Person: 0x17001e450&gt;,person_two地址:0x17001e450
+</code></pre><p><img src="https://upload-images.jianshu.io/upload_images/1715253-2902fc1e9aff3193.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="strong所有权修饰.png"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们可以看到,person_two是person_one的浅拷贝对象,也就是指针拷贝对象,而person_two是通过__strong修饰,相当于强指针,指向的是与person_one一块内存区域.而这块内存区域被retain了两次,引用计数为2,即使person_one = nil将引用计数-1了,person_two依然可以打印出内存地址.person_one的指针已经被置为NULL,所以打印出的地址是0x0.</p>
+<h3 id="2-2-weak-修饰符"><a href="#2-2-weak-修饰符" class="headerlink" title="2.2 __weak 修饰符"></a>2.2 __weak 修饰符</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当没有强指针指向弱引用的对象时,弱引用的对象将被置为nil,对象的指针置为NULL.</p>
+<pre><code>//这里person_one 可以理解为一个指针 指向 Person创建的出来的对象(指针)的内存,可以读取内存上的内容
+    Person * __strong person_one = [[Person alloc]init];
+
+    Person * __weak person_two = person_one;
+
+    person_one = nil;
+
+    NSLog(@&quot;person_one:%@,person_one地址:%p&quot;,person_one,person_one);
+    NSLog(@&quot;person_two:%@,person_two地址:%p&quot;,person_two,person_two);
+Log:
+2018-03-19 16:28:21.453255 TestARC[16599:5866487] person_one:(null),person_one地址:0x0
+2018-03-19 16:28:25.521762 TestARC[16599:5866487] person_two:(null),person_two地址:0x0
+</code></pre><p><img src="https://upload-images.jianshu.io/upload_images/1715253-062710f6ab6758cd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="weak所有权修饰.png"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们知道__weak修饰的对象不会对对象进行retain,所以person_two指向的内存区域对象引用计数还是1.这里只有person_one强引用那块内存区域,当person_one = nil时,引用计数为0,内存区域被释放,person_two指向的内存地址为:0x0.</p>
+<h3 id="2-3-unsafe-unretained-修饰符"><a href="#2-3-unsafe-unretained-修饰符" class="headerlink" title="2.3 __unsafe_unretained 修饰符"></a>2.3 __unsafe_unretained 修饰符</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;就像其表面意思一样:当没有强指针指向__unsafe_unretained修饰的对象时,这个对象会被置为nil,但是指向对象的指针不会被清空,苹果官方: the pointer is left dangling.</p>
+<pre><code>//这里person_one 可以理解为一个指针 指向 Person创建的出来的对象(指针)的内存,可以读取内存上的内容
+    Person * __strong person_one = [[Person alloc]init];
+
+    Person * __unsafe_unretained person_two = person_one;
+
+    person_one = nil;
+
+    NSLog(@&quot;person_one:%@,person_one地址:%p&quot;,person_one,person_one);
+    NSLog(@&quot;person_two:%@,person_two地址:%p&quot;,person_two,person_two);
+Log:
+2018-03-19 16:42:52.400375 TestARC[16608:5869804] person_one:(null),person_one地址:0x0
+这里已经报错:Thread 1: EXC_BAD_ACCESS (code=1, address=0xb84d2beb8)
+</code></pre><p><img src="https://upload-images.jianshu.io/upload_images/1715253-5666a219c62ae22c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="unsafe__unretained所有权修饰.png"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这里我们在主线程中收到一条崩溃信息(EXC_BAD_ACCESS),通过<strong>unsafe_unretained官方文档解释,我们可以猜出address=0xb84d2beb8应该是person_one没被置为nil之前的内存地址,而当person_one = nil时,这块内存已经被回收,而person_two因为被</strong>unsafe_unretained修饰,其指针还没有被销毁,还想指向这块内存地址,所以造成了野指针错误.</p>
+<h3 id="2-4-autoreleasing-修饰符"><a href="#2-4-autoreleasing-修饰符" class="headerlink" title="2.4 __autoreleasing 修饰符"></a>2.4 __autoreleasing 修饰符</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;autorelease 本质上就是延迟调用 release,这里不做细致的分析了,大家感兴趣的可以自己找相关资料查看.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;到这里我们对ARC的引用计数管理应该有了大概的了解.</p>
+<h2 id="3-源码分析"><a href="#3-源码分析" class="headerlink" title="3. 源码分析"></a>3. 源码分析</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;引用计数的实现,我们可以通过查看苹果的源码(<a href="https://opensource.apple.com/source/objc4/).我们下面主要来看看retain的实现源码,我们可以在OC的鼻祖类--NSObject中可以看到协议NSObject中定义的几个方法" target="_blank" rel="noopener">https://opensource.apple.com/source/objc4/).我们下面主要来看看retain的实现源码,我们可以在OC的鼻祖类--NSObject中可以看到协议NSObject中定义的几个方法</a>:</p>
+<pre><code>- (instancetype)retain OBJC_ARC_UNAVAILABLE;
+- (oneway void)release OBJC_ARC_UNAVAILABLE;
+- (instancetype)autorelease OBJC_ARC_UNAVAILABLE;
+- (NSUInteger)retainCount OBJC_ARC_UNAVAILABLE;
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;以上方法,就是编译器在合适的时机给对象所要发送的消息.我们点进去retain方法,我们可以在NSObject.mm文件的2138行可以看到其实现:</p>
+<pre><code>// Replaced by ObjectAlloc
+- (id)retain {
+    return ((id)self)-&gt;rootRetain();
+}
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;沿着调用链,我们可以在objc-object.h文件中看到id rootRetain(bool tryRetain, bool handleOverflow)方法的实现:</p>
+<pre><code>LWAYS_INLINE id
+objc_object::rootRetain(bool tryRetain, bool handleOverflow)
+{
+    assert(!UseGC);
+    if (isTaggedPointer()) return (id)this;
+
+    bool sideTableLocked = false;
+    bool transcribeToSideTable = false;
+
+    isa_t oldisa;
+    isa_t newisa;
+
+    do {
+        transcribeToSideTable = false;
+        oldisa = LoadExclusive(&amp;isa.bits);
+        newisa = oldisa;
+        if (!newisa.indexed) goto unindexed;
+        // don&#39;t check newisa.fast_rr; we already called any RR overrides
+        if (tryRetain &amp;&amp; newisa.deallocating) goto tryfail;
+        uintptr_t carry;
+        newisa.bits = addc(newisa.bits, RC_ONE, 0, &amp;carry);  // extra_rc++
+
+        if (carry) {
+            // newisa.extra_rc++ overflowed
+            if (!handleOverflow) return rootRetain_overflow(tryRetain);
+            // Leave half of the retain counts inline and
+            // prepare to copy the other half to the side table.
+            if (!tryRetain &amp;&amp; !sideTableLocked) sidetable_lock();
+            sideTableLocked = true;
+            transcribeToSideTable = true;
+            newisa.extra_rc = RC_HALF;
+            newisa.has_sidetable_rc = true;
+        }
+    } while (!StoreExclusive(&amp;isa.bits, oldisa.bits, newisa.bits));
+
+    if (transcribeToSideTable) {
+        // Copy the other half of the retain counts to the side table.
+        sidetable_addExtraRC_nolock(RC_HALF);
+    }
+
+    if (!tryRetain &amp;&amp; sideTableLocked) sidetable_unlock();
+    return (id)this;
+
+ tryfail:
+    if (!tryRetain &amp;&amp; sideTableLocked) sidetable_unlock();
+    return nil;
+
+ unindexed:
+    if (!tryRetain &amp;&amp; sideTableLocked) sidetable_unlock();
+    if (tryRetain) return sidetable_tryRetain() ? (id)this : nil;
+    else return sidetable_retain();
+}
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最后一行sidetable_retain(),这个也是retain方法的最终调用的方法.而sidetable_retain()的实现:</p>
+<pre><code>id
+objc_object::sidetable_retain()
+{
+#if SUPPORT_NONPOINTER_ISA
+    assert(!isa.indexed);
+#endif
+    SideTable&amp; table = SideTables()[this];
+
+    if (table.trylock()) {
+        size_t&amp; refcntStorage = table.refcnts[this];
+        if (! (refcntStorage &amp; SIDE_TABLE_RC_PINNED)) {
+            refcntStorage += SIDE_TABLE_RC_ONE;
+        }
+        table.unlock();
+        return (id)this;
+    }
+    return sidetable_retain_slow(table);
+}
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们可以看到这个方法中SideTable这个结构体,</p>
+<pre><code>struct SideTable {
+    spinlock_t slock;
+    RefcountMap refcnts;
+    weak_table_t weak_table;
+
+    SideTable() {
+        memset(&amp;weak_table, 0, sizeof(weak_table));
+    }
+
+    ~SideTable() {
+        _objc_fatal(&quot;Do not delete SideTable.&quot;);
+    }
+
+    void lock() { slock.lock(); }
+    void unlock() { slock.unlock(); }
+    bool trylock() { return slock.trylock(); }
+
+    // Address-ordered lock discipline for a pair of side tables.
+
+    template&lt;bool HaveOld, bool HaveNew&gt;
+    static void lockTwo(SideTable *lock1, SideTable *lock2);
+    template&lt;bool HaveOld, bool HaveNew&gt;
+    static void unlockTwo(SideTable *lock1, SideTable *lock2);
+};
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其中的 RefcountMap 应该就是引用计数哈希表，而weak_table_t则是弱引用表(weak table).<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RefcountMap 则是一个简单的 map,其 key 为 object 内存地址，value 为引用计数值.通过SideTable源码，还可以得出如下结论：<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;存在全局的若干个SideTable实例，它们保存在 static 成员变量table_buf中；<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;程序运行过程中生成的所有对象都会通过其内存地址映射到table_buf中相应的&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SideTable实例上.这里之所以会存在多个SideTable实例,object 映射到不同SideTable实例上,猜测是出于性能优化的目的，避免SideTable中的 reference table、weak table 过大.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;回到上面的sidetable_retain方法，其首先通过 object 的地址找到对应的 sidetale，然后通过 RefcountMap将该 object 的引用计数加1.简单地说，Apple 通过全局的 map 来记录Reference Counting，其key 为 object 地址，value 为引用计数值。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;release、retainCount等相关方法的代码在该开源代码中也能找到,这里不细说了.</p>
+<h2 id="4-ARC开发环境需要注意的管理内存"><a href="#4-ARC开发环境需要注意的管理内存" class="headerlink" title="4. ARC开发环境需要注意的管理内存:"></a>4. ARC开发环境需要注意的管理内存:</h2><h3 id="4-1CoreFoundation-Runtime以及其他C语言库的使用"><a href="#4-1CoreFoundation-Runtime以及其他C语言库的使用" class="headerlink" title="4.1CoreFoundation,Runtime以及其他C语言库的使用"></a>4.1CoreFoundation,Runtime以及其他C语言库的使用</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过malloc,create,copy等创建对象,还需要手动释放.</p>
+<h3 id="4-2-循环引用"><a href="#4-2-循环引用" class="headerlink" title="4.2 循环引用"></a>4.2 循环引用</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;循环引用是两个或多个对象之间相互持有,形成环状,即使在没有外部对象指针指向这些对象内存区域(堆区)的时候,系统无法将每个对象的引用计数置为0,从而导致这些开辟出来的内存一直发挥着”占着茅坑不拉屎”的作用.这部分不容易检测,也容易背锅.不管新老司机遇到问题不假思索:循环引用的问题(所以遇到问题的时候,我们更多的是多思考,而不是在没有分析问题的情况下脱口而出,不仅误导别人,而且显得自己很水,多说了两句,见笑).<br><img src="https://upload-images.jianshu.io/upload_images/1715253-674749fa15d20829.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="循环引用示意图.png"></p>
+<h2 id="5-内存管理检测"><a href="#5-内存管理检测" class="headerlink" title="5. 内存管理检测"></a>5. 内存管理检测</h2><h3 id="5-1-Analyze静态分析"><a href="#5-1-Analyze静态分析" class="headerlink" title="5.1 Analyze静态分析"></a>5.1 Analyze静态分析</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;静态内存分析, 指的是在程序没运行的时候, 通过预编译对代码进行预判断分析,分析代码的基本数据结构,语法等,编译器检查是否存在潜在的内存泄露及不规范的地方.常遇到问题:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1)The ‘viewWillDisappear:’ instance method in UIViewController subclass ‘xxxxx’ is missing a [super viewWillDisappear:] call;这个错误提示是:重写父类中的实例方法viewWillDisappear,没有在子类中调用,从下图我们可以看到确实是这样,-(void)viewWillDisappear:(BOOL)animated方法内部调用的是[super viewDidAppear:animated];这种是很低级的错误.<br><img src="https://upload-images.jianshu.io/upload_images/1715253-85ff5e032f373642.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Analyze_1.png"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2)Value stored to ‘xxxxx’ is never read,声明的变量没有被用到<br><img src="https://upload-images.jianshu.io/upload_images/1715253-b74144bbc8d2352c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Analyze_2.png"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3) API Misuse 接口应用错误,这里主要针对的是系统提供的接口<br>从下图中我们可以看到,_cachedStatements是一个字典,字典是不允许出现nil对象的,所以存数据之前我们要做容错判断.<br><img src="https://upload-images.jianshu.io/upload_images/1715253-29cf84141853dc67.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Analyze_3_1.png"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;改完后就不再提示了<br><img src="https://upload-images.jianshu.io/upload_images/1715253-aa89d613c271f245.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Analyze_3_2.png"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4)Memory error,内存错误:nil returned from a method that is expected to return a non-null value,方法返回中需要一个对象(指针),你返回了一个空指针.例如,下图在UITableView的数据源回调方法返回cell的方法中,本应返回一个UITableViewCell对象,可是这里返回了一个nil对象(空指针)<br><img src="https://upload-images.jianshu.io/upload_images/1715253-00e5d7fd34a88fa8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Analyze_4.png"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;还存在其他潜在问题错误或者不规范的地方,大家可以照着这个自己去查找一下自己的项目.</p>
+<h3 id="5-2-Instruments内存泄露检测"><a href="#5-2-Instruments内存泄露检测" class="headerlink" title="5.2 Instruments内存泄露检测"></a>5.2 Instruments内存泄露检测</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Instruments内存分析你应用内存的使用情况,帮助你查找定位出现问题的代码区域.详细介绍可以参考apple developer documentation(<a href="https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/CommonMemoryProblems.html#//apple_ref/doc/uid/TP40004652-CH91-SW1" target="_blank" rel="noopener">https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/CommonMemoryProblems.html#//apple_ref/doc/uid/TP40004652-CH91-SW1</a>)<br>从文档中我们大概可以看到,一个应用所使用的内存可能占三种:</p>
+<blockquote>
+<p>Leaked memory: Memory unreferenced by your application that cannot be used again or freed (also detectable by using the Leaks instrument).<br>泄露的内存:应用无法再次应用或者释放的内存.<br>Abandoned memory: Memory still referenced by your application that has no useful purpose.<br>废弃的内存:你的应用还占据着这块内存,但是这块内存无法释放了,ARC中最有可能的是循环引用.<br>Cached memory: Memory still referenced by your application that might be used again for better performance.<br>缓存的内存:能够被你的应用正常释放回收利用的内存.<br>内存泄露：如果程序运行时一直分配内存而不及时释放无用的内存，程序占用的内存越来越大，直到把系统分配给该APP的内存消耗殚尽，程序因无内存可用导致崩溃，这样的情况我们称之为内存泄漏。可能引起的问题:<br>1)内存消耗殆尽的时候，程序会因没有内存被杀死，即crash。<br>2)当内存快要用完的时候，会非常的卡顿<br>3)如果是ViewController没有释放掉，引起的内存泄露，还会引起其他很多问题，尤其是和通知相关的。没有被释放掉的ViewController还能接收通知，还会执行相关的动作，所以会引起各种各样的异常情况的发生。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;以我们现在开发的项目为例:这里打个广告,我们现在开发的应用叫做爱学.横版主要有我的班级,自学,消息,设置等模块,下面我们用Instruments来检查一下:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1)打开调试工具步骤:首先先将待检测的源码安装到你的真机设备上(Command + r 或者 直接Run运行);然后按着快捷键:Command + Control + i,打开Instruments,选择Leaks.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2)定位内存泄露区域<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们选择call_tree,也就是函数调用栈,顺藤摸瓜,找到内存泄露的地方<br><img src="https://upload-images.jianshu.io/upload_images/1715253-35a0756984c09923.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="call_tree.png"><br><img src="https://upload-images.jianshu.io/upload_images/1715253-8dd8d2a4259d6606.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="memory_leak.png"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不出意外,就可以看到具体内存泄露的代码了,我们这里是由于使用Runtime了,调用了class_copyPropertyList方法.我们知道Runtime是OC的底层,是OC的幕后工作者,所写的OC代码最终都转换成Runtime的C代码执行.这里通过class_copyPropertyList方法来获取类的所有成员变量的时候,没有释放.所以在使用C语言相关库的时候,一定要做好释放工作(不然装B就装大了😄,玩笑).最终在使用遍历完类中的成员变量后,free(properties);就没问题了.</p>
+<pre><code>-(NSArray *)modelInfo:(Class)cls
+{
+    unsigned int  count = 0;
+    objc_property_t  * properties= class_copyPropertyList(cls, &amp;count);
+    NSMutableArray  * infoarr = [NSMutableArray new];
+    for (int i = 0; i&lt;count; i++)
+    {
+        objc_property_t property = properties[i];
+        NSString * name = [[NSString alloc]initWithCString:property_getName(property) encoding:NSUTF8StringEncoding ];
+
+        [infoarr addObject:name];
+    }
+    free(properties);
+    return infoarr;
+}
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们的学习任务中一个视频类型的任务,视频播放器估计是从网上找的别人封装好的,没有细致分析就用了.从下图中我们可以看到至少有三个环,我们需要打破这种环状,消除引用循环,这里不细说,大家可以根据需要去详细看看怎么处理引用循环.<br><img src="https://upload-images.jianshu.io/upload_images/1715253-96a1e31299fb670a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="retain_recycle_1.png"><br><img src="https://upload-images.jianshu.io/upload_images/1715253-bb436103f2dc0783.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="retain_recycle_2.png"><br><img src="https://upload-images.jianshu.io/upload_images/1715253-15920f2bec2bed6e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="retain_recycle_3.png"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;文中简单介绍了iOS内存管理的相关内容,主要的还是ARC相关内容,这些大都是基于实际开发中的总结和平时学习的积累,里面不乏一些错误和不规范之处,希望没有没有大家没有被误导,更希望大家多给意见和建议.其实,基础知识扎牢了,对一些问题的理解,解决可能也会更加游刃有余,而不是天天纠结于一些”界面”上的问题.</p>
+<h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h4><p><a href="https://blog.devtang.com/2016/07/30/ios-memory-management/" target="_blank" rel="noopener">https://blog.devtang.com/2016/07/30/ios-memory-management/</a><br><a href="https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/FindingLeakedMemory.html" target="_blank" rel="noopener">https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/FindingLeakedMemory.html</a><br><a href="http://clang.llvm.org/docs/AutomaticReferenceCounting.html" target="_blank" rel="noopener">http://clang.llvm.org/docs/AutomaticReferenceCounting.html</a></p>
+
+            </div>
+            <hr>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://waitwalker.github.io" class="b-link-green">waitwalker's blog</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2019/04/07/iOS性能调优之-内存管理/" class="b-link-green">iOS性能调优之--内存管理</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2019/04/07/iOS性能调优之-tableView优化/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="iOS性能调优之--tableView优化">
+                        
+                        <span class="card-title">iOS性能调优之--tableView优化</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">背景&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;作者基于之前自己所写的Swift项目–仿照推特客户端用纯Swift写的一个项目,目前已经公开放在GitHub上(https://github</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-07
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/iOS开发/" class="post-category" target="_blank">
+                                    iOS开发
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/iOS/" target="_blank">
+                        <span class="chip bg-color">iOS</span>
+                    </a>
+                    
+                    <a href="/tags/优化/" target="_blank">
+                        <span class="chip bg-color">优化</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/04/07/iOS持续集成构建/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="iOS持续集成构建">
+                        
+                        <span class="card-title">iOS持续集成构建</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;目前市面上持续集成的方案很多:例如,Jenkins, Fastlane,Xcode server等,这些持续集成的方案大同小异,他们之间的性能差</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-07
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/iOS开发/" class="post-category" target="_blank">
+                                    iOS开发
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/iOS/" target="_blank">
+                        <span class="chip bg-color">iOS</span>
+                    </a>
+                    
+                    <a href="/tags/CI/" target="_blank">
+                        <span class="chip bg-color">CI</span>
+                    </a>
+                    
+                    <a href="/tags/持续集成/" target="_blank">
+                        <span class="chip bg-color">持续集成</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
+
+            
+
+            
+			
+                <br>
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis"><!---->
+<a href="https://github.com/waitwalker" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+
+<a href="https://twitter.com/284485487" class="tooltipped" target="_blank" data-tooltip="Twitter联系我" data-position="top" data-delay="50">
+    <i class="fa fa-twitter"></i>
+</a>
+
+<a href="https://www.facebook.com/profile.php?id=100003684945279" class="tooltipped" target="_blank" data-tooltip="Twitter联系我" data-position="top" data-delay="50">
+    <i class="fa fa-facebook"></i>
+</a>
+
+<a href="https://t.me/joinchat/Ej0o0A1ntlq5ZFIMzzO5Pw" class="tooltipped" target="_blank" data-tooltip="Twitter联系我" data-position="top" data-delay="50">
+    <i class="fa fa-telegram"></i>
+</a>
+
+<a href="https://www.weibo.com/1789419613/profile?topnav=1&wvr=6&is_all=1" class="tooltipped" target="_blank" data-tooltip="Twitter联系我" data-position="top" data-delay="50">
+    <i class="fa fa-weibo"></i>
+</a>
+
+
+<!--原来-->
+<!---->
+    <!--<a href="mailto:xxx@xx.xx" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">-->
+        <!--<i class="fa fa-envelope-open"></i>-->
+    <!--</a>-->
+<!---->
+
+<!---->
+    <!--<a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=123123123" class="tooltipped" data-tooltip="QQ联系我: 123123123" data-position="top" data-delay="50">-->
+        <!--<i class="fa fa-qq"></i>-->
+    <!--</a>-->
+<!---->
+
+<!---->
+    <!--<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">-->
+        <!--<i class="fa fa-rss"></i>-->
+    <!--</a>-->
+<!----></div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>
