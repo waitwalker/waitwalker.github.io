@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://waitwalker.github.io/"/>
-  <updated>2019-04-05T12:30:43.372Z</updated>
+  <updated>2019-04-07T09:24:02.633Z</updated>
   <id>https://waitwalker.github.io/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>iOS持续集成构建</title>
+    <link href="https://waitwalker.github.io/2019/04/07/iOS%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%9E%84%E5%BB%BA/"/>
+    <id>https://waitwalker.github.io/2019/04/07/iOS持续集成构建/</id>
+    <published>2019-04-07T09:21:33.000Z</published>
+    <updated>2019-04-07T09:24:02.633Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;目前市面上持续集成的方案很多:例如,&lt;strong&gt;Jenkins, Fastlane,Xcode
+        
+      
+    
+    </summary>
+    
+      <category term="iOS开发" scheme="https://waitwalker.github.io/categories/iOS%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="CI" scheme="https://waitwalker.github.io/tags/CI/"/>
+    
+      <category term="持续集成" scheme="https://waitwalker.github.io/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/"/>
+    
+      <category term="iOS" scheme="https://waitwalker.github.io/tags/iOS/"/>
+    
+  </entry>
   
   <entry>
     <title>Hexo-GitHub-Pages创建个人博客</title>
