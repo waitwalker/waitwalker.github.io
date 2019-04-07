@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>iOS中Objective-C和Swift混编及第三方框架相互调用</title>
+      <link href="/2019/04/07/iOS%E4%B8%ADObjective-C%E5%92%8CSwift%E6%B7%B7%E7%BC%96%E5%8F%8A%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A1%86%E6%9E%B6%E7%9B%B8%E4%BA%92%E8%B0%83%E7%94%A8/"/>
+      <url>/2019/04/07/iOS%E4%B8%ADObjective-C%E5%92%8CSwift%E6%B7%B7%E7%BC%96%E5%8F%8A%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A1%86%E6%9E%B6%E7%9B%B8%E4%BA%92%E8%B0%83%E7%94%A8/</url>
+      
+        <content type="html"><![CDATA[<p>本文将详细介绍一下OC和swift混编问题,其中涉及两大部分:1)oc项目中混编swift的实现; 2)oc或者swift第三库的导入及使用.</p><p>#1 oc项目中混编swift<br>在oc项目中想要使用swift,并且实现相互调用,需要一些基本的设置,桥接文件也是必须得.</p><p>#1. 1 基本设置支持swift<br>在bulid setting中找到 Packaging 下的 define module,将是否定义模块布尔值改成YES,这样OC就可以支持swift了.<br><img src="http://upload-images.jianshu.io/upload_images/1715253-a50523996ab98cb0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="define module.png"></p><p>#1. 2 创建桥接文件<br>桥接文件可以在你创建swift文件的时候Xcode自动生成,也可以自己手动创建,手动创建也就是一个头文件(.h文件).<br>这里需要说明一点的是,在oc项目中创建的swift文件必须都要继承自NSObject基类,而你自己想要创建的一些类可以这样来创建:</p><p>####创建步骤1<br><img src="http://upload-images.jianshu.io/upload_images/1715253-6cacd2bc47564e79.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.png"></p><p>####创建步骤2<br><img src="http://upload-images.jianshu.io/upload_images/1715253-fd2a1b324f032568.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2.png"></p><p>####创建步骤3<br>这里选择Create Bridging Header,如果不选的话,那就自己手动创建,然后指定索引位置<br><img src="http://upload-images.jianshu.io/upload_images/1715253-e88dda48a82bc616.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="3.png"></p><p>####创建步骤4<br><img src="http://upload-images.jianshu.io/upload_images/1715253-19219fab149a7ca7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4.png"><br>第三步中如果没有创建桥接文件的话,手动创建一个桥接文件,然后build setting 中搜索 Objective-C Bridging Header,将你手动创建的桥接文件路径输入进去</p><p>####桥接文件设置<br><img src="http://upload-images.jianshu.io/upload_images/1715253-b9b8484bfd32bc58.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="桥接文件设置"></p><p>#1.3 swift中调用oc文件<br>现在基本上可以实现swift调用oc中代码了,首先在桥接文件中导入你想在swift中用到的oc类</p><p>####导入oc类<br><img src="http://upload-images.jianshu.io/upload_images/1715253-1228e43af95e8399.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="导入oc类"></p><p>####使用oc中的类<br><img src="http://upload-images.jianshu.io/upload_images/1715253-2b410f5097f1786c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="使用oc中的类"></p><p>#1. 4 oc中调用swift文件<br><img src="http://upload-images.jianshu.io/upload_images/1715253-25d7b46b350c3dda.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="oc中调用swift文件"></p><p>#2 oc和swift第三方库的使用<br>如果你的项目用cocoapods来管理你使用的第三方库,并且OC项目中已经集成了多个第三方库,那么这时你想在导入swift编写的第三方库,这时你不能用cocoapods管理第三方库了,因为Swift连接时不支持静态库,cocoapods也在其Podfile中有说明:</p><h1 id="Uncomment-the-next-line-if-you’re-using-Swift-or-would-like-to-use-dynamic-frameworks"><a href="#Uncomment-the-next-line-if-you’re-using-Swift-or-would-like-to-use-dynamic-frameworks" class="headerlink" title="Uncomment the next line if you’re using Swift or would like to use dynamic frameworks"></a>Uncomment the next line if you’re using Swift or would like to use dynamic frameworks</h1><h1 id="use-frameworks"><a href="#use-frameworks" class="headerlink" title="use_frameworks!"></a>use_frameworks!</h1><p>翻译过来就是:如果你想使用swift或者动态库,就把下面一行注释打开<br>然而打开后你是编译不过去的,这时需要手动导入swift库<br><img src="http://upload-images.jianshu.io/upload_images/1715253-1910c75b87225c32.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="使用swift或者动态库使用use_frameworks"></p><p>下面手动导入Alamofire作为例子:</p><p>##1)首先下载Alamofire项目源码,解压<br><img src="http://upload-images.jianshu.io/upload_images/1715253-cc75cc2e87dd1875.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Alamofire项目源码"><br>可以删除多余的不需要的文件,比如Example文件夹,等等</p><p>##2)将Alamofire项目整个拖到你的项目中<br><img src="http://upload-images.jianshu.io/upload_images/1715253-d0e942f8f731ffc6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="拖到自己项目中"></p><p>##3)在Embedded Binaries中添加Alamofire.framework<br><img src="http://upload-images.jianshu.io/upload_images/1715253-8007cc13803cec7a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Embedded Binaries中添加Alamofire.framework"></p><p>这样就可以cocoapods管理OC第三方库,swift第三方库手动管理,实现不同第三方框架的调用.</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> iOS开发 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> Swift </tag>
+            
+            <tag> 第三方框架 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>iOS性能调优之--tableView优化</title>
       <link href="/2019/04/07/iOS%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98%E4%B9%8B-tableView%E4%BC%98%E5%8C%96/"/>
       <url>/2019/04/07/iOS%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98%E4%B9%8B-tableView%E4%BC%98%E5%8C%96/</url>
@@ -79,31 +108,6 @@
             <tag> CI </tag>
             
             <tag> 持续集成 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Hexo-GitHub-Pages创建个人博客</title>
-      <link href="/2019/04/05/Hexo-GitHub-Pages%E5%88%9B%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
-      <url>/2019/04/05/Hexo-GitHub-Pages%E5%88%9B%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      <categories>
-          
-          <category> 算法 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> new </tag>
             
         </tags>
       
