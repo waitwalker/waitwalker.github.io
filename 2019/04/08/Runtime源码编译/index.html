@@ -4,9 +4,8 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="iOS中Objective-C和Swift混编及第三方框架相互调用, Swift, iOS, Python">
-    <meta name="description" content="本文将详细介绍一下OC和swift混编问题,其中涉及两大部分:1)oc项目中混编swift的实现; 2)oc或者swift第三库的导入及使用.
-#1 oc项目中混编swift在oc项目中想要使用swift,并且实现相互调用,需要一些基本的设">
+    <meta name="keywords" content="Runtime源码编译, Swift, iOS, Python">
+    <meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Objective-C是基于c语言的封装,使C语言具有了面向对象的能力.OC的本质最终还是转换c语言来执行,而这个转换的过程是通过Runtime">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -14,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>iOS中Objective-C和Swift混编及第三方框架相互调用 | waitwalker</title>
+    <title>Runtime源码编译 | waitwalker</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -260,13 +259,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        iOS中Objective-C和Swift混编及第三方框架相互调用
+                        Runtime源码编译
                     </div>
                 </div>
             </div>
@@ -381,12 +380,12 @@
                                 <span class="chip bg-color">iOS</span>
                             </a>
                         
-                            <a href="/tags/Swift/" target="_blank">
-                                <span class="chip bg-color">Swift</span>
+                            <a href="/tags/Runtime/" target="_blank">
+                                <span class="chip bg-color">Runtime</span>
                             </a>
                         
-                            <a href="/tags/第三方框架/" target="_blank">
-                                <span class="chip bg-color">第三方框架</span>
+                            <a href="/tags/source-code/" target="_blank">
+                                <span class="chip bg-color">source code</span>
                             </a>
                         
                     </div>
@@ -397,8 +396,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/iOS开发/" class="post-category" target="_blank">
-                                iOS开发
+                            <a href="/categories/Runtime源码解读/" class="post-category" target="_blank">
+                                Runtime源码解读
                             </a>
                         
                     </div>
@@ -409,7 +408,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-04-07
+                    2019-04-08
                 </div>
 
                 
@@ -425,26 +424,34 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>本文将详细介绍一下OC和swift混编问题,其中涉及两大部分:1)oc项目中混编swift的实现; 2)oc或者swift第三库的导入及使用.</p>
-<p>#1 oc项目中混编swift<br>在oc项目中想要使用swift,并且实现相互调用,需要一些基本的设置,桥接文件也是必须得.</p>
-<p>#1. 1 基本设置支持swift<br>在bulid setting中找到 Packaging 下的 define module,将是否定义模块布尔值改成YES,这样OC就可以支持swift了.<br><img src="http://upload-images.jianshu.io/upload_images/1715253-a50523996ab98cb0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="define module.png"></p>
-<p>#1. 2 创建桥接文件<br>桥接文件可以在你创建swift文件的时候Xcode自动生成,也可以自己手动创建,手动创建也就是一个头文件(.h文件).<br>这里需要说明一点的是,在oc项目中创建的swift文件必须都要继承自NSObject基类,而你自己想要创建的一些类可以这样来创建:</p>
-<p>####创建步骤1<br><img src="http://upload-images.jianshu.io/upload_images/1715253-6cacd2bc47564e79.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.png"></p>
-<p>####创建步骤2<br><img src="http://upload-images.jianshu.io/upload_images/1715253-fd2a1b324f032568.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2.png"></p>
-<p>####创建步骤3<br>这里选择Create Bridging Header,如果不选的话,那就自己手动创建,然后指定索引位置<br><img src="http://upload-images.jianshu.io/upload_images/1715253-e88dda48a82bc616.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="3.png"></p>
-<p>####创建步骤4<br><img src="http://upload-images.jianshu.io/upload_images/1715253-19219fab149a7ca7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4.png"><br>第三步中如果没有创建桥接文件的话,手动创建一个桥接文件,然后build setting 中搜索 Objective-C Bridging Header,将你手动创建的桥接文件路径输入进去</p>
-<p>####桥接文件设置<br><img src="http://upload-images.jianshu.io/upload_images/1715253-b9b8484bfd32bc58.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="桥接文件设置"></p>
-<p>#1.3 swift中调用oc文件<br>现在基本上可以实现swift调用oc中代码了,首先在桥接文件中导入你想在swift中用到的oc类</p>
-<p>####导入oc类<br><img src="http://upload-images.jianshu.io/upload_images/1715253-1228e43af95e8399.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="导入oc类"></p>
-<p>####使用oc中的类<br><img src="http://upload-images.jianshu.io/upload_images/1715253-2b410f5097f1786c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="使用oc中的类"></p>
-<p>#1. 4 oc中调用swift文件<br><img src="http://upload-images.jianshu.io/upload_images/1715253-25d7b46b350c3dda.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="oc中调用swift文件"></p>
-<p>#2 oc和swift第三方库的使用<br>如果你的项目用cocoapods来管理你使用的第三方库,并且OC项目中已经集成了多个第三方库,那么这时你想在导入swift编写的第三方库,这时你不能用cocoapods管理第三方库了,因为Swift连接时不支持静态库,cocoapods也在其Podfile中有说明:</p>
-<h1 id="Uncomment-the-next-line-if-you’re-using-Swift-or-would-like-to-use-dynamic-frameworks"><a href="#Uncomment-the-next-line-if-you’re-using-Swift-or-would-like-to-use-dynamic-frameworks" class="headerlink" title="Uncomment the next line if you’re using Swift or would like to use dynamic frameworks"></a>Uncomment the next line if you’re using Swift or would like to use dynamic frameworks</h1><h1 id="use-frameworks"><a href="#use-frameworks" class="headerlink" title="use_frameworks!"></a>use_frameworks!</h1><p>翻译过来就是:如果你想使用swift或者动态库,就把下面一行注释打开<br>然而打开后你是编译不过去的,这时需要手动导入swift库<br><img src="http://upload-images.jianshu.io/upload_images/1715253-1910c75b87225c32.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="使用swift或者动态库使用use_frameworks"></p>
-<p>下面手动导入Alamofire作为例子:</p>
-<p>##1)首先下载Alamofire项目源码,解压<br><img src="http://upload-images.jianshu.io/upload_images/1715253-cc75cc2e87dd1875.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Alamofire项目源码"><br>可以删除多余的不需要的文件,比如Example文件夹,等等</p>
-<p>##2)将Alamofire项目整个拖到你的项目中<br><img src="http://upload-images.jianshu.io/upload_images/1715253-d0e942f8f731ffc6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="拖到自己项目中"></p>
-<p>##3)在Embedded Binaries中添加Alamofire.framework<br><img src="http://upload-images.jianshu.io/upload_images/1715253-8007cc13803cec7a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Embedded Binaries中添加Alamofire.framework"></p>
-<p>这样就可以cocoapods管理OC第三方库,swift第三方库手动管理,实现不同第三方框架的调用.</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Objective-C是基于c语言的封装,使C语言具有了面向对象的能力.OC的本质最终还是转换c语言来执行,而这个转换的过程是通过Runtime这个运行时库来完成的.平常我们只需要写面对对象的OC代码,不用太关心一些底层转换原理及过程.但是有些情况.比如需要动态给一个类添加方法,添加成员变量,添加协议,没有实现方法的报错解析定位等,就需要了解这个底层实现来更好的解决实际开发中遇到的问题.<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本文也是对之前编译查看的Runtime源码的一个复习过程,主要有以下几步:</p>
+<h3 id="一-下载源码及相关依赖"><a href="#一-下载源码及相关依赖" class="headerlink" title="一.下载源码及相关依赖"></a>一.下载源码及相关依赖<br></h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;苹果开源网站:<a href="http://opensource.apple.com/" target="_blank" rel="noopener">http://opensource.apple.com/</a>,其为我们提供了Runtime的实现源码objc4,这个objc4有多个版本,版本号越大说明是最新源码.<br><br><img src="http://upload-images.jianshu.io/upload_images/1715253-131232ef2da1515f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="苹果开源平台"></p>
+<h4 id="1-下载objc4源码"><a href="#1-下载objc4源码" class="headerlink" title="1.下载objc4源码"></a>1.下载objc4源码</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先打开苹果开源网站,可以看到苹果针对不同的设备平台有不同的开源项目已经对应的系统版本,找到对应的平台对应的版本点击下载objc4源码,本文依赖的是objc4-750版本.也可以在<a href="https://opensource.apple.com/tarballs/" target="_blank" rel="noopener">https://opensource.apple.com/tarballs/</a>上面搜索所有开源项目源码的压缩包.<br><br><img src="http://upload-images.jianshu.io/upload_images/1715253-fbed6e632659dcff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="objc4源码"></p>
+<h4 id="2-下载objc4相关依赖库"><a href="#2-下载objc4相关依赖库" class="headerlink" title="2.下载objc4相关依赖库"></a>2.下载objc4相关依赖库</h4><p>objc4相关依赖库:Libc，dyld，libauto，libclosure，libdispatch，libpthread，xnu.这些依赖库中包含了Runtime源码库中需要的一些文件.</p>
+<h4 id="3-解压缩所有下载的压缩包库"><a href="#3-解压缩所有下载的压缩包库" class="headerlink" title="3.解压缩所有下载的压缩包库."></a>3.解压缩所有下载的压缩包库.</h4><p><br><br><img src="http://upload-images.jianshu.io/upload_images/1715253-fabaa6bd03263beb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="源码解压后"></p>
+<h3 id="二-编译-amp-错误解决"><a href="#二-编译-amp-错误解决" class="headerlink" title="二.编译&amp;错误解决"></a>二.编译&amp;错误解决<br></h3><h4 id="1-环境"><a href="#1-环境" class="headerlink" title="1.环境:"></a>1.环境:</h4><p>target platform:<strong>macOS</strong><br><br>macOS:<strong>10.14</strong><br><br>Xcode:<strong>10.1</strong><br></p>
+<h4 id="2-遇到的错误-amp-解决"><a href="#2-遇到的错误-amp-解决" class="headerlink" title="2.遇到的错误&amp;解决"></a>2.遇到的错误&amp;解决</h4><p><strong>1)error: The i386 architecture is deprecated. You should update your ARCHS build setting to remove the i386 architecture. (in target ‘objc’)</strong><br><br>解决:找target对应编译设置(Build Settings)-&gt;CPU架构(Architecture)-&gt;标准(Standard arcgutectures)<br><br><br><img src="http://upload-images.jianshu.io/upload_images/1715253-bebc4c3e29d47f8f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="错误1"><br><strong>2)在objc-os.h头文件中报’sys/reason.h’ file not found错误</strong><br><br>解决:工程目录下创建include/sys目录,在编译设置(Build Settings里面搜索,Header Search Paths,然后将include索引添加进去),然后在之前下载的依赖包中搜索reason.h头文件,复制到include/sys目录下<br><br><br><img src="http://upload-images.jianshu.io/upload_images/1715253-149cea545b66f79a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="错误2"><br><strong>3)在objc-os.h头文件中报’mach-o/dyld_priv.h’ file not found错误</strong><br><br>解决:同上一步,创建include/mach-o目录,复制dyld_priv.h头文件到相应目录<br><br><br><img src="http://upload-images.jianshu.io/upload_images/1715253-7a009d4875664966.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="错误3"><br><strong>4)在objc-os.h头文件中报’os/lock_private.h’ file not found错误</strong><br><br>解决:这个文件并没有再我们下载的依赖库中,需要去开源官网下载,然后操作同上一步<br><br><strong>5)以下是遇到的类似问题:</strong><br><br>‘os/base_private.h’ file not found;<br><br>‘pthread/tsd_private.h’ file not found;<br><br>‘System/machine/cpu_capabilities.h’ file not found;<br><br>‘os/tsd.h’ file not found;<br><br>‘pthread/spinlock_private.h’ file not found;<br><br>‘System/pthread_machdep.h’ file not found;<br><br>‘CrashReporterClient.h’ file not found;这个需要在编译设置(Build Settings添加宏变量Build Settings-&gt;Preprocessor Macros中加入：LIBC_NO_LIBCRASHREPORTERCLIENT)<br><br>‘Block_private.h’ file not found;<br><br>‘objc-shared-cache.h’ file not found;<br><br>‘isa.h’ file not found;<br><br>‘_simple.h’ file not found;<br><br>在objc-errors.mm文件中报:Use of undeclared identifier ‘CRGetCrashLogMessage’错误;<br><br><br><br><img src="http://upload-images.jianshu.io/upload_images/1715253-7730fb32289af992.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="错误5"><br><strong>6)链接时候错误:</strong><br><br>ld: can’t open order file: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/<br>Developer/SDKs/MacOSX10.14.sdk/AppleInternal/OrderFiles/libobjc.order<br>clang: error: linker command failed with exit code 1 (use -v to see invocation)<br><br>解决:将Build Settings-&gt;Linking-&gt;Order File改为工程根目录下的libobjc.order，即：$(SRCROOT)/libobjc.order。<br><br><br><img src="http://upload-images.jianshu.io/upload_images/1715253-81be9877600720d1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="错误6"><br><strong>7)编译脚本错误</strong><br><br>xcodebuild: error: SDK “macosx.internal” cannot be located.<br>xcrun: error: unable to find utility “clang++”, not a developer tool or in PATH<br><br>解决:把Target-objc的Build Phases-&gt;Run Script(markgc)里的内容macosx.internal改为macosx，这里猜测macosx.internal为苹果内部的macosx<br><br><br><img src="http://upload-images.jianshu.io/upload_images/1715253-fe07a0f8d034da6b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="错误7"><br><strong>8)error: no such public header file: ‘/tmp/objc.dst/usr/include/objc/ObjectiveC.apinotes’错误</strong><br><br>解决:把Text-Based InstallAPI Verification Model里的值改为Errors Only<br><br><br><img src="http://upload-images.jianshu.io/upload_images/1715253-0bd60bd7502eb574.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="错误8"></p>
+<h4 id="3-编译成功"><a href="#3-编译成功" class="headerlink" title="3.编译成功"></a>3.编译成功</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;解决以上错误后,再次编译应该基本Succeeded.<br><br><br><img src="http://upload-images.jianshu.io/upload_images/1715253-d6481492106e77dd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="编译成功"><br></p>
+<h3 id="三-调试"><a href="#三-调试" class="headerlink" title="三.调试"></a>三.调试<br></h3><h4 id="1-创建调试target"><a href="#1-创建调试target" class="headerlink" title="1.创建调试target"></a>1.创建调试target</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本文编译针对的是macOS平台,可以创建一个macOS app或者一个 Command Line Tool 来调试.这里我们就创建一个Command Line Tool target:<br><br><br><img src="http://upload-images.jianshu.io/upload_images/1715253-5b9356137395b41e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="debug target"></p>
+<h4 id="2-编写代码调试"><a href="#2-编写代码调试" class="headerlink" title="2.编写代码调试"></a>2.编写代码调试</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新创建一个class,命名为newClass,打印出class name.可以查看调用栈,确实调用的是我们编译后的Runtime库:</p>
+<pre><code>#import &lt;Foundation/Foundation.h&gt;
+#import &lt;objc/message.h&gt;
+#import &lt;objc/runtime.h&gt;
+
+int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+
+        Class newClass = objc_allocateClassPair(objc_getClass(&quot;NSObject&quot;), &quot;newClass&quot;, 0);
+        objc_registerClassPair(newClass);
+        id newObject = [[newClass alloc]init];
+        NSLog(@&quot;%s&quot;,class_getName([newObject class]));
+        NSLog(@&quot;Hello, World!&quot;);
+    }
+    return 0;
+}
+</code></pre><p><br><br><img src="http://upload-images.jianshu.io/upload_images/1715253-ff32f2b6e67bfb93.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="debug_1"><br><img src="http://upload-images.jianshu.io/upload_images/1715253-41cd2b1e03f16de5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="debug_2"></p>
+<h3 id="四-编译后源码库"><a href="#四-编译后源码库" class="headerlink" title="四.编译后源码库"></a>四.编译后源码库</h3><p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编译后的源码放在<a href="https://github.com/waitwalker/Runtime" target="_blank" rel="noopener">Github</a></strong></p>
+<h3 id="五-参考文献"><a href="#五-参考文献" class="headerlink" title="五.参考文献"></a>五.参考文献</h3><p><a href="https://pewpewthespells.com/blog/buildsettings.html" target="_blank" rel="noopener">https://pewpewthespells.com/blog/buildsettings.html</a><br><br><a href="https://blog.csdn.net/wotors/article/details/52489464" target="_blank" rel="noopener">https://blog.csdn.net/wotors/article/details/52489464</a></p>
 
             </div>
             <hr>
@@ -592,7 +599,7 @@
                     </span>
                     <a href="https://waitwalker.github.io" class="b-link-green">waitwalker</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/04/07/iOS中Objective-C和Swift混编及第三方框架相互调用/" class="b-link-green">iOS中Objective-C和Swift混编及第三方框架相互调用</a>
+                    <a href="/2019/04/08/Runtime源码编译/" class="b-link-green">Runtime源码编译</a>
                 </p>
             </div>
         </div>
@@ -615,7 +622,8 @@
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2019/04/08/Runtime源码编译/">
                     <div class="card-image">
@@ -629,9 +637,9 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Objective-C是基于c语言的封装,使C语言具有了面向对象的能力.OC的本质最终还是转换c语言来执行,而这个转换的过程是通过Runtime</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-08
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-08
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -644,6 +652,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -670,17 +679,18 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/04/07/iOS性能调优之-tableView优化/">
+                <a href="/2019/04/07/iOS中Objective-C和Swift混编及第三方框架相互调用/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="iOS性能调优之--tableView优化">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="iOS中Objective-C和Swift混编及第三方框架相互调用">
                         
-                        <span class="card-title">iOS性能调优之--tableView优化</span>
+                        <span class="card-title">iOS中Objective-C和Swift混编及第三方框架相互调用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary block-with-text">背景&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;作者基于之前自己所写的Swift项目–仿照推特客户端用纯Swift写的一个项目,目前已经公开放在GitHub上(https://github</div>
+                    <div class="summary block-with-text">本文将详细介绍一下OC和swift混编问题,其中涉及两大部分:1)oc项目中混编swift的实现; 2)oc或者swift第三库的导入及使用.
+#1 oc项目中混编swift在oc项目中想要使用swift,并且实现相互调用,需要一些基本的设</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-07
@@ -704,8 +714,12 @@
                         <span class="chip bg-color">iOS</span>
                     </a>
                     
-                    <a href="/tags/优化/" target="_blank">
-                        <span class="chip bg-color">优化</span>
+                    <a href="/tags/Swift/" target="_blank">
+                        <span class="chip bg-color">Swift</span>
+                    </a>
+                    
+                    <a href="/tags/第三方框架/" target="_blank">
+                        <span class="chip bg-color">第三方框架</span>
                     </a>
                     
                 </div>

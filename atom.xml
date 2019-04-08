@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://waitwalker.github.io/"/>
-  <updated>2019-04-07T09:48:31.226Z</updated>
+  <updated>2019-04-08T10:44:06.250Z</updated>
   <id>https://waitwalker.github.io/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Runtime源码编译</title>
+    <link href="https://waitwalker.github.io/2019/04/08/Runtime%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91/"/>
+    <id>https://waitwalker.github.io/2019/04/08/Runtime源码编译/</id>
+    <published>2019-04-08T10:41:06.000Z</published>
+    <updated>2019-04-08T10:44:06.250Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Objective-C是基于c语言的封装,使C语言具有了面向对象的能力.OC的本质最终还是转换c语言来执行,而这个转换的过程是通过Runtime这个运行时库来完成的.平常我们只需
+        
+      
+    
+    </summary>
+    
+      <category term="Runtime源码解读" scheme="https://waitwalker.github.io/categories/Runtime%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/"/>
+    
+    
+      <category term="iOS" scheme="https://waitwalker.github.io/tags/iOS/"/>
+    
+      <category term="Runtime" scheme="https://waitwalker.github.io/tags/Runtime/"/>
+    
+      <category term="source code" scheme="https://waitwalker.github.io/tags/source-code/"/>
+    
+  </entry>
   
   <entry>
     <title>iOS中Objective-C和Swift混编及第三方框架相互调用</title>
