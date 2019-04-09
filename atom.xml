@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://waitwalker.github.io/"/>
-  <updated>2019-04-08T10:44:06.250Z</updated>
+  <updated>2019-04-09T12:08:55.603Z</updated>
   <id>https://waitwalker.github.io/</id>
   
   <author>
@@ -15,6 +15,95 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Swift_Extension</title>
+    <link href="https://waitwalker.github.io/2019/04/09/Swift-Extension/"/>
+    <id>https://waitwalker.github.io/2019/04/09/Swift-Extension/</id>
+    <published>2019-04-09T11:04:36.000Z</published>
+    <updated>2019-04-09T12:08:55.603Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Swift Extension 字面意思就是扩展.有点类似OC中Category,按照官方文档,Extension可以用来:&lt;/p&gt;
+&lt;h3 id=&quot;1-添加计算型属性&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="Swift开发" scheme="https://waitwalker.github.io/categories/Swift%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="Swift" scheme="https://waitwalker.github.io/tags/Swift/"/>
+    
+      <category term="Extension" scheme="https://waitwalker.github.io/tags/Extension/"/>
+    
+      <category term="Swift 开发" scheme="https://waitwalker.github.io/tags/Swift-%E5%BC%80%E5%8F%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Swift_Equable</title>
+    <link href="https://waitwalker.github.io/2019/04/09/Swift-Equable/"/>
+    <id>https://waitwalker.github.io/2019/04/09/Swift-Equable/</id>
+    <published>2019-04-09T11:04:26.000Z</published>
+    <updated>2019-04-09T12:04:01.786Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;一般判断两个对象是否相等方法:&lt;br&gt;&lt;br&gt;如果两个对象相等其hashValue一定相等,不能反过来倒推.&lt;br&gt;&lt;br&gt;1)如果两个对象的hashValue不相等,则认为这两个对象一定不相等&lt;br&gt;&lt;br&gt;2)如果两个对象的hashValue相等,则比较两个对象的指针和
+        
+      
+    
+    </summary>
+    
+      <category term="Swift开发" scheme="https://waitwalker.github.io/categories/Swift%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="Extension" scheme="https://waitwalker.github.io/tags/Extension/"/>
+    
+      <category term="Swift 开发" scheme="https://waitwalker.github.io/tags/Swift-%E5%BC%80%E5%8F%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>链表</title>
+    <link href="https://waitwalker.github.io/2019/04/09/%E9%93%BE%E8%A1%A8/"/>
+    <id>https://waitwalker.github.io/2019/04/09/链表/</id>
+    <published>2019-04-09T10:58:06.000Z</published>
+    <updated>2019-04-09T12:07:36.332Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;表的简单定义&quot;&gt;&lt;a href=&quot;#表的简单定义&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="数据结构与算法" scheme="https://waitwalker.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="Swift" scheme="https://waitwalker.github.io/tags/Swift/"/>
+    
+      <category term="数据结构" scheme="https://waitwalker.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="算法" scheme="https://waitwalker.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
   
   <entry>
     <title>Runtime源码编译</title>
@@ -69,9 +158,9 @@
       <category term="iOS开发" scheme="https://waitwalker.github.io/categories/iOS%E5%BC%80%E5%8F%91/"/>
     
     
-      <category term="iOS" scheme="https://waitwalker.github.io/tags/iOS/"/>
-    
       <category term="Swift" scheme="https://waitwalker.github.io/tags/Swift/"/>
+    
+      <category term="iOS" scheme="https://waitwalker.github.io/tags/iOS/"/>
     
       <category term="第三方框架" scheme="https://waitwalker.github.io/tags/%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A1%86%E6%9E%B6/"/>
     
