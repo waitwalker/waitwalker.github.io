@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://waitwalker.github.io/"/>
-  <updated>2019-04-12T11:30:21.370Z</updated>
+  <updated>2019-04-13T11:34:02.751Z</updated>
   <id>https://waitwalker.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Bedrock Privacy Policy</title>
+    <link href="https://waitwalker.github.io/2019/04/13/Bedrock-Privacy-Policy/"/>
+    <id>https://waitwalker.github.io/2019/04/13/Bedrock-Privacy-Policy/</id>
+    <published>2019-04-13T10:47:52.000Z</published>
+    <updated>2019-04-13T11:34:02.751Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;font size=&quot;3&quot;&gt;&lt;strong&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;我们尊重用户的隐私并对非法窃取用户隐私的行为予以坚决抵制.&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font
+        
+      
+    
+    </summary>
+    
+      <category term="隐私政策" scheme="https://waitwalker.github.io/categories/%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96/"/>
+    
+    
+      <category term="Bedrock隐私政策" scheme="https://waitwalker.github.io/tags/Bedrock%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96/"/>
+    
+  </entry>
   
   <entry>
     <title>Method解读</title>
