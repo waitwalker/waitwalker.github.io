@@ -601,7 +601,7 @@ using MethodCacheIMP = IMP;
 #endif
 </code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MethodListIMP其实就是IMP,method可以理解为SEL(方法名称)和IMP(方法实现)相互对应的集合体.正常的情况一个SEL对应一个IMP,而SEL和IMP的绑定到运行时才确定的.</p>
 <h3 id="相关API"><a href="#相关API" class="headerlink" title="相关API"></a>相关API</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下面是NSObject.h和runtime.h文件为我们提供的有关SEL,IMP和Method相关的接口及说明:</p>
-<h4 id="runtim-h文件"><a href="#runtim-h文件" class="headerlink" title="runtim.h文件:"></a>runtim.h文件:</h4><h5 id="根据SEL获取实例Method指针"><a href="#根据SEL获取实例Method指针" class="headerlink" title="根据SEL获取实例Method指针"></a>根据SEL获取实例Method指针</h5><pre><code>// 获取Method声明
+<h4 id="runtime-h文件"><a href="#runtime-h文件" class="headerlink" title="runtime.h文件:"></a>runtime.h文件:</h4><h5 id="根据SEL获取实例Method指针"><a href="#根据SEL获取实例Method指针" class="headerlink" title="根据SEL获取实例Method指针"></a>根据SEL获取实例Method指针</h5><pre><code>// 获取Method声明
 OBJC_EXPORT Method _Nullable
 class_getInstanceMethod(Class _Nullable cls, SEL _Nonnull name)
     OBJC_AVAILABLE(10.0, 2.0, 9.0, 1.0, 2.0);
