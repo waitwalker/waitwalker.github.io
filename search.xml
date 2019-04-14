@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>树</title>
+      <link href="/2019/04/14/%E6%A0%91/"/>
+      <url>/2019/04/14/%E6%A0%91/</url>
+      
+        <content type="html"><![CDATA[<h3 id="树的定义"><a href="#树的定义" class="headerlink" title="树的定义"></a>树的定义</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一棵树(tree)是一些节点的集合.这个集合可以为空集.若这个集合非空,则一个树由称做根(root)的节点r和多个子树T1,T2,…Tn组成,这些子树又可以有多个子树,这就让我们想到定义树一个常规方法就是递归,而每棵子树都与根节点r通过一条有向的边(edge)相连.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;每一棵子树叫做根r的儿子(child),根r称做每一棵子树的父亲(praent).所有节点组成的树,共有N个节点和N-1条边.没有儿子的节点也可以称做树叶(leaf),具有相同父亲的多个节点之间互称为兄弟(sibling).</p><h4 id="节点的度"><a href="#节点的度" class="headerlink" title="节点的度"></a>节点的度</h4><p>一个节点含有子节点的个数称为节点的度,树的度为树中某个节点的最大度即为树的度.</p><h4 id="路径"><a href="#路径" class="headerlink" title="路径"></a>路径</h4><p>从节点n1到nk看做是树的一条路径(path),这个路径包括了n1到nk的k个节点以及k-1条边,路径的长度也就是该路径上边的个数.</p><h4 id="深度"><a href="#深度" class="headerlink" title="深度"></a>深度</h4><p>对于任意节点ni的深度指的是从根节点r到节点ni的唯一有效路径的长度.根r的深度为0.</p><h4 id="高度"><a href="#高度" class="headerlink" title="高度"></a>高度</h4><p>对于任意节点ni的高度指的是从n到树叶节点最长路径的长.一棵树的高度指的是根r到树叶最长的路径长.</p><h4 id="节点的层次"><a href="#节点的层次" class="headerlink" title="节点的层次"></a>节点的层次</h4><p>节点的层次指的是节点的层级,根r的层数是1,其儿子节点层次是2.所有子节点层次比父亲节点层次大1.</p><h4 id="森林"><a href="#森林" class="headerlink" title="森林"></a>森林</h4><p>由多棵树组成的集合称为森林</p><p><img src="http://abc.waitwalker.cn/tree.jpg" alt="tree"></p><h3 id="树的实现"><a href="#树的实现" class="headerlink" title="树的实现"></a>树的实现</h3><h4 id="树的构造"><a href="#树的构造" class="headerlink" title="树的构造"></a>树的构造</h4><pre><code>// MARK: - 树class Tree&lt;T:Equatable&gt; {    // 节点value    var value:T    // 子节点    private(set) var children:[Tree] = []    // 父节点    var parent:Tree?    // MARK: - 构造函数    init(value:T) {        self.value = value    }}</code></pre><h4 id="添加节点"><a href="#添加节点" class="headerlink" title="添加节点"></a>添加节点</h4><pre><code>/// 添加节点    ///    /// - Parameter treeNode: 子节点    func addChild(treeNode:Tree) -&gt; Void {        children.append(treeNode)        treeNode.parent = self    }</code></pre><h3 id="源码地址"><a href="#源码地址" class="headerlink" title="源码地址"></a>源码地址</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这里的实现代码已放到<a href="https://github.com/waitwalker/DataStructureAlgorithm" target="_blank" rel="noopener">GitHub</a>,测试用例详见DataStructureAlgorithmTests.swift文件</p><h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><p>《数据结构与算法分析C语言描述》(Data Structures and Algorithm Analysis in C:Second Edition)–译者: 冯舜玺</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 数据结构与算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Swift </tag>
+            
+            <tag> 数据结构 </tag>
+            
+            <tag> 算法 </tag>
+            
+            <tag> 树 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>快识别隐私政策(Fast OCR Privacy Policy)</title>
       <link href="/2019/04/13/%E5%BF%AB%E8%AF%86%E5%88%AB%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96-Fast-OCR-Privacy-Policy/"/>
       <url>/2019/04/13/%E5%BF%AB%E8%AF%86%E5%88%AB%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96-Fast-OCR-Privacy-Policy/</url>
@@ -360,9 +391,9 @@
       
         <tags>
             
-            <tag> iOS </tag>
-            
             <tag> Swift </tag>
+            
+            <tag> iOS </tag>
             
             <tag> 第三方框架 </tag>
             

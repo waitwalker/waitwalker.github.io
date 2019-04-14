@@ -4,9 +4,8 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="快识别隐私政策(Fast OCR Privacy Policy), Swift, iOS, Python">
-    <meta name="description" content="我们尊重用户的隐私并对非法窃取用户隐私的行为予以坚决抵制.We respect user privacy and resist those who illegally steal user privacy.
-1.快识别是一个本地化的App,">
+    <meta name="keywords" content="树, Swift, iOS, Python">
+    <meta name="description" content="树的定义&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;一棵树(tree)是一些节点的集合.这个集合可以为空集.若这个集合非空,则一个树由称做根(root)的节点r和多个子树T1,T2,…Tn">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -14,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>快识别隐私政策(Fast OCR Privacy Policy) | waitwalker</title>
+    <title>树 | waitwalker</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -260,13 +259,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        快识别隐私政策(Fast OCR Privacy Policy)
+                        树
                     </div>
                 </div>
             </div>
@@ -377,8 +376,20 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/快识别隐私政策/" target="_blank">
-                                <span class="chip bg-color">快识别隐私政策</span>
+                            <a href="/tags/Swift/" target="_blank">
+                                <span class="chip bg-color">Swift</span>
+                            </a>
+                        
+                            <a href="/tags/数据结构/" target="_blank">
+                                <span class="chip bg-color">数据结构</span>
+                            </a>
+                        
+                            <a href="/tags/算法/" target="_blank">
+                                <span class="chip bg-color">算法</span>
+                            </a>
+                        
+                            <a href="/tags/树/" target="_blank">
+                                <span class="chip bg-color">树</span>
                             </a>
                         
                     </div>
@@ -389,8 +400,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/隐私政策/" class="post-category" target="_blank">
-                                隐私政策
+                            <a href="/categories/数据结构与算法/" class="post-category" target="_blank">
+                                数据结构与算法
                             </a>
                         
                     </div>
@@ -401,7 +412,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-04-13
+                    2019-04-14
                 </div>
 
                 
@@ -417,11 +428,40 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><strong>我们尊重用户的隐私并对非法窃取用户隐私的行为予以坚决抵制.</strong><br>We respect user privacy and resist those who illegally steal user privacy.</p>
-<p><strong>1.快识别是一个本地化的App,您的识别数据不会涉及任何网络传输及访问.</strong><br>Fast OCR is a localized App that does not involve any network transmission and access.</p>
-<p><strong>2.您的任何信息只会保存在本地,您有任何操作本地数据的权限.</strong><br>Any information you have will only be saved locally and you have any privileges to manipulate local data.</p>
-<p><strong>3.您在使用App的过程中可能会让您授权访问相册,相机等,请知晓,权限由您操作.</strong><br>In the process of using App, you may authorize access to albums, cameras, etc. Please know that the privileges are operated by you.</p>
-<p><strong>4.使用过程中有任何问题,可以在设置页面点击关注,然后进行相关问题反馈.</strong><br>If you have any problems in the process of using App, you can click on the settings page and follow me, feedback on related issues.</p>
+                <h3 id="树的定义"><a href="#树的定义" class="headerlink" title="树的定义"></a>树的定义</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一棵树(tree)是一些节点的集合.这个集合可以为空集.若这个集合非空,则一个树由称做根(root)的节点r和多个子树T1,T2,…Tn组成,这些子树又可以有多个子树,这就让我们想到定义树一个常规方法就是递归,而每棵子树都与根节点r通过一条有向的边(edge)相连.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;每一棵子树叫做根r的儿子(child),根r称做每一棵子树的父亲(praent).所有节点组成的树,共有N个节点和N-1条边.没有儿子的节点也可以称做树叶(leaf),具有相同父亲的多个节点之间互称为兄弟(sibling).</p>
+<h4 id="节点的度"><a href="#节点的度" class="headerlink" title="节点的度"></a>节点的度</h4><p>一个节点含有子节点的个数称为节点的度,树的度为树中某个节点的最大度即为树的度.</p>
+<h4 id="路径"><a href="#路径" class="headerlink" title="路径"></a>路径</h4><p>从节点n1到nk看做是树的一条路径(path),这个路径包括了n1到nk的k个节点以及k-1条边,路径的长度也就是该路径上边的个数.</p>
+<h4 id="深度"><a href="#深度" class="headerlink" title="深度"></a>深度</h4><p>对于任意节点ni的深度指的是从根节点r到节点ni的唯一有效路径的长度.根r的深度为0.</p>
+<h4 id="高度"><a href="#高度" class="headerlink" title="高度"></a>高度</h4><p>对于任意节点ni的高度指的是从n到树叶节点最长路径的长.一棵树的高度指的是根r到树叶最长的路径长.</p>
+<h4 id="节点的层次"><a href="#节点的层次" class="headerlink" title="节点的层次"></a>节点的层次</h4><p>节点的层次指的是节点的层级,根r的层数是1,其儿子节点层次是2.所有子节点层次比父亲节点层次大1.</p>
+<h4 id="森林"><a href="#森林" class="headerlink" title="森林"></a>森林</h4><p>由多棵树组成的集合称为森林</p>
+<p><img src="http://abc.waitwalker.cn/tree.jpg" alt="tree"></p>
+<h3 id="树的实现"><a href="#树的实现" class="headerlink" title="树的实现"></a>树的实现</h3><h4 id="树的构造"><a href="#树的构造" class="headerlink" title="树的构造"></a>树的构造</h4><pre><code>// MARK: - 树
+class Tree&lt;T:Equatable&gt; {
+
+    // 节点value
+    var value:T
+
+    // 子节点
+    private(set) var children:[Tree] = []
+
+    // 父节点
+    var parent:Tree?
+
+    // MARK: - 构造函数
+    init(value:T) {
+        self.value = value
+    }
+}
+</code></pre><h4 id="添加节点"><a href="#添加节点" class="headerlink" title="添加节点"></a>添加节点</h4><pre><code>/// 添加节点
+    ///
+    /// - Parameter treeNode: 子节点
+    func addChild(treeNode:Tree) -&gt; Void {
+        children.append(treeNode)
+        treeNode.parent = self
+    }
+</code></pre><h3 id="源码地址"><a href="#源码地址" class="headerlink" title="源码地址"></a>源码地址</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这里的实现代码已放到<a href="https://github.com/waitwalker/DataStructureAlgorithm" target="_blank" rel="noopener">GitHub</a>,测试用例详见DataStructureAlgorithmTests.swift文件</p>
+<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><p>《数据结构与算法分析C语言描述》(Data Structures and Algorithm Analysis in C:Second Edition)–译者: 冯舜玺</p>
 
             </div>
             <hr>
@@ -569,7 +609,7 @@
                     </span>
                     <a href="https://waitwalker.github.io" class="b-link-green">waitwalker</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/04/13/快识别隐私政策-Fast-OCR-Privacy-Policy/" class="b-link-green">快识别隐私政策(Fast OCR Privacy Policy)</a>
+                    <a href="/2019/04/14/树/" class="b-link-green">树</a>
                 </p>
             </div>
         </div>
@@ -592,7 +632,8 @@
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2019/04/14/树/">
                     <div class="card-image">
@@ -606,9 +647,9 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">树的定义&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一棵树(tree)是一些节点的集合.这个集合可以为空集.若这个集合非空,则一个树由称做根(root)的节点r和多个子树T1,T2,…Tn</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-14
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-14
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -621,6 +662,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -651,17 +693,18 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/04/13/狗圈儿隐私政策/">
+                <a href="/2019/04/13/快识别隐私政策-Fast-OCR-Privacy-Policy/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="狗圈儿隐私政策">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="快识别隐私政策(Fast OCR Privacy Policy)">
                         
-                        <span class="card-title">狗圈儿隐私政策</span>
+                        <span class="card-title">快识别隐私政策(Fast OCR Privacy Policy)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary block-with-text">请您仔细阅读以下条款，如果您对本协议的任何条款表示异议，您可以选择不进入狗圈儿。当您注册成功，无论是进入狗圈儿，还是在狗圈儿上发布任何内容，或者是直接或通过各类方式（如站外API引用等）间接使用狗圈儿网服务和数据的行为，都将被视作已无条件接</div>
+                    <div class="summary block-with-text">我们尊重用户的隐私并对非法窃取用户隐私的行为予以坚决抵制.We respect user privacy and resist those who illegally steal user privacy.
+1.快识别是一个本地化的App,</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-13
@@ -681,8 +724,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/狗圈儿隐私政策/" target="_blank">
-                        <span class="chip bg-color">狗圈儿隐私政策</span>
+                    <a href="/tags/快识别隐私政策/" target="_blank">
+                        <span class="chip bg-color">快识别隐私政策</span>
                     </a>
                     
                 </div>
