@@ -4,8 +4,14 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="Runtime源码编译, Swift, iOS, Python">
-    <meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Objective-C是基于c语言的封装,使C语言具有了面向对象的能力.OC的本质最终还是转换c语言来执行,而这个转换的过程是通过Runtime">
+    <meta name="keywords" content="Class解读, Swift, iOS, Python">
+    <meta name="description" content="类的声明首先我们在runtime.h文件中看到objc_class的结构声明:
+
+/// 类的声明结构
+
+struct objc_class {
+
+Class _Nonnull isa OBJC_ISA_AVAILABILITY;//isa">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +19,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Runtime源码编译 | waitwalker</title>
+    <title>Class解读 | waitwalker</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -259,13 +265,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        Runtime源码编译
+                        Class解读
                     </div>
                 </div>
             </div>
@@ -376,16 +382,16 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/iOS/" target="_blank">
-                                <span class="chip bg-color">iOS</span>
-                            </a>
-                        
                             <a href="/tags/Runtime/" target="_blank">
                                 <span class="chip bg-color">Runtime</span>
                             </a>
                         
-                            <a href="/tags/source-code/" target="_blank">
-                                <span class="chip bg-color">source code</span>
+                            <a href="/tags/底层/" target="_blank">
+                                <span class="chip bg-color">底层</span>
+                            </a>
+                        
+                            <a href="/tags/源码/" target="_blank">
+                                <span class="chip bg-color">源码</span>
                             </a>
                         
                     </div>
@@ -408,7 +414,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-04-08
+                    2019-04-15
                 </div>
 
                 
@@ -424,34 +430,803 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Objective-C是基于c语言的封装,使C语言具有了面向对象的能力.OC的本质最终还是转换c语言来执行,而这个转换的过程是通过Runtime这个运行时库来完成的.平常我们只需要写面对对象的OC代码,不用太关心一些底层转换原理及过程.但是有些情况.比如需要动态给一个类添加方法,添加成员变量,添加协议,没有实现方法的报错解析定位等,就需要了解这个底层实现来更好的解决实际开发中遇到的问题.<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本文也是对之前编译查看的Runtime源码的一个复习过程,主要有以下几步:</p>
-<h3 id="一-下载源码及相关依赖"><a href="#一-下载源码及相关依赖" class="headerlink" title="一.下载源码及相关依赖"></a>一.下载源码及相关依赖<br></h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;苹果开源网站:<a href="http://opensource.apple.com/" target="_blank" rel="noopener">http://opensource.apple.com/</a>,其为我们提供了Runtime的实现源码objc4,这个objc4有多个版本,版本号越大说明是最新源码.<br><br><img src="http://upload-images.jianshu.io/upload_images/1715253-131232ef2da1515f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="苹果开源平台"></p>
-<h4 id="1-下载objc4源码"><a href="#1-下载objc4源码" class="headerlink" title="1.下载objc4源码"></a>1.下载objc4源码</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先打开苹果开源网站,可以看到苹果针对不同的设备平台有不同的开源项目已经对应的系统版本,找到对应的平台对应的版本点击下载objc4源码,本文依赖的是objc4-750版本.也可以在<a href="https://opensource.apple.com/tarballs/" target="_blank" rel="noopener">https://opensource.apple.com/tarballs/</a>上面搜索所有开源项目源码的压缩包.<br><br><img src="http://upload-images.jianshu.io/upload_images/1715253-fbed6e632659dcff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="objc4源码"></p>
-<h4 id="2-下载objc4相关依赖库"><a href="#2-下载objc4相关依赖库" class="headerlink" title="2.下载objc4相关依赖库"></a>2.下载objc4相关依赖库</h4><p>objc4相关依赖库:Libc，dyld，libauto，libclosure，libdispatch，libpthread，xnu.这些依赖库中包含了Runtime源码库中需要的一些文件.</p>
-<h4 id="3-解压缩所有下载的压缩包库"><a href="#3-解压缩所有下载的压缩包库" class="headerlink" title="3.解压缩所有下载的压缩包库."></a>3.解压缩所有下载的压缩包库.</h4><p><br><br><img src="http://upload-images.jianshu.io/upload_images/1715253-fabaa6bd03263beb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="源码解压后"></p>
-<h3 id="二-编译-amp-错误解决"><a href="#二-编译-amp-错误解决" class="headerlink" title="二.编译&amp;错误解决"></a>二.编译&amp;错误解决<br></h3><h4 id="1-环境"><a href="#1-环境" class="headerlink" title="1.环境:"></a>1.环境:</h4><p>target platform:<strong>macOS</strong><br><br>macOS:<strong>10.14</strong><br><br>Xcode:<strong>10.1</strong><br></p>
-<h4 id="2-遇到的错误-amp-解决"><a href="#2-遇到的错误-amp-解决" class="headerlink" title="2.遇到的错误&amp;解决"></a>2.遇到的错误&amp;解决</h4><p><strong>1)error: The i386 architecture is deprecated. You should update your ARCHS build setting to remove the i386 architecture. (in target ‘objc’)</strong><br><br>解决:找target对应编译设置(Build Settings)-&gt;CPU架构(Architecture)-&gt;标准(Standard arcgutectures)<br><br><br><img src="http://upload-images.jianshu.io/upload_images/1715253-bebc4c3e29d47f8f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="错误1"><br><strong>2)在objc-os.h头文件中报’sys/reason.h’ file not found错误</strong><br><br>解决:工程目录下创建include/sys目录,在编译设置(Build Settings里面搜索,Header Search Paths,然后将include索引添加进去),然后在之前下载的依赖包中搜索reason.h头文件,复制到include/sys目录下<br><br><br><img src="http://upload-images.jianshu.io/upload_images/1715253-149cea545b66f79a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="错误2"><br><strong>3)在objc-os.h头文件中报’mach-o/dyld_priv.h’ file not found错误</strong><br><br>解决:同上一步,创建include/mach-o目录,复制dyld_priv.h头文件到相应目录<br><br><br><img src="http://upload-images.jianshu.io/upload_images/1715253-7a009d4875664966.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="错误3"><br><strong>4)在objc-os.h头文件中报’os/lock_private.h’ file not found错误</strong><br><br>解决:这个文件并没有再我们下载的依赖库中,需要去开源官网下载,然后操作同上一步<br><br><strong>5)以下是遇到的类似问题:</strong><br><br>‘os/base_private.h’ file not found;<br><br>‘pthread/tsd_private.h’ file not found;<br><br>‘System/machine/cpu_capabilities.h’ file not found;<br><br>‘os/tsd.h’ file not found;<br><br>‘pthread/spinlock_private.h’ file not found;<br><br>‘System/pthread_machdep.h’ file not found;<br><br>‘CrashReporterClient.h’ file not found;这个需要在编译设置(Build Settings添加宏变量Build Settings-&gt;Preprocessor Macros中加入：LIBC_NO_LIBCRASHREPORTERCLIENT)<br><br>‘Block_private.h’ file not found;<br><br>‘objc-shared-cache.h’ file not found;<br><br>‘isa.h’ file not found;<br><br>‘_simple.h’ file not found;<br><br>在objc-errors.mm文件中报:Use of undeclared identifier ‘CRGetCrashLogMessage’错误;<br><br><br><br><img src="http://upload-images.jianshu.io/upload_images/1715253-7730fb32289af992.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="错误5"><br><strong>6)链接时候错误:</strong><br><br>ld: can’t open order file: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/<br>Developer/SDKs/MacOSX10.14.sdk/AppleInternal/OrderFiles/libobjc.order<br>clang: error: linker command failed with exit code 1 (use -v to see invocation)<br><br>解决:将Build Settings-&gt;Linking-&gt;Order File改为工程根目录下的libobjc.order，即：$(SRCROOT)/libobjc.order。<br><br><br><img src="http://upload-images.jianshu.io/upload_images/1715253-81be9877600720d1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="错误6"><br><strong>7)编译脚本错误</strong><br><br>xcodebuild: error: SDK “macosx.internal” cannot be located.<br>xcrun: error: unable to find utility “clang++”, not a developer tool or in PATH<br><br>解决:把Target-objc的Build Phases-&gt;Run Script(markgc)里的内容macosx.internal改为macosx，这里猜测macosx.internal为苹果内部的macosx<br><br><br><img src="http://upload-images.jianshu.io/upload_images/1715253-fe07a0f8d034da6b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="错误7"><br><strong>8)error: no such public header file: ‘/tmp/objc.dst/usr/include/objc/ObjectiveC.apinotes’错误</strong><br><br>解决:把Text-Based InstallAPI Verification Model里的值改为Errors Only<br><br><br><img src="http://upload-images.jianshu.io/upload_images/1715253-0bd60bd7502eb574.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="错误8"></p>
-<h4 id="3-编译成功"><a href="#3-编译成功" class="headerlink" title="3.编译成功"></a>3.编译成功</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;解决以上错误后,再次编译应该基本Succeeded.<br><br><br><img src="http://upload-images.jianshu.io/upload_images/1715253-d6481492106e77dd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="编译成功"><br></p>
-<h3 id="三-调试"><a href="#三-调试" class="headerlink" title="三.调试"></a>三.调试<br></h3><h4 id="1-创建调试target"><a href="#1-创建调试target" class="headerlink" title="1.创建调试target"></a>1.创建调试target</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本文编译针对的是macOS平台,可以创建一个macOS app或者一个 Command Line Tool 来调试.这里我们就创建一个Command Line Tool target:<br><br><br><img src="http://upload-images.jianshu.io/upload_images/1715253-5b9356137395b41e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="debug target"></p>
-<h4 id="2-编写代码调试"><a href="#2-编写代码调试" class="headerlink" title="2.编写代码调试"></a>2.编写代码调试</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新创建一个class,命名为newClass,打印出class name.可以查看调用栈,确实调用的是我们编译后的Runtime库:</p>
-<pre><code>#import &lt;Foundation/Foundation.h&gt;
-#import &lt;objc/message.h&gt;
-#import &lt;objc/runtime.h&gt;
+                <h4 id="类的声明"><a href="#类的声明" class="headerlink" title="类的声明"></a>类的声明</h4><p>首先我们在runtime.h文件中看到objc_class的结构声明:</p>
+<pre><code>
+/// 类的声明结构
+
+struct objc_class {
+
+Class _Nonnull isa OBJC_ISA_AVAILABILITY;//isa 指针
+
+#if !__OBJC2__
+
+Class _Nullable super_class OBJC2_UNAVAILABLE;//指向父类的指针
+
+const char * _Nonnull name OBJC2_UNAVAILABLE;//类名
+
+long version OBJC2_UNAVAILABLE;//版本
+
+long info OBJC2_UNAVAILABLE;//其它信息
+
+long instance_size OBJC2_UNAVAILABLE;//实例变量空间大小
+
+struct objc_ivar_list * _Nullable ivars OBJC2_UNAVAILABLE;//成员变量列表
+
+struct objc_method_list * _Nullable * _Nullable methodLists OBJC2_UNAVAILABLE;//方法列表
+
+struct objc_cache * _Nonnull cache OBJC2_UNAVAILABLE;//方法缓存列表
+
+struct objc_protocol_list * _Nullable protocols OBJC2_UNAVAILABLE;//协议列表
+
+#endif
+
+} OBJC2_UNAVAILABLE;
+
+/* Use `Class` instead of `struct objc_class *` */
+
+</code></pre><p>以上是runtime暴露给我们的有关Class的接口,而在objc-runtime-new.h文件中有objc_class结构的完整声明:</p>
+<pre><code>
+// MARK: - class的完整声明结构
+
+struct objc_class : objc_object {
+
+// Class ISA;
+
+Class superclass;//指向父类指针
+
+cache_t cache; // formerly cache pointer and vtable //缓存一些指针和虚表
+
+class_data_bits_t bits; // class_rw_t * plus custom rr/alloc flags // 含有class_rw_t,内部存储方法,属性,遵循的协议等
+
+// class_rw_t指针
+
+class_rw_t *data() {
+
+return bits.data();
+
+}
+
+// set bits
+
+void setData(class_rw_t *newData) {
+
+bits.setData(newData);
+
+}
+
+...下面未列出
+
+}
+
+</code></pre><p>可以看出,objc_class中有几个比较重要的成员变量和函数:</p>
+<h5 id="superclass"><a href="#superclass" class="headerlink" title="superclass"></a><strong>superclass</strong></h5><p>指向父类的指针</p>
+<h5 id="cache-t"><a href="#cache-t" class="headerlink" title="cache_t"></a><strong>cache_t</strong></h5><p>cache里面存的是指针和虚表,为了方法调用时,快速查询,提高效率.其结构声明如下:</p>
+<pre><code>
+// MARK: - cache_t结构声明
+
+struct cache_t {
+
+struct bucket_t *_buckets;
+
+mask_t _mask;
+
+mask_t _occupied;
+
+...下面未列出
+
+}
+
+</code></pre><h6 id="bucket-t"><a href="#bucket-t" class="headerlink" title="bucket_t"></a>bucket_t</h6><pre><code>
+// MARK: - bucket_t声明结构
+
+struct bucket_t {
+
+private:
+
+// IMP-first is better for arm64e ptrauth and no worse for arm64.
+
+// SEL-first is better for armv7* and i386 and x86_64.
+
+#if __arm64__
+
+MethodCacheIMP _imp;
+
+cache_key_t _key;
+
+#else
+
+cache_key_t _key;
+
+MethodCacheIMP _imp;
+
+#endif
+
+public:
+
+inline cache_key_t key() const { return _key; }
+
+inline IMP imp() const { return (IMP)_imp; }
+
+inline void setKey(cache_key_t newKey) { _key = newKey; }
+
+inline void setImp(IMP newImp) { _imp = newImp; }
+
+void set(cache_key_t newKey, IMP newImp);
+
+};
+
+</code></pre><p>这个bucket_t类似于一个hash表,其没一个cache_key_t对应一个imp.其关系如下图:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1715253-2f6f114a344d02ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="bucket_t"></p>
+<h5 id="class-data-bits-t结构"><a href="#class-data-bits-t结构" class="headerlink" title="class_data_bits_t结构"></a><strong>class_data_bits_t结构</strong></h5><pre><code>
+// MARK: - class_data_bits_t声明结构
+
+struct class_data_bits_t {
+
+class_rw_t* data() {
+
+return (class_rw_t *)(bits &amp; FAST_DATA_MASK);
+
+}
+
+void setData(class_rw_t *newData)
+
+{
+
+assert(!data() || (newData-&gt;flags &amp; (RW_REALIZING | RW_FUTURE)));
+
+// Set during realization or construction only. No locking needed.
+
+// Use a store-release fence because there may be concurrent
+
+// readers of data and data&#39;s contents.
+
+uintptr_t newBits = (bits &amp; ~FAST_DATA_MASK) | (uintptr_t)newData;
+
+atomic_thread_fence(memory_order_release);
+
+bits = newBits;
+
+}
+
+...其它未列出
+
+}
+
+</code></pre><p>class_data_bits_t中成员函数 data()函数,返回一个class_rw_t结构指针;</p>
+<h5 id="class-rw-t"><a href="#class-rw-t" class="headerlink" title="class_rw_t"></a><strong>class_rw_t</strong></h5><pre><code>
+// MARK: - class_rw_t结构声明
+
+struct class_rw_t {
+
+// Be warned that Symbolication knows the layout of this structure.
+
+uint32_t flags;
+
+uint32_t version;
+
+const class_ro_t *ro;
+
+method_array_t methods;
+
+property_array_t properties;
+
+protocol_array_t protocols;
+
+Class firstSubclass;
+
+Class nextSiblingClass;
+
+char *demangledName;
+
+#if SUPPORT_INDEXED_ISA
+
+uint32_t index;
+
+#endif
+
+void setFlags(uint32_t set)
+
+{
+
+OSAtomicOr32Barrier(set, &amp;flags);
+
+}
+
+void clearFlags(uint32_t clear)
+
+{
+
+OSAtomicXor32Barrier(clear, &amp;flags);
+
+}
+
+// set and clear must not overlap
+
+void changeFlags(uint32_t set, uint32_t clear)
+
+{
+
+assert((set &amp; clear) == 0);
+
+uint32_t oldf, newf;
+
+do {
+
+oldf = flags;
+
+newf = (oldf | set) &amp; ~clear;
+
+} while (!OSAtomicCompareAndSwap32Barrier(oldf, newf, (volatile int32_t *)&amp;flags));
+
+}
+
+};
+
+</code></pre><p>class_rw_t中的成员变量class_ro_t:</p>
+<h5 id="class-ro-t"><a href="#class-ro-t" class="headerlink" title="class_ro_t"></a><strong>class_ro_t</strong></h5><pre><code>
+// MARK: - class_ro_t结构声明
+
+struct class_ro_t {
+
+uint32_t flags;
+
+uint32_t instanceStart;
+
+uint32_t instanceSize;
+
+#ifdef __LP64__
+
+uint32_t reserved;
+
+#endif
+
+const uint8_t * ivarLayout;
+
+const char * name;
+
+method_list_t * baseMethodList;
+
+protocol_list_t * baseProtocols;
+
+const ivar_list_t * ivars;
+
+const uint8_t * weakIvarLayout;
+
+property_list_t *baseProperties;
+
+method_list_t *baseMethods() const {
+
+return baseMethodList;
+
+}
+
+};
+
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;class_ro_t有method_list_t,protocol_list_t,ivar_list_t,property_list_t等成员变量这些成员变量的作用是存储编译后已确定的一些信息.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;class_rw_t中同样有method_array_t(方法列表),property_array_t(属性列表),protocol_array_t(协议列表),这三者均继承自list_array_tt,list_array_tt可以扩充,内部分别存储的是method_list_t,property_list_t和protocol_list_t;这个三个成员变量主要是方便在运行时为类提供拓展能力.</p>
+<h4 id="编译后class内存布局"><a href="#编译后class内存布局" class="headerlink" title="编译后class内存布局"></a>编译后class内存布局</h4><pre><code>
+// Person
+
+#import &lt;Foundation/Foundation.h&gt;
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface Person : NSObject
+
+- (void)name;
+
+@end
+
+NS_ASSUME_NONNULL_END
 
 int main(int argc, const char * argv[]) {
-    @autoreleasepool {
 
-        Class newClass = objc_allocateClassPair(objc_getClass(&quot;NSObject&quot;), &quot;newClass&quot;, 0);
-        objc_registerClassPair(newClass);
-        id newObject = [[newClass alloc]init];
-        NSLog(@&quot;%s&quot;,class_getName([newObject class]));
-        NSLog(@&quot;Hello, World!&quot;);
-    }
-    return 0;
+@autoreleasepool {
+
+Class newClass = objc_allocateClassPair(objc_getClass(&quot;NSObject&quot;), &quot;newClass&quot;, 0);
+
+objc_registerClassPair(newClass);
+
+id newObject = [[newClass alloc]init];
+
+NSLog(@&quot;%s&quot;,class_getName([newObject class]));
+
+NSLog(@&quot;Hello, World!&quot;);
+
+Person *person = [Person new];
+
+[person name];
+
+[person name];
+
+Class cls = [Person class];
+
 }
-</code></pre><p><br><br><img src="http://upload-images.jianshu.io/upload_images/1715253-ff32f2b6e67bfb93.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="debug_1"><br><img src="http://upload-images.jianshu.io/upload_images/1715253-41cd2b1e03f16de5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="debug_2"></p>
-<h3 id="四-编译后源码库"><a href="#四-编译后源码库" class="headerlink" title="四.编译后源码库"></a>四.编译后源码库</h3><p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编译后的源码放在<a href="https://github.com/waitwalker/Runtime" target="_blank" rel="noopener">Github</a></strong></p>
-<h3 id="五-参考文献"><a href="#五-参考文献" class="headerlink" title="五.参考文献"></a>五.参考文献</h3><p><a href="https://pewpewthespells.com/blog/buildsettings.html" target="_blank" rel="noopener">https://pewpewthespells.com/blog/buildsettings.html</a><br><br><a href="https://blog.csdn.net/wotors/article/details/52489464" target="_blank" rel="noopener">https://blog.csdn.net/wotors/article/details/52489464</a></p>
+
+return 0;
+
+}
+
+</code></pre><p>我们来看cls这个class在编译后的内存布局,首先我们在main入口函数里面继续初始化一个Class cls = [Person class];然后运行一下获取当前cls的内存地址,然后将断点放过.</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1715253-5d0150be3d085679.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Person class address"></p>
+<p>然后在_objc_init()函数(runtime初始化之前)加一个断点:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1715253-11a62e46db779044.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="_objc_init()"></p>
+<p>用lldb命令调试一下:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1715253-ca7a1d8cedf5f4bb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="cls memory layout"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过上图我们可以看到,name(“Person”)和baseMethodList这两个是有值,其它都为0x0000000000000000空指针,这个也反映出我们在Person中的最初定义:只有一个- (void)name方法,没有协议,成员变量,属性等.</p>
+<p>我们从baseMethodList方法列表中第一个method_t</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1715253-2cdabc19c9ae5403.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="name func"></p>
+<p>这个method_t正好对应我们定义的name方法;而baseMethodList里面也就有1个方法:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1715253-562d498710ddaf8e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="baseMethodList count"></p>
+<h4 id="类的实现realizeClass"><a href="#类的实现realizeClass" class="headerlink" title="类的实现realizeClass"></a>类的实现realizeClass</h4><p>realizeClass是类初始化函数,类的运行时初始化都要调用此函数.</p>
+<pre><code>
+// MARK: - 类的初始化
+
+/***********************************************************************
+
+* realizeClass
+
+* Performs first-time initialization on class cls,
+
+* including allocating its read-write data.
+
+* Returns the real class structure for the class.
+
+* Locking: runtimeLock must be write-locked by the caller
+
+**********************************************************************/
+
+static Class realizeClass(Class cls)
+
+{
+
+runtimeLock.assertLocked();
+
+const class_ro_t *ro;
+
+class_rw_t *rw;
+
+Class supercls;
+
+Class metacls;
+
+bool isMeta;
+
+if (!cls) return nil;
+
+if (cls-&gt;isRealized()) return cls;
+
+assert(cls == remapClass(cls));
+
+// fixme verify class is not in an un-dlopened part of the shared cache?
+
+ro = (const class_ro_t *)cls-&gt;data();
+
+if (ro-&gt;flags &amp; RO_FUTURE) {
+
+// This was a future class. rw data is already allocated.
+
+rw = cls-&gt;data();
+
+ro = cls-&gt;data()-&gt;ro;
+
+cls-&gt;changeInfo(RW_REALIZED|RW_REALIZING, RW_FUTURE);
+
+} else {
+
+// Normal class. Allocate writeable class data.
+
+rw = (class_rw_t *)calloc(sizeof(class_rw_t), 1);
+
+rw-&gt;ro = ro;
+
+rw-&gt;flags = RW_REALIZED|RW_REALIZING;
+
+cls-&gt;setData(rw);
+
+}
+
+isMeta = ro-&gt;flags &amp; RO_META;
+
+rw-&gt;version = isMeta ? 7 : 0; // old runtime went up to 6
+
+// Choose an index for this class.
+
+// Sets cls-&gt;instancesRequireRawIsa if indexes no more indexes are available
+
+cls-&gt;chooseClassArrayIndex();
+
+if (PrintConnecting) {
+
+_objc_inform(&quot;CLASS: realizing class &#39;%s&#39;%s %p %p #%u&quot;,
+
+cls-&gt;nameForLogging(), isMeta ? &quot; (meta)&quot; : &quot;&quot;,
+
+(void*)cls, ro, cls-&gt;classArrayIndex());
+
+}
+
+// Realize superclass and metaclass, if they aren&#39;t already.
+
+// This needs to be done after RW_REALIZED is set above, for root classes.
+
+// This needs to be done after class index is chosen, for root metaclasses.
+
+supercls = realizeClass(remapClass(cls-&gt;superclass));
+
+metacls = realizeClass(remapClass(cls-&gt;ISA()));
+
+#if SUPPORT_NONPOINTER_ISA
+
+// Disable non-pointer isa for some classes and/or platforms.
+
+// Set instancesRequireRawIsa.
+
+bool instancesRequireRawIsa = cls-&gt;instancesRequireRawIsa();
+
+bool rawIsaIsInherited = false;
+
+static bool hackedDispatch = false;
+
+if (DisableNonpointerIsa) {
+
+// Non-pointer isa disabled by environment or app SDK version
+
+instancesRequireRawIsa = true;
+
+}
+
+else if (!hackedDispatch &amp;&amp; !(ro-&gt;flags &amp; RO_META) &amp;&amp;
+
+0 == strcmp(ro-&gt;name, &quot;OS_object&quot;))
+
+{
+
+// hack for libdispatch et al - isa also acts as vtable pointer
+
+hackedDispatch = true;
+
+instancesRequireRawIsa = true;
+
+}
+
+else if (supercls &amp;&amp; supercls-&gt;superclass &amp;&amp;
+
+supercls-&gt;instancesRequireRawIsa())
+
+{
+
+// This is also propagated by addSubclass()
+
+// but nonpointer isa setup needs it earlier.
+
+// Special case: instancesRequireRawIsa does not propagate
+
+// from root class to root metaclass
+
+instancesRequireRawIsa = true;
+
+rawIsaIsInherited = true;
+
+}
+
+if (instancesRequireRawIsa) {
+
+cls-&gt;setInstancesRequireRawIsa(rawIsaIsInherited);
+
+}
+
+// SUPPORT_NONPOINTER_ISA
+
+#endif
+
+// Update superclass and metaclass in case of remapping
+
+cls-&gt;superclass = supercls;
+
+cls-&gt;initClassIsa(metacls);
+
+// Reconcile instance variable offsets / layout.
+
+// This may reallocate class_ro_t, updating our ro variable.
+
+if (supercls &amp;&amp; !isMeta) reconcileInstanceVariables(cls, supercls, ro);
+
+// Set fastInstanceSize if it wasn&#39;t set already.
+
+cls-&gt;setInstanceSize(ro-&gt;instanceSize);
+
+// Copy some flags from ro to rw
+
+if (ro-&gt;flags &amp; RO_HAS_CXX_STRUCTORS) {
+
+cls-&gt;setHasCxxDtor();
+
+if (! (ro-&gt;flags &amp; RO_HAS_CXX_DTOR_ONLY)) {
+
+cls-&gt;setHasCxxCtor();
+
+}
+
+}
+
+// Connect this class to its superclass&#39;s subclass lists
+
+if (supercls) {
+
+addSubclass(supercls, cls);
+
+} else {
+
+addRootClass(cls);
+
+}
+
+// Attach categories
+
+methodizeClass(cls);
+
+return cls;
+
+}
+
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下面我们来验证class_ro_t确定时机.还是之前的步骤,先编译一次获取到cls的内存地址.在static Class realizeClass(Class cls){}入口添加一个条件断点,运行:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1715253-4eeb6440a9f42fb3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="condition breakpoint"></p>
+<p>然后lldb调试cls:</p>
+<p>访问 class_data_bits_t 指针的内容:(class_data_bits_t) $2755 = (bits = 4294971696)</p>
+<p>获取 class_rw_t:</p>
+<pre><code>
+(class_rw_t) $2757 = {
+
+flags = 128
+
+version = 8
+
+ro = 0x0000000000000008
+
+methods = {
+
+list_array_tt&lt;method_t, method_list_t&gt; = {
+
+= {
+
+list = 0x0000000000000000
+
+arrayAndFlag = 0
+
+}
+
+}
+
+}
+
+properties = {
+
+list_array_tt&lt;property_t, property_list_t&gt; = {
+
+= {
+
+list = 0x0000000100000f84
+
+arrayAndFlag = 4294971268
+
+}
+
+}
+
+}
+
+protocols = {
+
+list_array_tt&lt;unsigned long, protocol_list_t&gt; = {
+
+= {
+
+list = 0x0000000100001110
+
+arrayAndFlag = 4294971664
+
+}
+
+}
+
+}
+
+firstSubclass = nil
+
+nextSiblingClass = nil
+
+demangledName = 0x0000000000000000 &lt;no value available&gt;
+
+}
+
+</code></pre><p><img src="http://upload-images.jianshu.io/upload_images/1715253-aac44a322f04f552.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="class_rw_t"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们可以看到class_rw_t中的成员变量ro = 0x0000000000000008在运行前已经有值了.获取一下ro:</p>
+<pre><code>
+(lldb) p $2757.ro
+
+(const class_ro_t *) $2758 = 0x0000000000000008
+
+</code></pre><p>由于lldb输出class_ro_t报错:</p>
+<pre><code>
+(lldb) p *$2758
+
+error: Couldn&#39;t apply expression side effects : Couldn&#39;t dematerialize a result variable: couldn&#39;t read its memory
+
+</code></pre><p>我们直接单步断点,往下走两步,直接获取ro的值:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1715253-db5d8af8cabe5ec5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="class_ro_t"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们发现const指针 class_ro_t已经在编译期把类的相关信息(方法,属性,成员变量,协议)确定了.而类的初始化方法执行之后,编译期的ro赋值给了运行期的rw的成员变量ro了.</p>
+<pre><code>
+ro = (const class_ro_t *)cls-&gt;data();
+
+if (ro-&gt;flags &amp; RO_FUTURE) {
+
+// This was a future class. rw data is already allocated.
+
+rw = cls-&gt;data();
+
+ro = cls-&gt;data()-&gt;ro;
+
+cls-&gt;changeInfo(RW_REALIZED|RW_REALIZING, RW_FUTURE);
+
+} else {
+
+// 将ro等信息赋值给class_rw_t
+
+// Normal class. Allocate writeable class data.
+
+rw = (class_rw_t *)calloc(sizeof(class_rw_t), 1);
+
+rw-&gt;ro = ro;
+
+rw-&gt;flags = RW_REALIZED|RW_REALIZING;
+
+cls-&gt;setData(rw);
+
+}
+
+</code></pre><p>我们知道class_rw_t中除了class_ro_t成员变量外,还有以下三个成员变量:</p>
+<pre><code>
+method_array_t methods;
+
+property_array_t properties;
+
+protocol_array_t protocols;
+
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这三个成员变量的赋值操作在static void methodizeClass(Class cls)()函数中,分别遍历ro中的方法,协议,属性列表分别加入到class_rw_t的methods,protocols,properties中.</p>
+<pre><code>
+// MARK: - 将ro中的方法,属性,协议等列表添加到rw中对应的三个成员变量列表中
+
+/***********************************************************************
+
+* methodizeClass
+
+* Fixes up cls&#39;s method list, protocol list, and property list.
+
+* Attaches any outstanding categories.
+
+* Locking: runtimeLock must be held by the caller
+
+**********************************************************************/
+
+static void methodizeClass(Class cls)
+
+{
+
+runtimeLock.assertLocked();
+
+bool isMeta = cls-&gt;isMetaClass();
+
+auto rw = cls-&gt;data();
+
+auto ro = rw-&gt;ro;
+
+// Methodizing for the first time
+
+if (PrintConnecting) {
+
+_objc_inform(&quot;CLASS: methodizing class &#39;%s&#39; %s&quot;,
+
+cls-&gt;nameForLogging(), isMeta ? &quot;(meta)&quot; : &quot;&quot;);
+
+}
+
+// 遍历ro中方法将其加入到rw methods中
+
+// Install methods and properties that the class implements itself.
+
+method_list_t *list = ro-&gt;baseMethods();
+
+if (list) {
+
+prepareMethodLists(cls, &amp;list, 1, YES, isBundleClass(cls));
+
+rw-&gt;methods.attachLists(&amp;list, 1);
+
+}
+
+// 遍历ro中属性列表将其加入到 rw properties中
+
+property_list_t *proplist = ro-&gt;baseProperties;
+
+if (proplist) {
+
+rw-&gt;properties.attachLists(&amp;proplist, 1);
+
+}
+
+// 遍历ro中协议列表将其加入到 rw protocols中
+
+protocol_list_t *protolist = ro-&gt;baseProtocols;
+
+if (protolist) {
+
+rw-&gt;protocols.attachLists(&amp;protolist, 1);
+
+}
+
+// Root classes get bonus method implementations if they don&#39;t have
+
+// them already. These apply before category replacements.
+
+if (cls-&gt;isRootMetaclass()) {
+
+// root metaclass
+
+addMethod(cls, SEL_initialize, (IMP)&amp;objc_noop_imp, &quot;&quot;, NO);
+
+}
+
+// Attach categories.
+
+category_list *cats = unattachedCategoriesForClass(cls, true /*realizing*/);
+
+attachCategories(cls, cats, false /*don&#39;t flush caches*/);
+
+if (PrintConnecting) {
+
+if (cats) {
+
+for (uint32_t i = 0; i &lt; cats-&gt;count; i++) {
+
+_objc_inform(&quot;CLASS: attached category %c%s(%s)&quot;,
+
+isMeta ? &#39;+&#39; : &#39;-&#39;,
+
+cls-&gt;nameForLogging(), cats-&gt;list[i].cat-&gt;name);
+
+}
+
+}
+
+}
+
+if (cats) free(cats);
+
+#if DEBUG
+
+// Debug: sanity-check all SELs; log method list contents
+
+for (const auto&amp; meth : rw-&gt;methods) {
+
+if (PrintConnecting) {
+
+_objc_inform(&quot;METHOD %c[%s %s]&quot;, isMeta ? &#39;+&#39; : &#39;-&#39;,
+
+cls-&gt;nameForLogging(), sel_getName(meth.name));
+
+}
+
+assert(sel_registerName(sel_getName(meth.name)) == meth.name);
+
+}
+
+#endif
+
+}
+
+</code></pre><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编译期:通过objc_class-&gt;data()获取class_ro_t,class的method,property,protocol,ivar等已确定被赋值给class_ro_t,class_to_t只读,说明编译期类的内存布局已固定.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;运行期:通过realizeClass()类初始化函数,给class_rw_t分配空间,将class_ro_t赋值给class_rw_t的成员变量ro.将ro中的方法,协议,属性列表分别加入到class_rw_t的methods,protocols,properties中.class_rw_t提供了运行期这些成员变量的扩展性.</p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编译后的源码放在<a href="https://github.com/waitwalker/Runtime" target="_blank" rel="noopener">Github</a></strong>,里面有相关阅读注释.</p>
 
             </div>
             <hr>
@@ -599,7 +1374,7 @@ int main(int argc, const char * argv[]) {
                     </span>
                     <a href="https://waitwalker.github.io" class="b-link-green">waitwalker</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/04/08/Runtime源码编译/" class="b-link-green">Runtime源码编译</a>
+                    <a href="/2019/04/15/Class解读/" class="b-link-green">Class解读</a>
                 </p>
             </div>
         </div>
@@ -624,21 +1399,77 @@ int main(int argc, const char * argv[]) {
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2019/04/09/链表/">
+                <a href="/2019/04/15/Ivar-objc-property-t-Protocol解读/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="链表">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="Ivar objc_property_t Protocol解读">
                         
-                        <span class="card-title">链表</span>
+                        <span class="card-title">Ivar objc_property_t Protocol解读</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary block-with-text">表的简单定义:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们将处理一般的形如A1,A2,A3,…An的表,称这个表的大小是N.我们称大小为0的表为空表.表是一种线性的数据结构集合.对于除</div>
+                    <div class="summary block-with-text">Ivar声明在objc-private.h文件中我们可以看到Ivar的声明结构:
+typedef struct ivar_t *Ivar;
+在objc-runtime-new.h中可以找到ivar_t的完整结构声明:
+// MARK: - </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-09
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-15
                         </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Runtime源码解读/" class="post-category" target="_blank">
+                                    Runtime源码解读
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Runtime/" target="_blank">
+                        <span class="chip bg-color">Runtime</span>
+                    </a>
+                    
+                    <a href="/tags/底层/" target="_blank">
+                        <span class="chip bg-color">底层</span>
+                    </a>
+                    
+                    <a href="/tags/源码/" target="_blank">
+                        <span class="chip bg-color">源码</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/04/14/树/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="树">
+                        
+                        <span class="card-title">树</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">树的定义&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一棵树(tree)是一些节点的集合.这个集合可以为空集.若这个集合非空,则一个树由称做根(root)的节点r和多个子树T1,T2,…Tn</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-14
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -666,62 +1497,8 @@ int main(int argc, const char * argv[]) {
                         <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/链表/" target="_blank">
-                        <span class="chip bg-color">链表</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2019/04/07/iOS中Objective-C和Swift混编及第三方框架相互调用/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="iOS中Objective-C和Swift混编及第三方框架相互调用">
-                        
-                        <span class="card-title">iOS中Objective-C和Swift混编及第三方框架相互调用</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">本文将详细介绍一下OC和swift混编问题,其中涉及两大部分:1)oc项目中混编swift的实现; 2)oc或者swift第三库的导入及使用.
-#1 oc项目中混编swift在oc项目中想要使用swift,并且实现相互调用,需要一些基本的设</div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-07
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/iOS开发/" class="post-category" target="_blank">
-                                    iOS开发
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/iOS/" target="_blank">
-                        <span class="chip bg-color">iOS</span>
-                    </a>
-                    
-                    <a href="/tags/Swift/" target="_blank">
-                        <span class="chip bg-color">Swift</span>
-                    </a>
-                    
-                    <a href="/tags/第三方框架/" target="_blank">
-                        <span class="chip bg-color">第三方框架</span>
+                    <a href="/tags/树/" target="_blank">
+                        <span class="chip bg-color">树</span>
                     </a>
                     
                 </div>

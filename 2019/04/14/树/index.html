@@ -434,7 +434,7 @@
 <h4 id="深度"><a href="#深度" class="headerlink" title="深度"></a>深度</h4><p>对于任意节点ni的深度指的是从根节点r到节点ni的唯一有效路径的长度.根r的深度为0.</p>
 <h4 id="高度"><a href="#高度" class="headerlink" title="高度"></a>高度</h4><p>对于任意节点ni的高度指的是从n到树叶节点最长路径的长.一棵树的高度指的是根r到树叶最长的路径长.</p>
 <h4 id="节点的层次"><a href="#节点的层次" class="headerlink" title="节点的层次"></a>节点的层次</h4><p>节点的层次指的是节点的层级,根r的层数是1,其儿子节点层次是2.所有子节点层次比父亲节点层次大1.</p>
-<h4 id="森林"><a href="#森林" class="headerlink" title="森林"></a>森林</h4><p>由多棵树组成的集合称为森林</p>
+<h4 id="森林"><a href="#森林" class="headerlink" title="森林"></a>森林</h4><p>由多棵树组成的集合称为森林.</p>
 <p><img src="http://abc.waitwalker.cn/tree.jpg" alt="tree"></p>
 <h3 id="树的实现"><a href="#树的实现" class="headerlink" title="树的实现"></a>树的实现</h3><h4 id="树的构造"><a href="#树的构造" class="headerlink" title="树的构造"></a>树的构造</h4><pre><code>// MARK: - 树
 class Tree&lt;T:Equatable&gt; {
@@ -632,54 +632,54 @@ class Tree&lt;T:Equatable&gt; {
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
-            </div>
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2019/04/14/树/">
+                <a href="/2019/04/15/Class解读/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="树">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Class解读">
                         
-                        <span class="card-title">树</span>
+                        <span class="card-title">Class解读</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary block-with-text">树的定义&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一棵树(tree)是一些节点的集合.这个集合可以为空集.若这个集合非空,则一个树由称做根(root)的节点r和多个子树T1,T2,…Tn</div>
+                    <div class="summary block-with-text">类的声明首先我们在runtime.h文件中看到objc_class的结构声明:
+
+/// 类的声明结构
+
+struct objc_class {
+
+Class _Nonnull isa OBJC_ISA_AVAILABILITY;//isa</div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-14
-                            </span>
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-15
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/数据结构与算法/" class="post-category" target="_blank">
-                                    数据结构与算法
+                            <a href="/categories/Runtime源码解读/" class="post-category" target="_blank">
+                                    Runtime源码解读
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Swift/" target="_blank">
-                        <span class="chip bg-color">Swift</span>
+                    <a href="/tags/Runtime/" target="_blank">
+                        <span class="chip bg-color">Runtime</span>
                     </a>
                     
-                    <a href="/tags/数据结构/" target="_blank">
-                        <span class="chip bg-color">数据结构</span>
+                    <a href="/tags/底层/" target="_blank">
+                        <span class="chip bg-color">底层</span>
                     </a>
                     
-                    <a href="/tags/算法/" target="_blank">
-                        <span class="chip bg-color">算法</span>
-                    </a>
-                    
-                    <a href="/tags/树/" target="_blank">
-                        <span class="chip bg-color">树</span>
+                    <a href="/tags/源码/" target="_blank">
+                        <span class="chip bg-color">源码</span>
                     </a>
                     
                 </div>
