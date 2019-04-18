@@ -4,8 +4,8 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="二叉树, Swift, iOS, Python">
-    <meta name="description" content="二叉树的定义&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;二叉树(Binary Tree)是一棵树,其中每个节点都不能有多余两个的儿子.深度为k的二叉树的节点个数,最多为2^k - 1个节点">
+    <meta name="keywords" content="Block解读, Swift, iOS, Python">
+    <meta name="description" content="Block定义&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;看过&amp;lt;&amp;lt;Objective-C高级编程iOS与OS X多线程和内存管理&amp;gt;&amp;gt;这本书的朋友应该知道其对bloc">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>二叉树 | waitwalker</title>
+    <title>Block解读 | waitwalker</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -259,13 +259,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        二叉树
+                        Block解读
                     </div>
                 </div>
             </div>
@@ -376,20 +376,16 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Swift/" target="_blank">
-                                <span class="chip bg-color">Swift</span>
+                            <a href="/tags/Runtime/" target="_blank">
+                                <span class="chip bg-color">Runtime</span>
                             </a>
                         
-                            <a href="/tags/数据结构/" target="_blank">
-                                <span class="chip bg-color">数据结构</span>
+                            <a href="/tags/底层/" target="_blank">
+                                <span class="chip bg-color">底层</span>
                             </a>
                         
-                            <a href="/tags/算法/" target="_blank">
-                                <span class="chip bg-color">算法</span>
-                            </a>
-                        
-                            <a href="/tags/二叉树/" target="_blank">
-                                <span class="chip bg-color">二叉树</span>
+                            <a href="/tags/源码/" target="_blank">
+                                <span class="chip bg-color">源码</span>
                             </a>
                         
                     </div>
@@ -400,8 +396,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/数据结构与算法/" class="post-category" target="_blank">
-                                数据结构与算法
+                            <a href="/categories/Runtime源码解读/" class="post-category" target="_blank">
+                                Runtime源码解读
                             </a>
                         
                     </div>
@@ -412,7 +408,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-04-16
+                    2019-04-18
                 </div>
 
                 
@@ -428,215 +424,519 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="二叉树的定义"><a href="#二叉树的定义" class="headerlink" title="二叉树的定义"></a>二叉树的定义</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;二叉树(Binary Tree)是一棵树,其中每个节点都不能有多余两个的儿子.深度为k的二叉树的节点个数,最多为2^k - 1个节点.ni节点深度指的是从根r到ni的一条有效路径的长.深度为k的二叉树的深度指的是从根r到叶子节点一条最长路径的长.这条路径上最多节点个数也就是深度为k的二叉树的节点个数.</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;二叉树每个节点最多有两个儿子,我们可以用指针直接指向他们,左边的儿子称为左子树,右边的儿子称为右子树.</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;二叉树的声明有点类似于链表,一个节点有关键字信息加上两个指向其他节点的指针(Left和Right)组成的结构.因此,对于链表的一些操作逻辑也能应用于二叉树上,比如插入操作,需要先创建一个插入的节点,然后插入.</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与普通树不同,普通树的节点个数至少为1,二叉树的节点个数可以为0;普通树节点的最大分支度没有限制,而二叉树节点的最大分支度为2;普通树的节点无左右次序之分,而二叉树节点有左右次序之分.</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一颗深度为k,具有2^(k + 1) - 1个节点的二叉树称为满二叉树,也称为完全二叉树(Complete Binary Tree).具有n个节点的完全二叉树的深度为log2n + 1.</p>
-<h3 id="二叉树的存储"><a href="#二叉树的存储" class="headerlink" title="二叉树的存储"></a>二叉树的存储</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;二叉树可以用数组或链表来存储,如果二叉树是完全二叉树则能紧密排列起来而不造成空间浪费.如果某个节点的索引为i,则它的左子树节点索引为2i+1,右子树节点索引为2i+2.而它的父亲节点索引为|(i - 1) / 2|.</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用数组来存储二叉树节点有利于紧密存储和更好的访问的局部性,然而如果一颗二叉树每个节点只有左二子或者只有右儿子将造成很大的空间浪费.</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;二叉树使用二叉链表来存储一定程度上能避免空间连续存储造成的浪费,但是由于缺乏父指针,在查找父亲节点的时候需要重新扫描树.</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此,二叉树通常用树节点结构来存储.</p>
-<h3 id="二叉树的遍历"><a href="#二叉树的遍历" class="headerlink" title="二叉树的遍历"></a>二叉树的遍历</h3><h4 id="深度优先遍历"><a href="#深度优先遍历" class="headerlink" title="深度优先遍历:"></a><strong>深度优先遍历:</strong></h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;二叉树的深度遍历方法分为先序遍历,中序遍历,后序遍历,L,D,R分别表示左子树,根节点(父亲节点),右子树.</p>
-<h5 id="先序遍历"><a href="#先序遍历" class="headerlink" title="先序遍历:"></a>先序遍历:</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;访问节点的顺序是DLR,先根,然后左子树,然后右子树.访问根节点,然后左子树,接着访问左子树,直到最左子树,然后访问左子树对应的右子树,然后递归实现以上步骤.</p>
-<h5 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历:"></a>中序遍历:</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;访问节点的顺序是LDR,先左子树,然后根,然后右子树.先最左子树,然后根节点(父亲节点),然后最左子树对应右子树的最左子树,然后根节点,右子树.</p>
-<h5 id="后序遍历"><a href="#后序遍历" class="headerlink" title="后序遍历:"></a>后序遍历:</h5><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;访问节点的顺序是LRD,先左子树,然后右子树,然后根.先最左子树,然后右子树的最左子树,右子树,根.</p>
-<h4 id="广度优先遍历"><a href="#广度优先遍历" class="headerlink" title="广度优先遍历:"></a><strong>广度优先遍历:</strong></h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;广度优先遍历会先访问离根节点最近的节点,二叉树的广度优先遍历又称为按层次遍历,这个算法实现要借助于队列来实现.</p>
-<h3 id="二叉树的实现"><a href="#二叉树的实现" class="headerlink" title="二叉树的实现"></a>二叉树的实现</h3><h4 id="二叉树的定义实现"><a href="#二叉树的定义实现" class="headerlink" title="二叉树的定义实现"></a>二叉树的定义实现</h4><pre><code>
-// MARK: - 二叉树的定义
+                <h3 id="Block定义"><a href="#Block定义" class="headerlink" title="Block定义"></a>Block定义</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;看过&lt;&lt;Objective-C高级编程iOS与OS X多线程和内存管理&gt;&gt;这本书的朋友应该知道其对block的定义:Blocks是C语言的扩充功能,带有自动变量(局部变量)的匿名函数.匿名函数就是不带有名称的函数.Block在不同的语言中有不同的命名.Python中叫Lambda,Swift中叫Closure(闭包)等.</p>
+<p>我们知道根据作用域的不同变量大概有:自动变量(局部变量),静态变量(静态局部变量),静态全局变量,全局变量.而静态变量(局部和全局),全局变量其生命周期一般与程序同步,在程序的整个生命周期内,其也会保持在同一内存区域.</p>
+<h3 id="block的声明结构"><a href="#block的声明结构" class="headerlink" title="block的声明结构"></a>block的声明结构</h3><pre><code>
+// MARK: - blcok声明结构
 
-class BinaryTree&lt;T&gt; {
+struct Block_layout {
 
-// 节点value
+void *isa;
 
-var value:T
+volatile int32_t flags; // contains ref count
 
-// 左子树
+int32_t reserved;
 
-var leftChildNode:BinaryTree?
+void (*invoke)(void *, ...);
 
-// 右子树
+struct Block_descriptor_1 *descriptor;
 
-var rightChildNode:BinaryTree?
+// imported variables
 
-// MARK: - 构造方法
+};
 
-init(value:T) {
+// MARK: - block 附件信息1
 
-self.value = value
+#define BLOCK_DESCRIPTOR_1 1
+
+struct Block_descriptor_1 {
+
+uintptr_t reserved;
+
+uintptr_t size;
+
+};
+
+// MARK: - block 附件信息2
+
+#define BLOCK_DESCRIPTOR_2 1
+
+struct Block_descriptor_2 {
+
+// requires BLOCK_HAS_COPY_DISPOSE
+
+void (*copy)(void *dst, const void *src);
+
+void (*dispose)(const void *);
+
+};
+
+// MARK: - block 附件信息3
+
+#define BLOCK_DESCRIPTOR_3 1
+
+struct Block_descriptor_3 {
+
+// requires BLOCK_HAS_SIGNATURE
+
+const char *signature;
+
+const char *layout; // contents depend on BLOCK_HAS_EXTENDED_LAYOUT
+
+};
+
+struct Block_byref {
+
+void *isa;
+
+struct Block_byref *forwarding;
+
+volatile int32_t flags; // contains ref count
+
+uint32_t size;
+
+};
+
+struct Block_byref_2 {
+
+// requires BLOCK_BYREF_HAS_COPY_DISPOSE
+
+void (*byref_keep)(struct Block_byref *dst, struct Block_byref *src);
+
+void (*byref_destroy)(struct Block_byref *);
+
+};
+
+struct Block_byref_3 {
+
+// requires BLOCK_BYREF_LAYOUT_EXTENDED
+
+const char *layout;
+
+};
+
+</code></pre><p>只在block_private.h中只找到block相关的声明结构,具体实现没有找到.其实现源码<a href="[http://llvm.org/svn/llvm-project/compiler-rt/trunk/lib/BlocksRuntime/](http://llvm.org/svn/llvm-project/compiler-rt/trunk/lib/BlocksRuntime/">这里</a>).下面我们看一下block_layout声明结构中的一些成员变量:</p>
+<p>isa:block类型指针</p>
+<p>flags:标志位,用于按bit操作</p>
+<p>reserved:保留变量</p>
+<p>invoke:指向block实现函数的指针</p>
+<p>descriptor:附件信息</p>
+<p>这些具体的结构我们可以通过clang编译器重写Objective-C文件转成.cpp文件查看源码.</p>
+<h3 id="Block语法"><a href="#Block语法" class="headerlink" title="Block语法"></a>Block语法</h3><p>返回值类型 (^block名称)(形参参数列表) = ^返回值类型(参数列表){</p>
+<p>return 返回值</p>
+<p>}</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1715253-5e36c4a5ffaa68f4.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Block语法.jpg"></p>
+<h3 id="Block截获自动变量"><a href="#Block截获自动变量" class="headerlink" title="Block截获自动变量"></a>Block截获自动变量</h3><p>带有自动变量的值在block中表现为截获自动变量值.</p>
+<pre><code>
+int valueOne = 18;
+
+int valueTwo = 1;
+
+// MARK: - 截获自动变量
+
+void(^BlockOne)(void) = ^void(){
+
+NSLog(@&quot;valueOne:%d; valueTwo:%d&quot;,valueOne,valueTwo);
+
+};
+
+// 修改自动变量的值
+
+valueOne = 9;
+
+// 调用block
+
+BlockOne();
+
+</code></pre><p>调用block后我们看到log输出:</p>
+<pre><code>
+2019-04-17 15:30:28.442314+0800 Block_Layout[6530:443419] valueOne:18; valueTwo:1
+
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;block内部捕获了valueOne和valueTwo两个自动变量,其中valueOne在block调用前进行了修改,而在block在真实调用时,valueOne值并没有跟随修改,因为block表达式截获得是自动变量的瞬间值,保存后就不能改写.所以在调用block时,即使改了block截获的自动变量的值,也不会影响block表达式内截获的值.</p>
+<p>通过clang编译器重写一些文件,获取底层实现源码:</p>
+<pre><code>
+// block 声明结构
+
+struct __block_impl {
+
+void *isa;
+
+int Flags;
+
+int Reserved;
+
+void *FuncPtr;
+
+};
+
+// block声明&amp;实现结构
+
+void(*BlockOne)(void) = ((void (*)())&amp;__ViewController__viewDidLoad_block_impl_0((void *)__ViewController__viewDidLoad_block_func_0, &amp;__ViewController__viewDidLoad_block_desc_0_DATA, valueOne, valueTwo));
+
+valueOne = 9;
+
+// block调用
+
+((void (*)(__block_impl *))((__block_impl *)BlockOne)-&gt;FuncPtr)((__block_impl *)BlockOne);
+
+// MARK: - block具体实现结构
+
+struct __ViewController__viewDidLoad_block_impl_0 {
+
+struct __block_impl impl;
+
+struct __ViewController__viewDidLoad_block_desc_0* Desc;
+
+int valueOne;
+
+int valueTwo;
+
+// 同名的构造函数
+
+__ViewController__viewDidLoad_block_impl_0(void *fp, struct __ViewController__viewDidLoad_block_desc_0 *desc, int _valueOne, int _valueTwo, int flags=0) : valueOne(_valueOne), valueTwo(_valueTwo) {
+
+impl.isa = &amp;_NSConcreteStackBlock;
+
+impl.Flags = flags;
+
+impl.FuncPtr = fp;
+
+Desc = desc;
 
 }
 
-}
+};
 
-</code></pre><h4 id="先序遍历递归实现"><a href="#先序遍历递归实现" class="headerlink" title="先序遍历递归实现"></a>先序遍历递归实现</h4><pre><code>
-/// 先序遍历:先根节点,然后左子树,然后右子树
+// MARK: - block实现结构对应的实现函数
 
-///
+static void __ViewController__viewDidLoad_block_func_0(struct __ViewController__viewDidLoad_block_impl_0 *__cself) {
 
-/// - Parameter binaryTree: 二叉树节点
+int valueOne = __cself-&gt;valueOne; // bound by copy
 
-/// - Returns: 二叉树节点总数
+int valueTwo = __cself-&gt;valueTwo; // bound by copy
 
-func traversePreOrder(binaryTree:BinaryTree?) -&gt; Int {
-
-guard let binaryTreeNode = binaryTree else {
-
-return 0
+NSLog((NSString *)&amp;__NSConstantStringImpl__var_folders_pg_0qh5fq653wq1l3qz9_3ftg3r0000gn_T_ViewController_75dfcb_mi_0,valueOne,valueTwo);
 
 }
 
-print(&quot;当前节点值:&quot;,binaryTreeNode.value,separator: &quot;&quot;,terminator: &quot; \n&quot;)
+// MARK: - desc结构
 
-let leftNodeCount = binaryTreeNode.traversePreOrder(binaryTree: binaryTreeNode.leftChildNode)
+static struct __ViewController__viewDidLoad_block_desc_0 {
 
-let rigthNodeCount = binaryTreeNode.traversePreOrder(binaryTree: binaryTreeNode.rightChildNode)
+size_t reserved;
 
-return leftNodeCount + rigthNodeCount + 1
+size_t Block_size;
 
-}
+} __ViewController__viewDidLoad_block_desc_0_DATA = { 0, sizeof(struct __ViewController__viewDidLoad_block_impl_0)};
 
-</code></pre><h4 id="中序遍历递归实现"><a href="#中序遍历递归实现" class="headerlink" title="中序遍历递归实现"></a>中序遍历递归实现</h4><pre><code>
-/// 中序遍历 先左子树,然后根,然后右子树
+</code></pre><p>具体看一下这几个结构:</p>
+<p><strong>__block_impl:block对外暴露的声明结构,内部有四个成员变量.</strong></p>
+<p><strong>_block_impl_0:block内部实现结构,其内部有一个同名的构造函数.</strong></p>
+<p><strong>_block_func_0:block实现结构对应的实现函数,我们对block捕获的一些值都在这里操作,其参数为__cself指向的是Block自身.</strong></p>
+<p><strong>_block_desc_0:desc结构,描述_block_impl_0的size等.</strong></p>
+<p><strong>ViewController</strong>viewDidLoad_block_impl_0()构造函数,将fp函数指针赋值给impl的FuncPtr,将desc赋值给 Desc ,将flags赋值给impl的flags,将Block类型赋值给isa,之前我们已经讲过<a href="[https://waitwalker.github.io/2019/04/10/objc-object%E8%A7%A3%E8%AF%BB/](https://waitwalker.github.io/2019/04/10/objc-object%E8%A7%A3%E8%AF%BB/">isa</a>),可以具体查看,到此我们可以确定block的本质其实就是Objective-C对象,这些赋值后完成对impl进行初始化.</p>
+<p><strong>blockOne就是一个_block_impl_0的实例.</strong></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以以方法类比:__block_impl是对外的接口,其内部实现是_block_impl_0来实现的.我们可以看到block实现表达式中捕获的直接是valueOne,valueTwo的值.</p>
+<p>如果我们尝试在block内部修改其捕获的自动变量的值,或马上报错:</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1715253-19d3e872cf58524f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="missing__block_error.png"></p>
+<p>告诉我们缺少__block修饰符,下面我们在看一个情况:</p>
+<pre><code>
+NSMutableArray *array = [[NSMutableArray array]init];
 
-///
+// MARK: - 截获自动变量
 
-/// - Parameter binaryTree: 二叉树节点
+void(^BlockOne)(void) = ^void(){
 
-func traverseInOrder(binaryTree:BinaryTree?) -&gt; Int {
+[array addObject:[NSObject new]];
 
-guard let binaryTreeNode = binaryTree else { return 0}
+};
 
-let leftNodeCount = binaryTreeNode.traverseInOrder(binaryTree: binaryTreeNode.leftChildNode)
+</code></pre><p>这种情况可以正常编译过去,再看一下:</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1715253-8d9c0ade6fd90dcf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="missing__block.png"></p>
+<p>同样的错误.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;然后我们用<strong>block修饰符修饰一下自动变量,编译正常通过.因此,如果我们需要修改block捕获的自动变量,需要在自动变量前面添加</strong>block修饰符.</p>
+<h3 id="Block捕获静态-全局变量"><a href="#Block捕获静态-全局变量" class="headerlink" title="Block捕获静态/全局变量"></a>Block捕获静态/全局变量</h3><pre><code>
+// 静态全局变量
 
-print(&quot;当前节点值:&quot;,binaryTreeNode.value,separator: &quot;&quot;,terminator: &quot; \n&quot;)
+static int valueTwo = 20;
 
-let rigthNodeCount = binaryTreeNode.traverseInOrder(binaryTree: binaryTreeNode.rightChildNode)
+// 全局变量
 
-return leftNodeCount + rigthNodeCount + 1
+int valueThree = 30;
 
-}
+@interface ViewController ()
 
-</code></pre><h4 id="后序遍历递归实现"><a href="#后序遍历递归实现" class="headerlink" title="后序遍历递归实现"></a>后序遍历递归实现</h4><pre><code>
-/// 后序遍历 先左子树,然后右子树,然后根
+@property (nonatomic, copy) NSString *name;
 
-///
+@property (nonatomic, copy) NSString *valueString;
 
-/// - Parameter binaryTree: 二叉树节点
+@end
 
-func traversePostOrder(binaryTree:BinaryTree?) -&gt; Int {
+@implementation ViewController
 
-guard let binaryTreeNode = binaryTree else { return 0 }
+- (void)viewDidLoad {
 
-let leftNodeCount = binaryTreeNode.traversePostOrder(binaryTree: binaryTreeNode.leftChildNode)
+[super viewDidLoad];
 
-let rigthNodeCount = binaryTreeNode.traversePostOrder(binaryTree: binaryTreeNode.rightChildNode)
+// 静态局部变量
 
-print(&quot;当前节点值:&quot;,binaryTreeNode.value,separator: &quot;&quot;,terminator: &quot; \n&quot;)
+static int valueOne = 10;
 
-return leftNodeCount + rigthNodeCount + 1
+// MARK: - 截获静态变量,全局变量
 
-}
+void(^BlockOne)(void) = ^void(){
 
-</code></pre><h4 id="二叉树最大深度"><a href="#二叉树最大深度" class="headerlink" title="二叉树最大深度"></a>二叉树最大深度</h4><pre><code>
-/// 二叉树最大深度
+valueOne = 1;
 
-///
+valueTwo = 2;
 
-/// - Parameter binaryTree: 二叉树节点
+valueThree = 3;
 
-/// - Returns: 最大深度
+NSLog(@&quot;valueOne:%d,valueTwo:%d,valueThree:%d&quot;,valueOne,valueTwo,valueThree);
 
-func maxDepth(binaryTree:BinaryTree?) -&gt; Int {
+};
 
-guard let binaryTreeNode = binaryTree else { return 0 }
+// 修改自动变量的值
 
-let leftMaxDepth = maxDepth(binaryTree: binaryTreeNode.leftChildNode)
+valueOne = 9;
 
-let rightMaxDepth = maxDepth(binaryTree: binaryTreeNode.rightChildNode)
+// 调用block
 
-return max(leftMaxDepth, rightMaxDepth) + 1
-
-}
-
-</code></pre><h4 id="二叉树最小深度"><a href="#二叉树最小深度" class="headerlink" title="二叉树最小深度"></a>二叉树最小深度</h4><pre><code>
-/// 二叉树最小深度
-
-///
-
-/// - Parameter binaryTree: 二叉树节点
-
-/// - Returns: 最小深度
-
-func minDepth(binaryTree:BinaryTree?) -&gt; Int {
-
-guard let binaryTreeNode = binaryTree else { return 0 }
-
-let leftMinDepth = binaryTreeNode.minDepth(binaryTree: binaryTreeNode.leftChildNode)
-
-let rightMinDepth = binaryTreeNode.minDepth(binaryTree: binaryTreeNode.rightChildNode)
-
-return min(leftMinDepth, rightMinDepth) + 1
+BlockOne();
 
 }
 
-</code></pre><h4 id="先序遍历非递归实现"><a href="#先序遍历非递归实现" class="headerlink" title="先序遍历非递归实现"></a>先序遍历非递归实现</h4><pre><code>
-/***
+@end
 
-先根,然后左子树,然后右子树 非递归实现:
+</code></pre><p>日志输出:</p>
+<pre><code>
+2019-04-17 16:56:57.112848+0800 MTTRuntime[7888:540053] valueOne:1,valueTwo:2,valueThree:3
 
-1)用栈来存储当前节点,判断当前节点是否为空,不为空,将当前节点压栈操作.
+</code></pre><p>然后我们继续用clang编译转换一下:</p>
+<pre><code>
+// block 声明和实现结构
 
-2)判断当前节点的左子树是否为空,左子树不为空则将当前节点的左子树赋值给当前节点;若为空,则取出栈的元素,将栈顶元素的右子树赋值给当前节点,执行1)
+void(*BlockOne)(void) = ((void (*)())&amp;__ViewController__viewDidLoad_block_impl_0((void *)__ViewController__viewDidLoad_block_func_0, &amp;__ViewController__viewDidLoad_block_desc_0_DATA, &amp;valueOne));
 
-3)直到当前节点为空并且栈为空,遍历结束
+valueOne = 9;
 
-**/
+// block调用
 
-/// 先序遍历
+((void (*)(__block_impl *))((__block_impl *)BlockOne)-&gt;FuncPtr)((__block_impl *)BlockOne);
 
-///
+struct __ViewController__viewDidLoad_block_impl_0 {
 
-/// - Parameter binaryTree: 二叉树节点
+struct __block_impl impl;
 
-/// - Returns: 二叉树节点总数
+struct __ViewController__viewDidLoad_block_desc_0* Desc;
 
-func traversePreOrderNonrecursive(binaryTree:BinaryTree?) -&gt; Int {
+int *valueOne;
 
-var treeStack:[BinaryTree] = []
+__ViewController__viewDidLoad_block_impl_0(void *fp, struct __ViewController__viewDidLoad_block_desc_0 *desc, int *_valueOne, int flags=0) : valueOne(_valueOne) {
 
-var currentNode = binaryTree
+impl.isa = &amp;_NSConcreteStackBlock;
 
-var count:Int = 0
+impl.Flags = flags;
 
-while !treeStack.isEmpty || currentNode != nil{
+impl.FuncPtr = fp;
 
-if currentNode != nil {
-
-treeStack.append(currentNode!)
-
-currentNode = currentNode?.leftChildNode
-
-count += 1
-
-print(currentNode?.value as Any)
-
-} else {
-
-let lastTreeNode = treeStack.removeLast()
-
-currentNode = lastTreeNode.rightChildNode
+Desc = desc;
 
 }
 
+};
+
+static void __ViewController__viewDidLoad_block_func_0(struct __ViewController__viewDidLoad_block_impl_0 *__cself) {
+
+int *valueOne = __cself-&gt;valueOne; // bound by copy
+
+// 静态局部变量
+
+(*valueOne) = 1;
+
+// 静态全局变量
+
+valueTwo = 2;
+
+// 全局变量
+
+valueThree = 3;
+
+NSLog((NSString *)&amp;__NSConstantStringImpl__var_folders_pg_0qh5fq653wq1l3qz9_3ftg3r0000gn_T_ViewController_9483ca_mi_0,(*valueOne),valueTwo,valueThree);
+
 }
 
-return count
+static struct __ViewController__viewDidLoad_block_desc_0 {
+
+size_t reserved;
+
+size_t Block_size;
+
+} __ViewController__viewDidLoad_block_desc_0_DATA = { 0, sizeof(struct __ViewController__viewDidLoad_block_impl_0)};
+
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们可以看到静态全局变量和全局变量,被block捕获后直接修改的是其值,因为全局变量作用域于全局,在block内部进行修改后其值可以被保存下来.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;而静态局部变量访问的是使用指针对其进行访问,在block实现表达式里面传进去的也是&amp;valueOne地址.</p>
+<p>block在捕获全局变量/静态变量时,可以在block实现表达式内部对其进行更改.block捕获静态局部变量的地址并保存,通过操作指针实现值的修改.</p>
+<h3 id="Block捕获-block修饰的自动变量"><a href="#Block捕获-block修饰的自动变量" class="headerlink" title="Block捕获__block修饰的自动变量"></a>Block捕获__block修饰的自动变量</h3><pre><code>
+- (void)viewDidLoad {
+
+[super viewDidLoad];
+
+// __block修饰的自动变量
+
+__block int valueOne = 10;
+
+// MARK: - 截获__block修饰的自动变量
+
+void(^BlockOne)(void) = ^void(){
+
+valueOne = 1;
+
+NSLog(@&quot;valueOne:%d&quot;,valueOne);
+
+};
+
+// 修改自动变量的值
+
+valueOne = 9;
+
+// 调用block
+
+BlockOne();
 
 }
 
-</code></pre><h3 id="源码地址"><a href="#源码地址" class="headerlink" title="源码地址"></a>源码地址</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这里的实现代码已放到<a href="[https://github.com/waitwalker/DataStructureAlgorithm](https://github.com/waitwalker/DataStructureAlgorithm">GitHub</a>),测试用例详见DataStructureAlgorithmTests.swift文件</p>
-<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><p>《数据结构与算法分析C语言描述》(Data Structures and Algorithm Analysis in C:Second Edition)–译者: 冯舜玺</p>
+</code></pre><p>控制台输出:</p>
+<pre><code>
+2019-04-18 08:54:48.274042+0800 MTTRuntime[4012:43868] valueOne:1,valueTwo:20,valueThree:30
+
+</code></pre><p>被__block修饰的自动变量,block捕获后能够对其进行更改.clang重写一下,查看源码:</p>
+<pre><code>
+// __block修饰的成员变量转换
+
+__attribute__((__blocks__(byref))) __Block_byref_valueOne_0 valueOne = {(void*)0,(__Block_byref_valueOne_0 *)&amp;valueOne, 0, sizeof(__Block_byref_valueOne_0), 10};
+
+// block的声明和实现表达式
+
+void(*BlockOne)(void) = ((void (*)())&amp;__ViewController__viewDidLoad_block_impl_0((void *)__ViewController__viewDidLoad_block_func_0, &amp;__ViewController__viewDidLoad_block_desc_0_DATA, (__Block_byref_valueOne_0 *)&amp;valueOne, 570425344));
+
+// 修改valueOne的值
+
+(valueOne.__forwarding-&gt;valueOne) = 9;
+
+//block调用
+
+((void (*)(__block_impl *))((__block_impl *)BlockOne)-&gt;FuncPtr)((__block_impl *)BlockOne);
+
+// byref结构
+
+struct __Block_byref_valueOne_0 {
+
+void *__isa;
+
+__Block_byref_valueOne_0 *__forwarding;//指向自己的指针
+
+int __flags;
+
+int __size;
+
+int valueOne;
+
+};
+
+//block匿名实现结构
+
+struct __ViewController__viewDidLoad_block_impl_0 {
+
+struct __block_impl impl;
+
+struct __ViewController__viewDidLoad_block_desc_0* Desc;
+
+__Block_byref_valueOne_0 *valueOne; // by ref
+
+__ViewController__viewDidLoad_block_impl_0(void *fp, struct __ViewController__viewDidLoad_block_desc_0 *desc, __Block_byref_valueOne_0 *_valueOne, int flags=0) : valueOne(_valueOne-&gt;__forwarding) {
+
+impl.isa = &amp;_NSConcreteStackBlock;
+
+impl.Flags = flags;
+
+impl.FuncPtr = fp;
+
+Desc = desc;
+
+}
+
+};
+
+// block实现函数
+
+static void __ViewController__viewDidLoad_block_func_0(struct __ViewController__viewDidLoad_block_impl_0 *__cself) {
+
+__Block_byref_valueOne_0 *valueOne = __cself-&gt;valueOne; // bound by ref
+
+(valueOne-&gt;__forwarding-&gt;valueOne) = 1;
+
+NSLog((NSString *)&amp;__NSConstantStringImpl__var_folders_pg_0qh5fq653wq1l3qz9_3ftg3r0000gn_T_ViewController_ea5a30_mi_0,(valueOne-&gt;__forwarding-&gt;valueOne));
+
+}
+
+// block copy
+
+static void __ViewController__viewDidLoad_block_copy_0(struct __ViewController__viewDidLoad_block_impl_0*dst, struct __ViewController__viewDidLoad_block_impl_0*src) {_Block_object_assign((void*)&amp;dst-&gt;valueOne, (void*)src-&gt;valueOne, 8/*BLOCK_FIELD_IS_BYREF*/);}
+
+// block dispose
+
+static void __ViewController__viewDidLoad_block_dispose_0(struct __ViewController__viewDidLoad_block_impl_0*src) {_Block_object_dispose((void*)src-&gt;valueOne, 8/*BLOCK_FIELD_IS_BYREF*/);}
+
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以看到,这里多了<strong>Block_byref_valueOne_0结构,我们初始化的自动变量也被转换成了这个结构的实例,自动变量初始化值为10,这个值也出现在</strong>Block_byref_valueOne_0结构的初始化中,并且这个结构持有这个变量,使其成为成员变量.</p>
+<pre><code>
+// byref结构
+
+struct __Block_byref_valueOne_0 {
+
+void *__isa;
+
+__Block_byref_valueOne_0 *__forwarding;//指向自己的指针
+
+int __flags;
+
+int __size;
+
+int valueOne;
+
+};
+
+</code></pre><p>我们再来看一下怎么访问这个自动变量的:</p>
+<pre><code>
+// block实现函数
+
+static void __ViewController__viewDidLoad_block_func_0(struct __ViewController__viewDidLoad_block_impl_0 *__cself) {
+
+__Block_byref_valueOne_0 *valueOne = __cself-&gt;valueOne; // bound by ref
+
+(valueOne-&gt;__forwarding-&gt;valueOne) = 1;
+
+NSLog((NSString *)&amp;__NSConstantStringImpl__var_folders_pg_0qh5fq653wq1l3qz9_3ftg3r0000gn_T_ViewController_ea5a30_mi_0,(valueOne-&gt;__forwarding-&gt;valueOne));
+
+}
+
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;是通过((<strong>Block_byref_valueOne_0 *)valueOne-&gt;</strong>forwarding-&gt;valueOne).Block的_block_impl_0结构实例指针持有指向<strong>Block_byref_valueOne_0的指针;而</strong>Block_byref_valueOne_0的成员变量持有指向自身的指针.然后通过<strong>forwarding来访问valueOne.</strong>Block_byref_valueOne_0结构并不在_block_impl_0中,这样做主要是在多个Block中使用__block.</p>
+<h3 id="Block类型"><a href="#Block类型" class="headerlink" title="Block类型"></a>Block类型</h3><p>_NSConcreteGlobalBlock:定义在全局区,存储于程序数据区</p>
+<p>_NSConcreteStackBlock:存储于栈区,超出作用域被回收</p>
+<p>_NSConcreteMallocBlock:存储于堆区,从栈copy过来</p>
+<h4 id="Block复制到堆上的情况"><a href="#Block复制到堆上的情况" class="headerlink" title="Block复制到堆上的情况:"></a>Block复制到堆上的情况:</h4><p>1)block调用了copy方法;<br></p>
+<p>2)block作为方法返回值;<br></p>
+<p>3)将block赋值给__strong修饰的id类型或赋值给类的block成员变量;<br></p>
+<p>4)方法名中有usingBlock的cocoa框架或者GCD相关api;<br></p>
+<h3 id="Block循环引用"><a href="#Block循环引用" class="headerlink" title="Block循环引用"></a>Block循环引用</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果Block中使用附有<strong>strong修饰符的对象类型自动变量,那么Block从栈复制到堆上时,该对象为Block所持有,这样会引起循环引用问题,可以通过</strong>weak修饰符来打破循环引用,这个我们在后面细讲__weak实现原理.</p>
+<h3 id="编译后源码库"><a href="#编译后源码库" class="headerlink" title="编译后源码库"></a>编译后源码库</h3><p><strong>编译后的源码放在<a href="https://github.com/waitwalker/Runtime" target="_blank" rel="noopener">Github</a>, 如果对你有帮助,请给一个star吧!</strong></p>
+<h3 id="博客地址-amp-相关文章"><a href="#博客地址-amp-相关文章" class="headerlink" title="博客地址&amp;相关文章"></a>博客地址&amp;相关文章</h3><p><strong>博客地址:</strong> <a href="https://waitwalker.github.io/">https://waitwalker.github.io/</a></p>
+<p>系列文章:</p>
+<p><a href="https://waitwalker.github.io/2019/04/08/Runtime%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91/">1. Runtime源码编译</a></p>
+<p><a href="https://waitwalker.github.io/2019/04/10/objc-object%E8%A7%A3%E8%AF%BB/">2. objc_object解读</a></p>
+<p><a href="https://waitwalker.github.io/2019/04/12/Method%E8%A7%A3%E8%AF%BB/">3. Method解读</a></p>
+<p><a href="https://waitwalker.github.io/2019/04/15/Class%E8%A7%A3%E8%AF%BB/">4. Class解读</a></p>
+<p><a href="https://waitwalker.github.io/2019/04/15/Ivar-objc-property-t-Protocol%E8%A7%A3%E8%AF%BB/">5. Ivar objc_property_t Protocol解读</a></p>
 
             </div>
             <hr>
@@ -784,7 +1084,7 @@ return count
                     </span>
                     <a href="https://waitwalker.github.io" class="b-link-green">waitwalker</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/04/16/二叉树/" class="b-link-green">二叉树</a>
+                    <a href="/2019/04/18/Block解读/" class="b-link-green">Block解读</a>
                 </p>
             </div>
         </div>
@@ -807,7 +1107,8 @@ return count
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2019/04/18/Block解读/">
                     <div class="card-image">
@@ -821,9 +1122,9 @@ return count
                 <div class="card-content article-content">
                     <div class="summary block-with-text">Block定义&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;看过&lt;&lt;Objective-C高级编程iOS与OS X多线程和内存管理&gt;&gt;这本书的朋友应该知道其对bloc</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-18
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-18
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -836,6 +1137,7 @@ return count
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -862,30 +1164,27 @@ return count
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/04/15/Ivar-objc-property-t-Protocol解读/">
+                <a href="/2019/04/16/二叉树/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="Ivar objc_property_t Protocol解读">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="二叉树">
                         
-                        <span class="card-title">Ivar objc_property_t Protocol解读</span>
+                        <span class="card-title">二叉树</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary block-with-text">Ivar声明在objc-private.h文件中我们可以看到Ivar的声明结构:
-typedef struct ivar_t *Ivar;
-在objc-runtime-new.h中可以找到ivar_t的完整结构声明:
-// MARK: - </div>
+                    <div class="summary block-with-text">二叉树的定义&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;二叉树(Binary Tree)是一棵树,其中每个节点都不能有多余两个的儿子.深度为k的二叉树的节点个数,最多为2^k - 1个节点</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-15
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-16
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Runtime源码解读/" class="post-category" target="_blank">
-                                    Runtime源码解读
+                            <a href="/categories/数据结构与算法/" class="post-category" target="_blank">
+                                    数据结构与算法
                                 </a>
                             
                             
@@ -895,16 +1194,20 @@ typedef struct ivar_t *Ivar;
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Runtime/" target="_blank">
-                        <span class="chip bg-color">Runtime</span>
+                    <a href="/tags/Swift/" target="_blank">
+                        <span class="chip bg-color">Swift</span>
                     </a>
                     
-                    <a href="/tags/底层/" target="_blank">
-                        <span class="chip bg-color">底层</span>
+                    <a href="/tags/数据结构/" target="_blank">
+                        <span class="chip bg-color">数据结构</span>
                     </a>
                     
-                    <a href="/tags/源码/" target="_blank">
-                        <span class="chip bg-color">源码</span>
+                    <a href="/tags/算法/" target="_blank">
+                        <span class="chip bg-color">算法</span>
+                    </a>
+                    
+                    <a href="/tags/二叉树/" target="_blank">
+                        <span class="chip bg-color">二叉树</span>
                     </a>
                     
                 </div>

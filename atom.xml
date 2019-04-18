@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://waitwalker.github.io/"/>
-  <updated>2019-04-16T10:44:10.094Z</updated>
+  <updated>2019-04-18T10:27:29.915Z</updated>
   <id>https://waitwalker.github.io/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Block解读</title>
+    <link href="https://waitwalker.github.io/2019/04/18/Block%E8%A7%A3%E8%AF%BB/"/>
+    <id>https://waitwalker.github.io/2019/04/18/Block解读/</id>
+    <published>2019-04-18T10:26:48.000Z</published>
+    <updated>2019-04-18T10:27:29.915Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;Block定义&quot;&gt;&lt;a href=&quot;#Block定义&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Runtime源码解读" scheme="https://waitwalker.github.io/categories/Runtime%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/"/>
+    
+    
+      <category term="Runtime" scheme="https://waitwalker.github.io/tags/Runtime/"/>
+    
+      <category term="底层" scheme="https://waitwalker.github.io/tags/%E5%BA%95%E5%B1%82/"/>
+    
+      <category term="源码" scheme="https://waitwalker.github.io/tags/%E6%BA%90%E7%A0%81/"/>
+    
+  </entry>
   
   <entry>
     <title>二叉树</title>
@@ -583,36 +613,6 @@
       <category term="iOS" scheme="https://waitwalker.github.io/tags/iOS/"/>
     
       <category term="内存管理" scheme="https://waitwalker.github.io/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>iOS持续集成构建</title>
-    <link href="https://waitwalker.github.io/2019/04/07/iOS%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E6%9E%84%E5%BB%BA/"/>
-    <id>https://waitwalker.github.io/2019/04/07/iOS持续集成构建/</id>
-    <published>2019-04-07T09:21:33.000Z</published>
-    <updated>2019-04-07T09:24:02.633Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;目前市面上持续集成的方案很多:例如,&lt;strong&gt;Jenkins, Fastlane,Xcode
-        
-      
-    
-    </summary>
-    
-      <category term="iOS开发" scheme="https://waitwalker.github.io/categories/iOS%E5%BC%80%E5%8F%91/"/>
-    
-    
-      <category term="iOS" scheme="https://waitwalker.github.io/tags/iOS/"/>
-    
-      <category term="CI" scheme="https://waitwalker.github.io/tags/CI/"/>
-    
-      <category term="持续集成" scheme="https://waitwalker.github.io/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/"/>
     
   </entry>
   
