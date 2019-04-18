@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://waitwalker.github.io/"/>
-  <updated>2019-04-18T10:27:29.915Z</updated>
+  <updated>2019-04-18T10:34:32.374Z</updated>
   <id>https://waitwalker.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://waitwalker.github.io/2019/04/18/Block%E8%A7%A3%E8%AF%BB/"/>
     <id>https://waitwalker.github.io/2019/04/18/Block解读/</id>
     <published>2019-04-18T10:26:48.000Z</published>
-    <updated>2019-04-18T10:27:29.915Z</updated>
+    <updated>2019-04-18T10:34:32.374Z</updated>
     
     <summary type="html">
     
@@ -83,7 +83,7 @@
     <link href="https://waitwalker.github.io/2019/04/15/Ivar-objc-property-t-Protocol%E8%A7%A3%E8%AF%BB/"/>
     <id>https://waitwalker.github.io/2019/04/15/Ivar-objc-property-t-Protocol解读/</id>
     <published>2019-04-15T10:29:29.000Z</published>
-    <updated>2019-04-15T10:30:01.201Z</updated>
+    <updated>2019-04-18T10:34:32.370Z</updated>
     
     <summary type="html">
     
@@ -113,7 +113,7 @@
     <link href="https://waitwalker.github.io/2019/04/15/Class%E8%A7%A3%E8%AF%BB/"/>
     <id>https://waitwalker.github.io/2019/04/15/Class解读/</id>
     <published>2019-04-15T10:28:35.000Z</published>
-    <updated>2019-04-15T10:29:04.971Z</updated>
+    <updated>2019-04-18T10:34:32.384Z</updated>
     
     <summary type="html">
     
@@ -256,7 +256,7 @@
     <link href="https://waitwalker.github.io/2019/04/12/Method%E8%A7%A3%E8%AF%BB/"/>
     <id>https://waitwalker.github.io/2019/04/12/Method解读/</id>
     <published>2019-04-12T11:26:32.000Z</published>
-    <updated>2019-04-12T11:30:21.370Z</updated>
+    <updated>2019-04-18T10:34:32.390Z</updated>
     
     <summary type="html">
     
@@ -382,7 +382,7 @@
     <link href="https://waitwalker.github.io/2019/04/10/objc-object%E8%A7%A3%E8%AF%BB/"/>
     <id>https://waitwalker.github.io/2019/04/10/objc-object解读/</id>
     <published>2019-04-10T10:32:59.000Z</published>
-    <updated>2019-04-10T10:34:01.756Z</updated>
+    <updated>2019-04-18T10:34:32.379Z</updated>
     
     <summary type="html">
     
@@ -431,11 +431,11 @@
       <category term="Swift开发" scheme="https://waitwalker.github.io/categories/Swift%E5%BC%80%E5%8F%91/"/>
     
     
-      <category term="Swift 开发" scheme="https://waitwalker.github.io/tags/Swift-%E5%BC%80%E5%8F%91/"/>
+      <category term="Swift" scheme="https://waitwalker.github.io/tags/Swift/"/>
     
       <category term="Extension" scheme="https://waitwalker.github.io/tags/Extension/"/>
     
-      <category term="Swift" scheme="https://waitwalker.github.io/tags/Swift/"/>
+      <category term="Swift 开发" scheme="https://waitwalker.github.io/tags/Swift-%E5%BC%80%E5%8F%91/"/>
     
   </entry>
   
@@ -461,9 +461,9 @@
       <category term="Swift开发" scheme="https://waitwalker.github.io/categories/Swift%E5%BC%80%E5%8F%91/"/>
     
     
-      <category term="Swift 开发" scheme="https://waitwalker.github.io/tags/Swift-%E5%BC%80%E5%8F%91/"/>
-    
       <category term="Extension" scheme="https://waitwalker.github.io/tags/Extension/"/>
+    
+      <category term="Swift 开发" scheme="https://waitwalker.github.io/tags/Swift-%E5%BC%80%E5%8F%91/"/>
     
   </entry>
   
@@ -504,7 +504,7 @@
     <link href="https://waitwalker.github.io/2019/04/08/Runtime%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91/"/>
     <id>https://waitwalker.github.io/2019/04/08/Runtime源码编译/</id>
     <published>2019-04-08T10:41:06.000Z</published>
-    <updated>2019-04-08T10:44:06.250Z</updated>
+    <updated>2019-04-18T10:34:32.362Z</updated>
     
     <summary type="html">
     
@@ -552,9 +552,9 @@
       <category term="iOS开发" scheme="https://waitwalker.github.io/categories/iOS%E5%BC%80%E5%8F%91/"/>
     
     
-      <category term="iOS" scheme="https://waitwalker.github.io/tags/iOS/"/>
-    
       <category term="Swift" scheme="https://waitwalker.github.io/tags/Swift/"/>
+    
+      <category term="iOS" scheme="https://waitwalker.github.io/tags/iOS/"/>
     
       <category term="第三方框架" scheme="https://waitwalker.github.io/tags/%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A1%86%E6%9E%B6/"/>
     
