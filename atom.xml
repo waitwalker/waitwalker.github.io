@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://waitwalker.github.io/"/>
-  <updated>2019-04-22T10:33:22.792Z</updated>
+  <updated>2019-04-22T10:35:38.344Z</updated>
   <id>https://waitwalker.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://waitwalker.github.io/2019/04/22/Retain-Release%E8%A7%A3%E8%AF%BB/"/>
     <id>https://waitwalker.github.io/2019/04/22/Retain-Release解读/</id>
     <published>2019-04-22T10:31:09.000Z</published>
-    <updated>2019-04-22T10:33:22.792Z</updated>
+    <updated>2019-04-22T10:35:38.344Z</updated>
     
     <summary type="html">
     
@@ -461,11 +461,11 @@
       <category term="Swift开发" scheme="https://waitwalker.github.io/categories/Swift%E5%BC%80%E5%8F%91/"/>
     
     
-      <category term="Swift" scheme="https://waitwalker.github.io/tags/Swift/"/>
-    
       <category term="Swift 开发" scheme="https://waitwalker.github.io/tags/Swift-%E5%BC%80%E5%8F%91/"/>
     
       <category term="Extension" scheme="https://waitwalker.github.io/tags/Extension/"/>
+    
+      <category term="Swift" scheme="https://waitwalker.github.io/tags/Swift/"/>
     
   </entry>
   
@@ -582,9 +582,9 @@
       <category term="iOS开发" scheme="https://waitwalker.github.io/categories/iOS%E5%BC%80%E5%8F%91/"/>
     
     
-      <category term="iOS" scheme="https://waitwalker.github.io/tags/iOS/"/>
-    
       <category term="Swift" scheme="https://waitwalker.github.io/tags/Swift/"/>
+    
+      <category term="iOS" scheme="https://waitwalker.github.io/tags/iOS/"/>
     
       <category term="第三方框架" scheme="https://waitwalker.github.io/tags/%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A1%86%E6%9E%B6/"/>
     
