@@ -1,0 +1,2228 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Weak解读, Swift, iOS, Python">
+    <meta name="description" content="在常规开发中我们经常使用__weak修饰符来修饰一个对象,来解决比如循环引用问题.今天具体来看看weak底层实现原理.
+首先创建一个weak修饰的对象,并查看其调用栈:
+
+int main(int argc, const char * ar">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Weak解读 | waitwalker</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+
+<!--导航-->
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    <!---->
+                    <!--<img src="/medias/logo.png" class="logo-img" alt="LOGO">-->
+                    <!---->
+                    <span class="logo-span">waitwalker</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">waitwalker</div>
+        <div class="logo-desc">
+            
+            Life is measured by thought and action not by time.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/waitwalker" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/waitwalker" class="github-corner tooltipped hide-on-med-and-down" target="_blank" data-tooltip="https://github.com/waitwalker" data-position="left" data-delay="50">
+    <svg viewbox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Weak解读
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/iOS/" target="_blank">
+                                <span class="chip bg-color">iOS</span>
+                            </a>
+                        
+                            <a href="/tags/Runtime/" target="_blank">
+                                <span class="chip bg-color">Runtime</span>
+                            </a>
+                        
+                            <a href="/tags/source-code/" target="_blank">
+                                <span class="chip bg-color">source code</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Runtime源码解读/" class="post-category" target="_blank">
+                                Runtime源码解读
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-04-24
+                </div>
+
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>在常规开发中我们经常使用__weak修饰符来修饰一个对象,来解决比如循环引用问题.今天具体来看看weak底层实现原理.</p>
+<p>首先创建一个weak修饰的对象,并查看其调用栈:</p>
+<pre><code>
+int main(int argc, const char * argv[]) {
+
+@autoreleasepool {
+
+Class newClass = objc_allocateClassPair(objc_getClass(&quot;NSObject&quot;), &quot;newClass&quot;, 0);
+
+objc_registerClassPair(newClass);
+
+id newObject = [[newClass alloc]init];
+
+NSLog(@&quot;%s&quot;,class_getName([newObject class]));
+
+NSLog(@&quot;Hello, World!&quot;);
+
+Person *person = [[Person alloc]init];
+
+Person *p2 = person;
+
+[person name];
+
+[person name];
+
+Class cls = [Person class];
+
+// weak
+
+__weak id weakP = person;
+
+NSLog(@&quot;weakP point address: %p&quot;,&amp;weakP);
+
+NSLog(@&quot;person point address: %p&quot;,&amp;person);
+
+NSLog(@&quot;weakP address: %p&quot;,weakP);
+
+NSLog(@&quot;person address: %p&quot;,person);
+
+}
+
+return 0;
+
+}
+
+</code></pre><h3 id="init-weak"><a href="#init-weak" class="headerlink" title="init_weak()"></a>init_weak()</h3><p>其走到了id objc_initWeak(id *location, id newObj){}函数里面:</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1715253-9863a50c8bfc19b7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="init_weak.png"></p>
+<p>其内部调用的是:</p>
+<pre><code>
+template &lt;HaveOld haveOld, HaveNew haveNew,
+
+CrashIfDeallocating crashIfDeallocating&gt;
+
+static id
+
+storeWeak(id *location, objc_object *newObj){}
+
+</code></pre><p>storeWeak有三个模板参数HaveOld,HaveNew,CrashIfDeallocating默认的是</p>
+<pre><code>
+HaveOld:为true,weak对象已存在,需要清理;
+
+HaveNew:为true需要给weak对象分配一个新值;
+
+CrashIfDeallocating:为true,storeWeak过程要终止,因为对象正在释放或者newObj的类不支持弱引用.
+
+</code></pre><h3 id="storeWeak-函数的内部实现"><a href="#storeWeak-函数的内部实现" class="headerlink" title="storeWeak()函数的内部实现:"></a>storeWeak()函数的内部实现:</h3><pre><code>
+template &lt;HaveOld haveOld, HaveNew haveNew,
+
+CrashIfDeallocating crashIfDeallocating&gt;
+
+static id
+
+storeWeak(id *location, objc_object *newObj)
+
+{
+
+assert(haveOld || haveNew);
+
+if (!haveNew) assert(newObj == nil);
+
+Class previouslyInitializedClass = nil;
+
+id oldObj;
+
+SideTable *oldTable;
+
+SideTable *newTable;
+
+// Acquire locks for old and new values.
+
+// Order by lock address to prevent lock ordering problems.
+
+// Retry if the old value changes underneath us.
+
+retry:
+
+if (haveOld) {
+
+oldObj = *location;
+
+oldTable = &amp;SideTables()[oldObj];
+
+} else {
+
+oldTable = nil;
+
+}
+
+if (haveNew) {
+
+newTable = &amp;SideTables()[newObj];
+
+} else {
+
+newTable = nil;
+
+}
+
+SideTable::lockTwo&lt;haveOld, haveNew&gt;(oldTable, newTable);
+
+if (haveOld &amp;&amp; *location != oldObj) {
+
+SideTable::unlockTwo&lt;haveOld, haveNew&gt;(oldTable, newTable);
+
+goto retry;
+
+}
+
+// Prevent a deadlock between the weak reference machinery
+
+// and the +initialize machinery by ensuring that no
+
+// weakly-referenced object has an un-+initialized isa.
+
+if (haveNew &amp;&amp; newObj) {
+
+Class cls = newObj-&gt;getIsa();
+
+if (cls != previouslyInitializedClass &amp;&amp;
+
+!((objc_class *)cls)-&gt;isInitialized())
+
+{
+
+SideTable::unlockTwo&lt;haveOld, haveNew&gt;(oldTable, newTable);
+
+_class_initialize(_class_getNonMetaClass(cls, (id)newObj));
+
+// If this class is finished with +initialize then we&#39;re good.
+
+// If this class is still running +initialize on this thread
+
+// (i.e. +initialize called storeWeak on an instance of itself)
+
+// then we may proceed but it will appear initializing and
+
+// not yet initialized to the check above.
+
+// Instead set previouslyInitializedClass to recognize it on retry.
+
+previouslyInitializedClass = cls;
+
+goto retry;
+
+}
+
+}
+
+// Clean up old value, if any.
+
+if (haveOld) {
+
+weak_unregister_no_lock(&amp;oldTable-&gt;weak_table, oldObj, location);
+
+}
+
+// Assign new value, if any.
+
+if (haveNew) {
+
+newObj = (objc_object *)
+
+weak_register_no_lock(&amp;newTable-&gt;weak_table, (id)newObj, location,
+
+crashIfDeallocating);
+
+// weak_register_no_lock returns nil if weak store should be rejected
+
+// Set is-weakly-referenced bit in refcount table.
+
+if (newObj &amp;&amp; !newObj-&gt;isTaggedPointer()) {
+
+newObj-&gt;setWeaklyReferenced_nolock();
+
+}
+
+// Do not set *location anywhere else. That would introduce a race.
+
+*location = (id)newObj;
+
+}
+
+else {
+
+// No new value. The storage is not changed.
+
+}
+
+SideTable::unlockTwo&lt;haveOld, haveNew&gt;(oldTable, newTable);
+
+return (id)newObj;
+
+}
+
+</code></pre><h4 id="SideTable"><a href="#SideTable" class="headerlink" title="SideTable"></a>SideTable</h4><p>首先声明了两个SideTable实例,SideTable我们之前文章已经介绍过了,其内部主要有三个成员变量(spinlock_t,RefcountMap,weak_table_t)和一些锁相关的成员方法:</p>
+<pre><code>
+// MARK: - sideTable类
+
+struct SideTable {
+
+spinlock_t slock;//保证原子操作的自旋锁
+
+RefcountMap refcnts;//保存引用计数的散列表
+
+weak_table_t weak_table;//保存weak引用的全局散列表
+
+SideTable() {
+
+memset(&amp;weak_table, 0, sizeof(weak_table));
+
+}
+
+~SideTable() {
+
+_objc_fatal(&quot;Do not delete SideTable.&quot;);
+
+}
+
+void lock() { slock.lock(); }
+
+void unlock() { slock.unlock(); }
+
+void forceReset() { slock.forceReset(); }
+
+// Address-ordered lock discipline for a pair of side tables.
+
+template&lt;HaveOld, HaveNew&gt;
+
+static void lockTwo(SideTable *lock1, SideTable *lock2);
+
+template&lt;HaveOld, HaveNew&gt;
+
+static void unlockTwo(SideTable *lock1, SideTable *lock2);
+
+};
+
+</code></pre><h4 id="weak-table-t"><a href="#weak-table-t" class="headerlink" title="weak_table_t"></a>weak_table_t</h4><p>weak_table_t就是一个全局的存取weak引用.其中将对象地址作为key,weak_entry_t结构作为value,存储在weak_table_t中.weak_entry_t中就保存了所有指向该对象的weak指针.</p>
+<pre><code>
+// MARK: - 全局弱引用表, 对象地址作为key,weak_entry_t结构作为value
+
+/**
+
+* The global weak references table. Stores object ids as keys,
+
+* and weak_entry_t structs as their values.
+
+*/
+
+struct weak_table_t {
+
+weak_entry_t *weak_entries;
+
+size_t num_entries;
+
+uintptr_t mask;
+
+uintptr_t max_hash_displacement;
+
+};
+
+</code></pre><p>*weak_entries:用于存储引用对象的结合</p>
+<p>num_entries:entry数目</p>
+<p>mask:当前分配容量</p>
+<p>max_hash_displacement:已使用容量</p>
+<h4 id="weak-entry-t"><a href="#weak-entry-t" class="headerlink" title="weak_entry_t"></a>weak_entry_t</h4><pre><code>
+struct weak_entry_t {
+
+DisguisedPtr&lt;objc_object&gt; referent;
+
+union {
+
+struct {
+
+weak_referrer_t *referrers;
+
+uintptr_t out_of_line_ness : 2;
+
+uintptr_t num_refs : PTR_MINUS_2;
+
+uintptr_t mask;
+
+uintptr_t max_hash_displacement;
+
+};
+
+struct {
+
+// out_of_line_ness field is low bits of inline_referrers[1]
+
+weak_referrer_t inline_referrers[WEAK_INLINE_COUNT];
+
+};
+
+};
+
+bool out_of_line() {
+
+return (out_of_line_ness == REFERRERS_OUT_OF_LINE);
+
+}
+
+weak_entry_t&amp; operator=(const weak_entry_t&amp; other) {
+
+memcpy(this, &amp;other, sizeof(other));
+
+return *this;
+
+}
+
+weak_entry_t(objc_object *newReferent, objc_object **newReferrer)
+
+: referent(newReferent)
+
+{
+
+inline_referrers[0] = newReferrer;
+
+for (int i = 1; i &lt; WEAK_INLINE_COUNT; i++) {
+
+inline_referrers[i] = nil;
+
+}
+
+}
+
+};
+
+</code></pre><p>weak_entry_t是存放weak对象和weak指针的地方,其成员变量referent是引用对象.union结构:</p>
+<p>weak_referrer_t *referrers;//存放weak指针</p>
+<p>uintptr_t out_of_line_ness : 2;//标识当前存储是否在默认WEAK_INLINE_COUNT个数之内</p>
+<p>uintptr_t num_refs : PTR_MINUS_2;//引用的个数</p>
+<p>uintptr_t mask;//实际分配容量</p>
+<p>uintptr_t max_hash_displacement;//实际使用容量</p>
+<p>weak_referrer_t inline_referrers[WEAK_INLINE_COUNT];//当引用个数小于WEAK_INLINE_COUNT时,用这个存储weak指针地址.</p>
+<h4 id="oldTable-amp-newTable逻辑"><a href="#oldTable-amp-newTable逻辑" class="headerlink" title="oldTable&amp;newTable逻辑"></a>oldTable&amp;newTable逻辑</h4><h4 id="haveOld"><a href="#haveOld" class="headerlink" title="haveOld"></a>haveOld</h4><pre><code>
+oldObj = *location;
+
+oldTable = &amp;SideTables()[oldObj];
+
+</code></pre><p>当存在旧的weak对象的时候,要把*location赋值给旧的对象oldObj,然后通过oldObj的hash值,在SideTableBuf中找到对应的SideTable.其中SideTableBuf的实例化过程:</p>
+<pre><code>
+// SideTableBuf静态全局变量
+
+alignas(StripedMap&lt;SideTable&gt;) static uint8_t
+
+SideTableBuf[sizeof(StripedMap&lt;SideTable&gt;)];
+
+// MARK: - runtime初始化时调用(objc_init)
+
+static void SideTableInit() {
+
+new (SideTableBuf) StripedMap&lt;SideTable&gt;();
+
+}
+
+// reinterpret_cast C++里的强制类型转换符
+
+static StripedMap&lt;SideTable&gt;&amp; SideTables() {
+
+return *reinterpret_cast&lt;StripedMap&lt;SideTable&gt;*&gt;(SideTableBuf);
+
+}
+
+</code></pre><h4 id="StripedMap"><a href="#StripedMap" class="headerlink" title="StripedMap"></a>StripedMap</h4><p>我们可以看到StripedMap这个类,StripedMap其实是一个C++模板类,初始化时需要指定一个类型.</p>
+<pre><code>
+template&lt;typename T&gt;
+
+class StripedMap {
+
+#if TARGET_OS_IPHONE &amp;&amp; !TARGET_OS_SIMULATOR
+
+enum { StripeCount = 8 };
+
+#else
+
+enum { StripeCount = 64 };
+
+#endif
+
+struct PaddedT {
+
+T value alignas(CacheLineSize);
+
+};
+
+PaddedT array[StripeCount];
+
+static unsigned int indexForPointer(const void *p) {
+
+uintptr_t addr = reinterpret_cast&lt;uintptr_t&gt;(p);
+
+return ((addr &gt;&gt; 4) ^ (addr &gt;&gt; 9)) % StripeCount;
+
+}
+
+// MARK: - 重写[]操作符,计算hash
+
+public:
+
+T&amp; operator[] (const void *p) {
+
+return array[indexForPointer(p)].value;
+
+}
+
+const T&amp; operator[] (const void *p) const {
+
+return const_cast&lt;StripedMap&lt;T&gt;&gt;(this)[p];
+
+}
+
+}
+
+</code></pre><p>StripedMap是一个泛型类,重写[]运算符,通过传入的对象地址,计算出hash值,然后通过hash值在SideTableBuf中找出对应的SideTable.</p>
+<h4 id="weak-unregister-no-lock"><a href="#weak-unregister-no-lock" class="headerlink" title="weak_unregister_no_lock"></a>weak_unregister_no_lock</h4><p>现在我们根据对象的地址找到了对应的SideTable了,然后就可以操作其成员变量weak_table了.</p>
+<p>如果haveOld=ture,需要先清理一下旧的weak对象.</p>
+<pre><code>
+// 清理旧的obj
+
+// Clean up old value, if any.
+
+if (haveOld) {
+
+weak_unregister_no_lock(&amp;oldTable-&gt;weak_table, oldObj, location);
+
+}
+
+</code></pre><p>具体实现:</p>
+<pre><code>
+void
+
+weak_unregister_no_lock(weak_table_t *weak_table, id referent_id,
+
+id *referrer_id)
+
+{
+
+objc_object *referent = (objc_object *)referent_id;
+
+objc_object **referrer = (objc_object **)referrer_id;
+
+weak_entry_t *entry;
+
+if (!referent) return;
+
+if ((entry = weak_entry_for_referent(weak_table, referent))) {
+
+remove_referrer(entry, referrer);
+
+bool empty = true;
+
+if (entry-&gt;out_of_line() &amp;&amp; entry-&gt;num_refs != 0) {
+
+empty = false;
+
+}
+
+else {
+
+for (size_t i = 0; i &lt; WEAK_INLINE_COUNT; i++) {
+
+if (entry-&gt;inline_referrers[i]) {
+
+empty = false;
+
+break;
+
+}
+
+}
+
+}
+
+if (empty) {
+
+weak_entry_remove(weak_table, entry);
+
+}
+
+}
+
+// Do not set *referrer = nil. objc_storeWeak() requires that the
+
+// value not change.
+
+}
+
+</code></pre><p>这步主要用于在指针即将消失时,而对象还没有置为nil.主要防止空指针指向对象造成坏内存访问错误.</p>
+<p>首先通过weak_entry_for_referent()函数查找到weak_entry_t:</p>
+<pre><code>
+// MARK: - 通过对象地址,在weak_entries中找到对应的weak_entry_t
+
+/**
+
+* Return the weak reference table entry for the given referent.
+
+* If there is no entry for referent, return NULL.
+
+* Performs a lookup.
+
+*
+
+* @param weak_table
+
+* @param referent The object. Must not be nil.
+
+*
+
+* @return The table of weak referrers to this object.
+
+*/
+
+static weak_entry_t *
+
+weak_entry_for_referent(weak_table_t *weak_table, objc_object *referent)
+
+{
+
+assert(referent);
+
+weak_entry_t *weak_entries = weak_table-&gt;weak_entries;
+
+if (!weak_entries) return nil;
+
+// 获取hash值 按位与操作
+
+size_t begin = hash_pointer(referent) &amp; weak_table-&gt;mask;
+
+size_t index = begin;
+
+size_t hash_displacement = 0;
+
+// 遍历weak_table中的weak_entries,比对weak_entries[index].referent对象和referent对象是否相等
+
+while (weak_table-&gt;weak_entries[index].referent != referent) {
+
+index = (index+1) &amp; weak_table-&gt;mask;
+
+if (index == begin) bad_weak_table(weak_table-&gt;weak_entries);
+
+hash_displacement++;
+
+if (hash_displacement &gt; weak_table-&gt;max_hash_displacement) {
+
+return nil;
+
+}
+
+}
+
+// 返回weak指针
+
+return &amp;weak_table-&gt;weak_entries[index];
+
+}
+
+</code></pre><h4 id="remove-referrer"><a href="#remove-referrer" class="headerlink" title="remove_referrer"></a>remove_referrer</h4><pre><code>
+// MARK: - 移除weak指针
+
+/**
+
+* Remove old_referrer from set of referrers, if it&#39;s present.
+
+* Does not remove duplicates, because duplicates should not exist.
+
+*
+
+* @todo this is slow if old_referrer is not present. Is this ever the case?
+
+*
+
+* @param entry The entry holding the referrers.
+
+* @param old_referrer The referrer to remove.
+
+*/
+
+static void remove_referrer(weak_entry_t *entry, objc_object **old_referrer)
+
+{
+
+if (! entry-&gt;out_of_line()) {
+
+for (size_t i = 0; i &lt; WEAK_INLINE_COUNT; i++) {
+
+if (entry-&gt;inline_referrers[i] == old_referrer) {
+
+entry-&gt;inline_referrers[i] = nil;
+
+return;
+
+}
+
+}
+
+_objc_inform(&quot;Attempted to unregister unknown __weak variable &quot;
+
+&quot;at %p. This is probably incorrect use of &quot;
+
+&quot;objc_storeWeak() and objc_loadWeak(). &quot;
+
+&quot;Break on objc_weak_error to debug.\n&quot;,
+
+old_referrer);
+
+objc_weak_error();
+
+return;
+
+}
+
+size_t begin = w_hash_pointer(old_referrer) &amp; (entry-&gt;mask);
+
+size_t index = begin;
+
+size_t hash_displacement = 0;
+
+while (entry-&gt;referrers[index] != old_referrer) {
+
+index = (index+1) &amp; entry-&gt;mask;
+
+if (index == begin) bad_weak_table(entry);
+
+hash_displacement++;
+
+if (hash_displacement &gt; entry-&gt;max_hash_displacement) {
+
+_objc_inform(&quot;Attempted to unregister unknown __weak variable &quot;
+
+&quot;at %p. This is probably incorrect use of &quot;
+
+&quot;objc_storeWeak() and objc_loadWeak(). &quot;
+
+&quot;Break on objc_weak_error to debug.\n&quot;,
+
+old_referrer);
+
+objc_weak_error();
+
+return;
+
+}
+
+}
+
+entry-&gt;referrers[index] = nil;
+
+entry-&gt;num_refs--;
+
+}
+
+</code></pre><p>如果weak指针不存放在out_of_line中,从WEAK_INLINE_COUNT移除;如果存在在out_of_line中,将referrers中weak指针置为nil,并将weak指针数目num_refs减1;</p>
+<p>主要逻辑思路:</p>
+<p>1)根据对象的地址的hash值获取到全局的SideTable</p>
+<p>2)从SideTable的成员变量entries中获取到对象地址对应的entry</p>
+<p>3)将entry的weak置为nil,更新weak指针数量</p>
+<h4 id="haveNew"><a href="#haveNew" class="headerlink" title="haveNew"></a>haveNew</h4><pre><code>
+newTable = &amp;SideTables()[newObj];
+
+</code></pre><p>也是通过hash值在SideTableBuf中找出对应的SideTable.</p>
+<h4 id="weak-register-no-lock"><a href="#weak-register-no-lock" class="headerlink" title="weak_register_no_lock"></a>weak_register_no_lock</h4><pre><code>
+// MARK: - 注册一个新的(对象,weak指针)键值对,创建一个新的entry
+
+/**
+
+* Registers a new (object, weak pointer) pair. Creates a new weak
+
+* object entry if it does not exist.
+
+*
+
+* @param weak_table The global weak table.
+
+* @param referent The object pointed to by the weak reference.
+
+* @param referrer The weak pointer address.
+
+*/
+
+id
+
+weak_register_no_lock(weak_table_t *weak_table, id referent_id,
+
+id *referrer_id, bool crashIfDeallocating)
+
+{
+
+objc_object *referent = (objc_object *)referent_id;
+
+objc_object **referrer = (objc_object **)referrer_id;
+
+if (!referent || referent-&gt;isTaggedPointer()) return referent_id;
+
+// ensure that the referenced object is viable
+
+bool deallocating;
+
+if (!referent-&gt;ISA()-&gt;hasCustomRR()) {
+
+deallocating = referent-&gt;rootIsDeallocating();
+
+}
+
+else {
+
+BOOL (*allowsWeakReference)(objc_object *, SEL) =
+
+(BOOL(*)(objc_object *, SEL))
+
+object_getMethodImplementation((id)referent,
+
+SEL_allowsWeakReference);
+
+if ((IMP)allowsWeakReference == _objc_msgForward) {
+
+return nil;
+
+}
+
+deallocating =
+
+! (*allowsWeakReference)(referent, SEL_allowsWeakReference);
+
+}
+
+if (deallocating) {
+
+if (crashIfDeallocating) {
+
+_objc_fatal(&quot;Cannot form weak reference to instance (%p) of &quot;
+
+&quot;class %s. It is possible that this object was &quot;
+
+&quot;over-released, or is in the process of deallocation.&quot;,
+
+(void*)referent, object_getClassName((id)referent));
+
+} else {
+
+return nil;
+
+}
+
+}
+
+// now remember it and where it is being stored
+
+weak_entry_t *entry;
+
+// 如果entry已经存在,直接将weak指针存储到entry中
+
+if ((entry = weak_entry_for_referent(weak_table, referent))) {
+
+append_referrer(entry, referrer);
+
+}
+
+else {
+
+// 如果entry不存在,先创建一个entry,然后把weak指针存到entry中
+
+weak_entry_t new_entry(referent, referrer);
+
+// weak_table size扩容
+
+weak_grow_maybe(weak_table);
+
+// 将entry插入到weak_table的entries中
+
+weak_entry_insert(weak_table, &amp;new_entry);
+
+}
+
+// Do not set *referrer. objc_storeWeak() requires that the
+
+// value not change.
+
+return referent_id;
+
+}
+
+</code></pre><h4 id="append-referrer"><a href="#append-referrer" class="headerlink" title="append_referrer()"></a>append_referrer()</h4><p>如果entry已经存在,直接将weak指针存储到entry中:</p>
+<pre><code>
+// MARK: - 将weak指针添加到entry的weak指针集合中
+
+/**
+
+* Add the given referrer to set of weak pointers in this entry.
+
+* Does not perform duplicate checking (b/c weak pointers are never
+
+* added to a set twice).
+
+*
+
+* @param entry The entry holding the set of weak pointers.
+
+* @param new_referrer The new weak pointer to be added.
+
+*/
+
+static void append_referrer(weak_entry_t *entry, objc_object **new_referrer)
+
+{
+
+if (! entry-&gt;out_of_line()) {
+
+// Try to insert inline.
+
+for (size_t i = 0; i &lt; WEAK_INLINE_COUNT; i++) {
+
+if (entry-&gt;inline_referrers[i] == nil) {
+
+entry-&gt;inline_referrers[i] = new_referrer;
+
+return;
+
+}
+
+}
+
+// Couldn&#39;t insert inline. Allocate out of line.
+
+weak_referrer_t *new_referrers = (weak_referrer_t *)
+
+calloc(WEAK_INLINE_COUNT, sizeof(weak_referrer_t));
+
+// This constructed table is invalid, but grow_refs_and_insert
+
+// will fix it and rehash it.
+
+for (size_t i = 0; i &lt; WEAK_INLINE_COUNT; i++) {
+
+new_referrers[i] = entry-&gt;inline_referrers[i];
+
+}
+
+entry-&gt;referrers = new_referrers;
+
+entry-&gt;num_refs = WEAK_INLINE_COUNT;
+
+entry-&gt;out_of_line_ness = REFERRERS_OUT_OF_LINE;
+
+entry-&gt;mask = WEAK_INLINE_COUNT-1;
+
+entry-&gt;max_hash_displacement = 0;
+
+}
+
+assert(entry-&gt;out_of_line());
+
+if (entry-&gt;num_refs &gt;= TABLE_SIZE(entry) * 3/4) {
+
+return grow_refs_and_insert(entry, new_referrer);
+
+}
+
+size_t begin = w_hash_pointer(new_referrer) &amp; (entry-&gt;mask);
+
+size_t index = begin;
+
+size_t hash_displacement = 0;
+
+while (entry-&gt;referrers[index] != nil) {
+
+hash_displacement++;
+
+index = (index+1) &amp; entry-&gt;mask;
+
+if (index == begin) bad_weak_table(entry);
+
+}
+
+if (hash_displacement &gt; entry-&gt;max_hash_displacement) {
+
+entry-&gt;max_hash_displacement = hash_displacement;
+
+}
+
+weak_referrer_t &amp;ref = entry-&gt;referrers[index];
+
+ref = new_referrer;
+
+entry-&gt;num_refs++;
+
+}
+
+</code></pre><h4 id="new-entry"><a href="#new-entry" class="headerlink" title="new_entry()"></a>new_entry()</h4><p>如果entry不存在,先创建一个entry,然后把weak指针存到entry中:</p>
+<pre><code>
+// 如果entry不存在,先创建一个entry,然后把weak指针存到entry中
+
+weak_entry_t new_entry(referent, referrer);
+
+// weak_table size扩容
+
+weak_grow_maybe(weak_table);
+
+// 将entry插入到weak_table的entries中
+
+weak_entry_insert(weak_table, &amp;new_entry);
+
+// MARK: - 将entry插入到weak_table_t的entries中
+
+/**
+
+* Add new_entry to the object&#39;s table of weak references.
+
+* Does not check whether the referent is already in the table.
+
+*/
+
+static void weak_entry_insert(weak_table_t *weak_table, weak_entry_t *new_entry)
+
+{
+
+weak_entry_t *weak_entries = weak_table-&gt;weak_entries;
+
+assert(weak_entries != nil);
+
+size_t begin = hash_pointer(new_entry-&gt;referent) &amp; (weak_table-&gt;mask);
+
+size_t index = begin;
+
+size_t hash_displacement = 0;
+
+while (weak_entries[index].referent != nil) {
+
+index = (index+1) &amp; weak_table-&gt;mask;
+
+if (index == begin) bad_weak_table(weak_entries);
+
+hash_displacement++;
+
+}
+
+weak_entries[index] = *new_entry;
+
+weak_table-&gt;num_entries++;
+
+if (hash_displacement &gt; weak_table-&gt;max_hash_displacement) {
+
+weak_table-&gt;max_hash_displacement = hash_displacement;
+
+}
+
+}
+
+</code></pre><p>主要逻辑思路:</p>
+<p>1)根据对象的地址的hash值获取到全局的SideTable</p>
+<p>2)从SideTable的成员变量entries中获取到对象地址对应的entry</p>
+<p>3)将weak指针存储到entry中,更新weak指针数量</p>
+<h3 id="dealloc-weak"><a href="#dealloc-weak" class="headerlink" title="dealloc weak"></a>dealloc weak</h3><p>我们知道对象被销毁了,会走-dealloc()方法,下面我们来看看一个对象的weak指针效果过程:</p>
+<pre><code>
+- (void)dealloc;
+
+// Replaced by NSZombies
+
+- (void)dealloc {
+
+_objc_rootDealloc(self);
+
+}
+
+void
+
+_objc_rootDealloc(id obj)
+
+{
+
+assert(obj);
+
+obj-&gt;rootDealloc();
+
+}
+
+</code></pre><p>可以看到dealloc调用的是NSObject.mm文件中的_objc_rootDealloc()方法,这个方法内部调用的是obj的成员方法rootDealloc():</p>
+<pre><code>
+// MARK: - 销毁对象
+
+inline void
+
+objc_object::rootDealloc()
+
+{
+
+if (isTaggedPointer()) return; // fixme necessary?
+
+// 如果是nonpointer优化的对象并且没有weakly_referenced,没有has_assoc,没有has_cxx_dtor,没有has_sidetable_rc,快速释放对象
+
+if (fastpath(isa.nonpointer &amp;&amp;
+
+!isa.weakly_referenced &amp;&amp;
+
+!isa.has_assoc &amp;&amp;
+
+!isa.has_cxx_dtor &amp;&amp;
+
+!isa.has_sidetable_rc))
+
+{
+
+assert(!sidetable_present());
+
+free(this);
+
+}
+
+else {
+
+// 否则调用此方法
+
+object_dispose((id)this);
+
+}
+
+}
+
+</code></pre><p>如果对象是nonpointer优化的对象并且没有weak指针指向它,没有SideTable存储引用计数等,将快速释放,否则调用object_dispose()销毁对象:</p>
+<pre><code>
+id
+
+object_dispose(id obj)
+
+{
+
+if (!obj) return nil;
+
+objc_destructInstance(obj);
+
+free(obj);
+
+return nil;
+
+}
+
+// MARK: - 销毁实例对象
+
+/***********************************************************************
+
+* objc_destructInstance
+
+* Destroys an instance without freeing memory.
+
+* Calls C++ destructors.
+
+* Calls ARC ivar cleanup.
+
+* Removes associative references.
+
+* Returns `obj`. Does nothing if `obj` is nil.
+
+**********************************************************************/
+
+void *objc_destructInstance(id obj)
+
+{
+
+if (obj) {
+
+// Read all of the flags at once for performance.
+
+bool cxx = obj-&gt;hasCxxDtor();
+
+bool assoc = obj-&gt;hasAssociatedObjects();
+
+// This order is important.
+
+if (cxx) object_cxxDestruct(obj);
+
+if (assoc) _object_remove_assocations(obj);
+
+obj-&gt;clearDeallocating();
+
+}
+
+return obj;
+
+}
+
+</code></pre><p>调用栈中有objc_destructInstance()方法内有处理关联对象的方法,其接下来调用的方法是clearDeallocating()方法:</p>
+<pre><code>
+inline void
+
+objc_object::clearDeallocating()
+
+{
+
+if (slowpath(!isa.nonpointer)) {
+
+// Slow path for raw pointer isa.
+
+sidetable_clearDeallocating();
+
+}
+
+else if (slowpath(isa.weakly_referenced || isa.has_sidetable_rc)) {
+
+// Slow path for non-pointer isa with weak refs and/or side table data.
+
+clearDeallocating_slow();
+
+}
+
+assert(!sidetable_present());
+
+}
+
+</code></pre><p>如果对象本身又weak指针指向它或者在SideTable中存储了引用计数,则通过clearDeallocating_slow()方法处理:</p>
+<pre><code>
+// MARK: - 清除weak指针和SideTable中的引用计数
+
+// Slow path of clearDeallocating()
+
+// for objects with nonpointer isa
+
+// that were ever weakly referenced
+
+// or whose retain count ever overflowed to the side table.
+
+NEVER_INLINE void
+
+objc_object::clearDeallocating_slow()
+
+{
+
+assert(isa.nonpointer &amp;&amp; (isa.weakly_referenced || isa.has_sidetable_rc));
+
+SideTable&amp; table = SideTables()[this];
+
+table.lock();
+
+if (isa.weakly_referenced) {
+
+weak_clear_no_lock(&amp;table.weak_table, (id)this);
+
+}
+
+if (isa.has_sidetable_rc) {
+
+table.refcnts.erase(this);
+
+}
+
+table.unlock();
+
+}
+
+</code></pre><h4 id="weak-clear-no-lock"><a href="#weak-clear-no-lock" class="headerlink" title="weak_clear_no_lock"></a>weak_clear_no_lock</h4><p>清除weak指针,首先在SideTable的成员变量entries中找到 dealloced obj对应的entry,遍历entry中的weak指针数组,将所有weak指针置为nil,然后将这个entry从entries中移除:</p>
+<pre><code>
+/**
+
+* Called by dealloc; nils out all weak pointers that point to the
+
+* provided object so that they can no longer be used.
+
+*
+
+* @param weak_table
+
+* @param referent The object being deallocated.
+
+*/
+
+void
+
+weak_clear_no_lock(weak_table_t *weak_table, id referent_id)
+
+{
+
+objc_object *referent = (objc_object *)referent_id;
+
+weak_entry_t *entry = weak_entry_for_referent(weak_table, referent);
+
+if (entry == nil) {
+
+/// XXX shouldn&#39;t happen, but does with mismatched CF/objc
+
+//printf(&quot;XXX no entry for clear deallocating %p\n&quot;, referent);
+
+return;
+
+}
+
+// zero out references
+
+weak_referrer_t *referrers;
+
+size_t count;
+
+if (entry-&gt;out_of_line()) {
+
+referrers = entry-&gt;referrers;
+
+count = TABLE_SIZE(entry);
+
+}
+
+else {
+
+referrers = entry-&gt;inline_referrers;
+
+count = WEAK_INLINE_COUNT;
+
+}
+
+for (size_t i = 0; i &lt; count; ++i) {
+
+objc_object **referrer = referrers[i];
+
+if (referrer) {
+
+if (*referrer == referent) {
+
+*referrer = nil;
+
+}
+
+else if (*referrer) {
+
+_objc_inform(&quot;__weak variable at %p holds %p instead of %p. &quot;
+
+&quot;This is probably incorrect use of &quot;
+
+&quot;objc_storeWeak() and objc_loadWeak(). &quot;
+
+&quot;Break on objc_weak_error to debug.\n&quot;,
+
+referrer, (void*)*referrer, (void*)referent);
+
+objc_weak_error();
+
+}
+
+}
+
+}
+
+weak_entry_remove(weak_table, entry);
+
+}
+
+</code></pre><h4 id="erase"><a href="#erase" class="headerlink" title="erase()"></a>erase()</h4><p>擦除SideTable中的存储的对象引用计数</p>
+<pre><code>
+table.refcnts.erase(this);
+
+bool erase(const KeyT &amp;Val) {
+
+BucketT *TheBucket;
+
+if (!LookupBucketFor(Val, TheBucket))
+
+return false; // not in map.
+
+TheBucket-&gt;second.~ValueT();
+
+TheBucket-&gt;first = getTombstoneKey();
+
+decrementNumEntries();
+
+incrementNumTombstones();
+
+compact();
+
+return true;
+
+}
+
+</code></pre><p>主要逻辑思路:</p>
+<p>1)根据对象的地址的hash值获取到全局的SideTable</p>
+<p>2)从SideTable的成员变量entries中获取到对象地址对应的entry</p>
+<p>3)遍历entry中weak数组将weak指针置为nil</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>weak引用的实现是多个hash表的嵌套.首先根据对象地址hash value找到全局SideTable;然后在SideTable中找到对应的entry对其进行操作.通过查看源码实现过程,思路还是比较清晰.</p>
+<h3 id="编译后源码库"><a href="#编译后源码库" class="headerlink" title="编译后源码库"></a>编译后源码库</h3><p><strong>编译后的源码放在<a href="https://github.com/waitwalker/Runtime" target="_blank" rel="noopener">Github</a>, 如果对你有帮助,请给一个star吧!</strong></p>
+<h3 id="博客地址-amp-相关文章"><a href="#博客地址-amp-相关文章" class="headerlink" title="博客地址&amp;相关文章"></a>博客地址&amp;相关文章</h3><p><strong>博客地址:</strong> <a href="https://waitwalker.cn/" target="_blank" rel="noopener">https://waitwalker.cn/</a></p>
+<p>系列文章:</p>
+<p><a href="https://waitwalker.github.io/2019/04/08/Runtime%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91/">1. Runtime源码编译</a></p>
+<p><a href="https://waitwalker.github.io/2019/04/10/objc-object%E8%A7%A3%E8%AF%BB/">2. objc_object解读</a></p>
+<p><a href="https://waitwalker.github.io/2019/04/12/Method%E8%A7%A3%E8%AF%BB/">3. Method解读</a></p>
+<p><a href="https://waitwalker.github.io/2019/04/15/Class%E8%A7%A3%E8%AF%BB/">4. Class解读</a></p>
+<p><a href="https://waitwalker.github.io/2019/04/15/Ivar-objc-property-t-Protocol%E8%A7%A3%E8%AF%BB/">5. Ivar objc_property_t Protocol解读</a></p>
+<p><a href="https://waitwalker.github.io/2019/04/18/Block解读/">6. Block解读</a></p>
+<p><a href="http://waitwalker.cn/2019/04/22/Retain-Release解读/" target="_blank" rel="noopener">7. Retain&amp;Release解读</a></p>
+<p><a href="http://waitwalker.cn/2019/04/23/Autorelease解读/" target="_blank" rel="noopener">8. Autorelease解读</a></p>
+
+            </div>
+            <hr>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://waitwalker.github.io" class="b-link-green">waitwalker</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2019/04/24/Weak解读/" class="b-link-green">Weak解读</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2019/04/24/Weak解读/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Weak解读">
+                        
+                        <span class="card-title">Weak解读</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">在常规开发中我们经常使用__weak修饰符来修饰一个对象,来解决比如循环引用问题.今天具体来看看weak底层实现原理.
+首先创建一个weak修饰的对象,并查看其调用栈:
+
+int main(int argc, const char * ar</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-24
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Runtime源码解读/" class="post-category" target="_blank">
+                                    Runtime源码解读
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/iOS/" target="_blank">
+                        <span class="chip bg-color">iOS</span>
+                    </a>
+                    
+                    <a href="/tags/Runtime/" target="_blank">
+                        <span class="chip bg-color">Runtime</span>
+                    </a>
+                    
+                    <a href="/tags/source-code/" target="_blank">
+                        <span class="chip bg-color">source code</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/04/23/Autorelease解读/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="Autorelease解读">
+                        
+                        <span class="card-title">Autorelease解读</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Autorelease翻译过来就是自动释放,什么是自动释放,怎么自动释放,什么时候自动释放.这些是本文的研究重点.自动释放首先要从autorel</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-23
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Runtime源码解读/" class="post-category" target="_blank">
+                                    Runtime源码解读
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Runtime/" target="_blank">
+                        <span class="chip bg-color">Runtime</span>
+                    </a>
+                    
+                    <a href="/tags/底层/" target="_blank">
+                        <span class="chip bg-color">底层</span>
+                    </a>
+                    
+                    <a href="/tags/源码/" target="_blank">
+                        <span class="chip bg-color">源码</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站在原作者&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题基础上搭建.
+
+            
+
+            
+			
+                <br>
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis"><!---->
+<a href="https://github.com/waitwalker" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+
+<a href="https://twitter.com/284485487" class="tooltipped" target="_blank" data-tooltip="Twitter联系我" data-position="top" data-delay="50">
+    <i class="fa fa-twitter"></i>
+</a>
+
+<a href="https://www.facebook.com/profile.php?id=100003684945279" class="tooltipped" target="_blank" data-tooltip="Twitter联系我" data-position="top" data-delay="50">
+    <i class="fa fa-facebook"></i>
+</a>
+
+<a href="https://t.me/joinchat/Ej0o0A1ntlq5ZFIMzzO5Pw" class="tooltipped" target="_blank" data-tooltip="Twitter联系我" data-position="top" data-delay="50">
+    <i class="fa fa-telegram"></i>
+</a>
+
+<a href="https://www.weibo.com/1789419613/profile?topnav=1&wvr=6&is_all=1" class="tooltipped" target="_blank" data-tooltip="Twitter联系我" data-position="top" data-delay="50">
+    <i class="fa fa-weibo"></i>
+</a>
+
+
+<!--原来-->
+<!---->
+    <!--<a href="mailto:xxx@xx.xx" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">-->
+        <!--<i class="fa fa-envelope-open"></i>-->
+    <!--</a>-->
+<!---->
+
+<!---->
+    <!--<a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=123123123" class="tooltipped" data-tooltip="QQ联系我: 123123123" data-position="top" data-delay="50">-->
+        <!--<i class="fa fa-qq"></i>-->
+    <!--</a>-->
+<!---->
+
+<!---->
+    <!--<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">-->
+        <!--<i class="fa fa-rss"></i>-->
+    <!--</a>-->
+<!----></div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

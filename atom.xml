@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://waitwalker.github.io/"/>
-  <updated>2019-04-23T10:40:33.330Z</updated>
+  <updated>2019-04-24T10:50:47.292Z</updated>
   <id>https://waitwalker.github.io/</id>
   
   <author>
@@ -15,6 +15,39 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Weak解读</title>
+    <link href="https://waitwalker.github.io/2019/04/24/Weak%E8%A7%A3%E8%AF%BB/"/>
+    <id>https://waitwalker.github.io/2019/04/24/Weak解读/</id>
+    <published>2019-04-24T10:46:21.000Z</published>
+    <updated>2019-04-24T10:50:47.292Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;在常规开发中我们经常使用__weak修饰符来修饰一个对象,来解决比如循环引用问题.今天具体来看看weak底层实现原理.&lt;/p&gt;
+&lt;p&gt;首先创建一个weak修饰的对象,并查看其调用栈:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;
+int main(int argc, const
+        
+      
+    
+    </summary>
+    
+      <category term="Runtime源码解读" scheme="https://waitwalker.github.io/categories/Runtime%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/"/>
+    
+    
+      <category term="iOS" scheme="https://waitwalker.github.io/tags/iOS/"/>
+    
+      <category term="Runtime" scheme="https://waitwalker.github.io/tags/Runtime/"/>
+    
+      <category term="source code" scheme="https://waitwalker.github.io/tags/source-code/"/>
+    
+  </entry>
   
   <entry>
     <title>Autorelease解读</title>
@@ -587,37 +620,6 @@
       <category term="Runtime" scheme="https://waitwalker.github.io/tags/Runtime/"/>
     
       <category term="source code" scheme="https://waitwalker.github.io/tags/source-code/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>iOS中Objective-C和Swift混编及第三方框架相互调用</title>
-    <link href="https://waitwalker.github.io/2019/04/07/iOS%E4%B8%ADObjective-C%E5%92%8CSwift%E6%B7%B7%E7%BC%96%E5%8F%8A%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A1%86%E6%9E%B6%E7%9B%B8%E4%BA%92%E8%B0%83%E7%94%A8/"/>
-    <id>https://waitwalker.github.io/2019/04/07/iOS中Objective-C和Swift混编及第三方框架相互调用/</id>
-    <published>2019-04-07T09:47:38.000Z</published>
-    <updated>2019-04-07T09:48:31.226Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;本文将详细介绍一下OC和swift混编问题,其中涉及两大部分:1)oc项目中混编swift的实现; 2)oc或者swift第三库的导入及使用.&lt;/p&gt;
-&lt;p&gt;#1
-        
-      
-    
-    </summary>
-    
-      <category term="iOS开发" scheme="https://waitwalker.github.io/categories/iOS%E5%BC%80%E5%8F%91/"/>
-    
-    
-      <category term="iOS" scheme="https://waitwalker.github.io/tags/iOS/"/>
-    
-      <category term="Swift" scheme="https://waitwalker.github.io/tags/Swift/"/>
-    
-      <category term="第三方框架" scheme="https://waitwalker.github.io/tags/%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A1%86%E6%9E%B6/"/>
     
   </entry>
   
