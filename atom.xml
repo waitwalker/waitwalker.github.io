@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://waitwalker.github.io/"/>
-  <updated>2019-04-24T10:52:50.877Z</updated>
+  <updated>2019-04-25T13:13:26.539Z</updated>
   <id>https://waitwalker.github.io/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>msgSend()解读</title>
+    <link href="https://waitwalker.github.io/2019/04/25/msgSend-%E8%A7%A3%E8%AF%BB/"/>
+    <id>https://waitwalker.github.io/2019/04/25/msgSend-解读/</id>
+    <published>2019-04-25T13:12:48.000Z</published>
+    <updated>2019-04-25T13:13:26.539Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;runtime最重要的两个核心问题:类的组装和消息.之前文章已经对Method,SEL,IMP,Class等有了初步的介绍,IMP就是一个SEL对应方法的实现函数指针.找到这个指
+        
+      
+    
+    </summary>
+    
+      <category term="Runtime源码解读" scheme="https://waitwalker.github.io/categories/Runtime%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/"/>
+    
+    
+      <category term="Runtime" scheme="https://waitwalker.github.io/tags/Runtime/"/>
+    
+      <category term="底层" scheme="https://waitwalker.github.io/tags/%E5%BA%95%E5%B1%82/"/>
+    
+      <category term="源码" scheme="https://waitwalker.github.io/tags/%E6%BA%90%E7%A0%81/"/>
+    
+  </entry>
   
   <entry>
     <title>Weak解读</title>
@@ -525,11 +555,11 @@ int main(int argc, const
       <category term="Swift开发" scheme="https://waitwalker.github.io/categories/Swift%E5%BC%80%E5%8F%91/"/>
     
     
-      <category term="Swift 开发" scheme="https://waitwalker.github.io/tags/Swift-%E5%BC%80%E5%8F%91/"/>
+      <category term="Swift" scheme="https://waitwalker.github.io/tags/Swift/"/>
     
       <category term="Extension" scheme="https://waitwalker.github.io/tags/Extension/"/>
     
-      <category term="Swift" scheme="https://waitwalker.github.io/tags/Swift/"/>
+      <category term="Swift 开发" scheme="https://waitwalker.github.io/tags/Swift-%E5%BC%80%E5%8F%91/"/>
     
   </entry>
   
@@ -555,9 +585,9 @@ int main(int argc, const
       <category term="Swift开发" scheme="https://waitwalker.github.io/categories/Swift%E5%BC%80%E5%8F%91/"/>
     
     
-      <category term="Swift 开发" scheme="https://waitwalker.github.io/tags/Swift-%E5%BC%80%E5%8F%91/"/>
-    
       <category term="Extension" scheme="https://waitwalker.github.io/tags/Extension/"/>
+    
+      <category term="Swift 开发" scheme="https://waitwalker.github.io/tags/Swift-%E5%BC%80%E5%8F%91/"/>
     
   </entry>
   
@@ -590,36 +620,6 @@ int main(int argc, const
       <category term="算法" scheme="https://waitwalker.github.io/tags/%E7%AE%97%E6%B3%95/"/>
     
       <category term="链表" scheme="https://waitwalker.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Runtime源码编译</title>
-    <link href="https://waitwalker.github.io/2019/04/08/Runtime%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91/"/>
-    <id>https://waitwalker.github.io/2019/04/08/Runtime源码编译/</id>
-    <published>2019-04-08T10:41:06.000Z</published>
-    <updated>2019-04-24T10:53:22.189Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Objective-C是基于c语言的封装,使C语言具有了面向对象的能力.OC的本质最终还是转换c语言来执行,而这个转换的过程是通过Runtime这个运行时库来完成的.平常我们只需
-        
-      
-    
-    </summary>
-    
-      <category term="Runtime源码解读" scheme="https://waitwalker.github.io/categories/Runtime%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/"/>
-    
-    
-      <category term="iOS" scheme="https://waitwalker.github.io/tags/iOS/"/>
-    
-      <category term="Runtime" scheme="https://waitwalker.github.io/tags/Runtime/"/>
-    
-      <category term="source code" scheme="https://waitwalker.github.io/tags/source-code/"/>
     
   </entry>
   
