@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>Swift 5 新增特性 </title>
+      <link href="/2019/04/26/Swift-5-%E6%96%B0%E5%A2%9E%E7%89%B9%E6%80%A7/"/>
+      <url>/2019/04/26/Swift-5-%E6%96%B0%E5%A2%9E%E7%89%B9%E6%80%A7/</url>
+      
+        <content type="html"><![CDATA[<h3 id="ABI稳定"><a href="#ABI稳定" class="headerlink" title="ABI稳定"></a>ABI稳定</h3><p>Swift 社区最近最重大的新闻应该就是 ABI 稳定了.ABI稳定就是binary接口稳定,也就是运行的时候只要是Swift5或者以上的编译器编译出来的binary,就可以跑在任意的Swift 5或以上的runtime上.这样我们就不需要像以往那样在app里面放一个Swift runtime了,Apple会把它集成到iOS和macOS系统里面,这就可以缩减你app的体积,使得你的app在运行时不需要加载自己Swift runtime了,使用系统同一个Swift,所以运行原则上更快,更省运行内存.</p><h3 id="dynamicCallable"><a href="#dynamicCallable" class="headerlink" title="@dynamicCallable"></a>@dynamicCallable</h3><p>@dynamicCallable属性允许你调用命名的类型,使你调用函数更加简单.<br>如果需要新增@dynamicCallable属性,必须实现以下两个方法中的一个或者两个:</p><pre><code>@dynamicCallable struct Person {    func dynamicallyCall(withArguments args:[Int]) -&gt; [Int]{        return args.map{$0 * 2}    }    func dynamicallyCall(withKeywordArguments args: KeyValuePairs&lt;String,String&gt;) -&gt; [Int] {        return [1,2,3]    }}let person = Person()let new = person(1,2,3)print(new)</code></pre><h3 id="Swift标准库"><a href="#Swift标准库" class="headerlink" title="Swift标准库"></a>Swift标准库</h3><p>DictionaryLiteral类型在系统库中被命名为KeyValuePairs<br>Sequence 协议不再具有 SubSequence 关联类型.之前返回 SubSequence 的 Sequence 方法现在返回的是具体的类型.例如,suffix(_:) 现在返回 Array.</p><h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><p>String之前需要转义\和”等,现在可以通过##,把你要写的字符串全部放这里就可以了,如果某个字符串需要转义通过”#()”操作.</p><pre><code>let str = #&quot; &quot;zhang&quot; san &quot;#print(str)let newStr = #&quot; \#(str) 是谁 \ &quot;#print(newStr)log: &quot;zhang&quot; san  &quot;zhang&quot; san  是谁 \</code></pre><p>多行字符:</p><pre><code>let multiLineStr = #&quot;&quot;&quot;                            今天                            明天                            昨天 \#(newStr)                            &quot;&quot;&quot;#        print(multiLineStr)</code></pre><h3 id="isMultiple"><a href="#isMultiple" class="headerlink" title="isMultiple"></a>isMultiple</h3><p>检查一个整数是否是另一个整数的倍数</p><pre><code>let originalNum = 18        if originalNum.isMultiple(of: 2) {            print(#&quot;\#(originalNum)是2的倍数&quot;#)        }</code></pre><h3 id="Swift-包管理器"><a href="#Swift-包管理器" class="headerlink" title="Swift 包管理器"></a>Swift 包管理器</h3><p>现在,在使用 Swift 5 Package.swift 工具版本时,可以声明一些常用的特定于目标的构建设置.新的设置也可以基于平台和构建配置进行条件化。构建设置支持 Swift 和 C 语言定义、C 语言头文件搜索路径、链接库和链接框架.</p><p>现在,在使用 Swift 5 Package.swift 工具版本时,可以为 Apple 平台自定义最低部署目标.如果程序包的任何依赖项指定的最小部署目标大于程序包自身的最低部署目标，就会抛出错误.<br>新的依赖项镜像功能允许顶层包覆盖依赖项 URL.</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Swift开发 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Swift 开发 </tag>
+            
+            <tag> Swift5 </tag>
+            
+            <tag> 新特性 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>msgSend()解读</title>
       <link href="/2019/04/25/msgSend-%E8%A7%A3%E8%AF%BB/"/>
       <url>/2019/04/25/msgSend-%E8%A7%A3%E8%AF%BB/</url>

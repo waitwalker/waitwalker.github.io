@@ -4,8 +4,8 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="msgSend()解读, Swift, iOS, Python">
-    <meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;runtime最重要的两个核心问题:类的组装和消息.之前文章已经对Method,SEL,IMP,Class等有了初步的介绍,IMP就是一个SEL">
+    <meta name="keywords" content="Swift 5 新增特性 , Swift, iOS, Python">
+    <meta name="description" content="ABI稳定Swift 社区最近最重大的新闻应该就是 ABI 稳定了.ABI稳定就是binary接口稳定,也就是运行的时候只要是Swift5或者以上的编译器编译出来的binary,就可以跑在任意的Swift 5或以上的runtime上.这样我">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>msgSend()解读 | waitwalker</title>
+    <title>Swift 5 新增特性  | waitwalker</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -259,13 +259,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        msgSend()解读
+                        Swift 5 新增特性 
                     </div>
                 </div>
             </div>
@@ -376,16 +376,16 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Runtime/" target="_blank">
-                                <span class="chip bg-color">Runtime</span>
+                            <a href="/tags/Swift-开发/" target="_blank">
+                                <span class="chip bg-color">Swift 开发</span>
                             </a>
                         
-                            <a href="/tags/底层/" target="_blank">
-                                <span class="chip bg-color">底层</span>
+                            <a href="/tags/Swift5/" target="_blank">
+                                <span class="chip bg-color">Swift5</span>
                             </a>
                         
-                            <a href="/tags/源码/" target="_blank">
-                                <span class="chip bg-color">源码</span>
+                            <a href="/tags/新特性/" target="_blank">
+                                <span class="chip bg-color">新特性</span>
                             </a>
                         
                     </div>
@@ -396,8 +396,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Runtime源码解读/" class="post-category" target="_blank">
-                                Runtime源码解读
+                            <a href="/categories/Swift开发/" class="post-category" target="_blank">
+                                Swift开发
                             </a>
                         
                     </div>
@@ -408,7 +408,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-04-25
+                    2019-04-26
                 </div>
 
                 
@@ -424,659 +424,49 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;runtime最重要的两个核心问题:类的组装和消息.之前文章已经对Method,SEL,IMP,Class等有了初步的介绍,IMP就是一个SEL对应方法的实现函数指针.找到这个指针,就可以调用此函数.</p>
-<h2 id="消息发送"><a href="#消息发送" class="headerlink" title="消息发送"></a>消息发送</h2><h3 id="objc-msgSend"><a href="#objc-msgSend" class="headerlink" title="objc_msgSend()"></a>objc_msgSend()</h3><p>首先,我们在Student类中添加了一个- (void)name;方法,然后,通过stu实例调用这个方法:</p>
-<pre><code>
-Student *stu = [[Student alloc]init];
+                <h3 id="ABI稳定"><a href="#ABI稳定" class="headerlink" title="ABI稳定"></a>ABI稳定</h3><p>Swift 社区最近最重大的新闻应该就是 ABI 稳定了.ABI稳定就是binary接口稳定,也就是运行的时候只要是Swift5或者以上的编译器编译出来的binary,就可以跑在任意的Swift 5或以上的runtime上.这样我们就不需要像以往那样在app里面放一个Swift runtime了,Apple会把它集成到iOS和macOS系统里面,这就可以缩减你app的体积,使得你的app在运行时不需要加载自己Swift runtime了,使用系统同一个Swift,所以运行原则上更快,更省运行内存.</p>
+<h3 id="dynamicCallable"><a href="#dynamicCallable" class="headerlink" title="@dynamicCallable"></a>@dynamicCallable</h3><p>@dynamicCallable属性允许你调用命名的类型,使你调用函数更加简单.<br>如果需要新增@dynamicCallable属性,必须实现以下两个方法中的一个或者两个:</p>
+<pre><code>@dynamicCallable struct Person {
+    func dynamicallyCall(withArguments args:[Int]) -&gt; [Int]{
+        return args.map{$0 * 2}
+    }
 
-[stu name];
-
-</code></pre><p>利用clang编译器重写这个文件,这段代码最终被转换成:</p>
-<pre><code>
-Student *stu = ((Student *(*)(id, SEL))(void *)objc_msgSend)((id)((Student *(*)(id, SEL))(void *)objc_msgSend)((id)objc_getClass(&quot;Student&quot;), sel_registerName(&quot;alloc&quot;)), sel_registerName(&quot;init&quot;));
-
-((void (*)(id, SEL))(void *)objc_msgSend)((id)stu, sel_registerName(&quot;name&quot;));
-
-</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;objc_msgSend()之前文章并没有提到过,这里这个方法传了两个参数:(id)stu,sel_registerName(“name”);stu是我们的实例的Student对象,sel_registerName(“name”)是根据name这个名字查找对应的SEL.但是并没有Runtime源码库中找到找到objc_msgSend()的实现过程.我们只能想别的办法了.在objc_init()入口函数中,可以看到有个加载+load方法的过程:</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/1715253-475a5a4987aebe79.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="msg_send.png"></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;虽然我们看不到源码,其objc_msgSend()调用栈中最后走到了lookUpImpOrForward()查找IMP的方法中,因此大可以猜想苹果objc_msgSend()其实就是根据实例对象以及sel查找imp的过程.</p>
-<h3 id="lookUpImpOrForward"><a href="#lookUpImpOrForward" class="headerlink" title="lookUpImpOrForward()"></a>lookUpImpOrForward()</h3><pre><code>
-// MARK: - 获取imp
-
-/***********************************************************************
-
-* lookUpImpOrForward.
-
-* The standard IMP lookup.
-
-* initialize==NO tries to avoid +initialize (but sometimes fails)
-
-* cache==NO skips optimistic unlocked lookup (but uses cache elsewhere)
-
-* Most callers should use initialize==YES and cache==YES.
-
-* inst is an instance of cls or a subclass thereof, or nil if none is known.
-
-* If cls is an un-initialized metaclass then a non-nil inst is faster.
-
-* May return _objc_msgForward_impcache. IMPs destined for external use
-
-* must be converted to _objc_msgForward or _objc_msgForward_stret.
-
-* If you don&#39;t want forwarding at all, use lookUpImpOrNil() instead.
-
-**********************************************************************/
-
-IMP lookUpImpOrForward(Class cls, SEL sel, id inst,
-
-bool initialize, bool cache, bool resolver)
-
-{
-
-IMP imp = nil;
-
-bool triedResolver = NO;
-
-runtimeLock.assertUnlocked();
-
-// 首先从缓存中查找,如果找到了imp,直接返回
-
-// Optimistic cache lookup
-
-if (cache) {
-
-imp = cache_getImp(cls, sel);
-
-if (imp) return imp;
+    func dynamicallyCall(withKeywordArguments args: KeyValuePairs&lt;String,String&gt;) -&gt; [Int] {
+        return [1,2,3]
+    }
 
 }
 
-// runtimeLock is held during isRealized and isInitialized checking
-
-// to prevent races against concurrent realization.
-
-// runtimeLock is held during method search to make
-
-// method-lookup + cache-fill atomic with respect to method addition.
-
-// Otherwise, a category could be added but ignored indefinitely because
-
-// the cache was re-filled with the old value after the cache flush on
-
-// behalf of the category.
-
-runtimeLock.lock();
-
-checkIsKnownClass(cls);
-
-// 如果当前类不存在,先实现cls
-
-if (!cls-&gt;isRealized()) {
-
-realizeClass(cls);
-
-}
-
-if (initialize &amp;&amp; !cls-&gt;isInitialized()) {
-
-runtimeLock.unlock();
-
-_class_initialize (_class_getNonMetaClass(cls, inst));
-
-runtimeLock.lock();
-
-// If sel == initialize, _class_initialize will send +initialize and
-
-// then the messenger will send +initialize again after this
-
-// procedure finishes. Of course, if this is not being called
-
-// from the messenger then it won&#39;t happen. 2778172
-
-}
-
-retry:
-
-runtimeLock.assertLocked();
-
-// 从缓存中尝试查找IMP
-
-// Try this class&#39;s cache.
-
-imp = cache_getImp(cls, sel);
-
-if (imp) goto done;
-
-// 从本类的方法列表中尝试查找IMP
-
-// Try this class&#39;s method lists.
-
-{
-
-Method meth = getMethodNoSuper_nolock(cls, sel);
-
-if (meth) {
-
-log_and_fill_cache(cls, meth-&gt;imp, sel, inst, cls);
-
-imp = meth-&gt;imp;
-
-goto done;
-
-}
-
-}
-
-// 从父类的方法列表中尝试查找IMP
-
-// Try superclass caches and method lists.
-
-{
-
-unsigned attempts = unreasonableClassCount();
-
-for (Class curClass = cls-&gt;superclass;
-
-curClass != nil;
-
-curClass = curClass-&gt;superclass)
-
-{
-
-// Halt if there is a cycle in the superclass chain.
-
-if (--attempts == 0) {
-
-_objc_fatal(&quot;Memory corruption in class list.&quot;);
-
-}
-
-// Superclass cache.
-
-imp = cache_getImp(curClass, sel);
-
-if (imp) {
-
-if (imp != (IMP)_objc_msgForward_impcache) {
-
-// Found the method in a superclass. Cache it in this class.
-
-log_and_fill_cache(cls, imp, sel, inst, curClass);
-
-goto done;
-
-}
-
-else {
-
-// Found a forward:: entry in a superclass.
-
-// Stop searching, but don&#39;t cache yet; call method
-
-// resolver for this class first.
-
-break;
-
-}
-
-}
-
-// Superclass method list.
-
-Method meth = getMethodNoSuper_nolock(curClass, sel);
-
-if (meth) {
-
-log_and_fill_cache(cls, meth-&gt;imp, sel, inst, curClass);
-
-imp = meth-&gt;imp;
-
-goto done;
-
-}
-
-}
-
-}
-
-// 如果以上过程都没有找到,尝试一次动态方法解析
-
-// No implementation found. Try method resolver once.
-
-if (resolver &amp;&amp; !triedResolver) {
-
-runtimeLock.unlock();
-
-_class_resolveMethod(cls, sel, inst);
-
-runtimeLock.lock();
-
-// Don&#39;t cache the result; we don&#39;t hold the lock so it may have
-
-// changed already. Re-do the search from scratch instead.
-
-triedResolver = YES;
-
-goto retry;
-
-}
-
-// 如果方法解析也没有IMP,启动消息转发
-
-// No implementation found, and method resolver didn&#39;t help.
-
-// Use forwarding.
-
-imp = (IMP)_objc_msgForward_impcache;
-
-cache_fill(cls, sel, imp, inst);
-
-done:
-
-runtimeLock.unlock();
-
-return imp;
-
-}
-
-</code></pre><p>查找IMP的过程源码逻辑清晰:</p>
-<p>1)如果存在缓存&amp;&amp;缓存中有imp,直接返回imp;</p>
-<pre><code>
-// 首先从缓存中查找,如果找到了imp,直接返回
-
-// Optimistic cache lookup
-
-if (cache) {
-
-imp = cache_getImp(cls, sel);
-
-if (imp) return imp;
-
-}
-
-</code></pre><p>2)缓存中没有找到imp,尝试从本类方法列表中获取imp,其先把imp缓存起来,然后返回imp:</p>
-<pre><code>
-// 从本类的方法列表中尝试查找IMP
-
-// Try this class&#39;s method lists.
-
-{
-
-Method meth = getMethodNoSuper_nolock(cls, sel);
-
-if (meth) {
-
-// 缓存imp
-
-log_and_fill_cache(cls, meth-&gt;imp, sel, inst, cls);
-
-imp = meth-&gt;imp;
-
-goto done;
-
-}
-
-}
-
-</code></pre><p>3)如果本类中没有找到imp,则</p>
-<p>3.1)从父类继承链方法缓存中查找imp,找到直接返回imp;</p>
-<p>3.2)如果从分类继承链中没有找到imp,则从父类继承链的方法列表中查找imp,找到后先缓存imp然后返回imp;</p>
-<pre><code>
-// 从父类的方法列表中尝试查找IMP
-
-// Try superclass caches and method lists.
-
-{
-
-unsigned attempts = unreasonableClassCount();
-
-// 沿着继承链查找
-
-for (Class curClass = cls-&gt;superclass;
-
-curClass != nil;
-
-curClass = curClass-&gt;superclass)
-
-{
-
-// Halt if there is a cycle in the superclass chain.
-
-if (--attempts == 0) {
-
-_objc_fatal(&quot;Memory corruption in class list.&quot;);
-
-}
-
-// 从父类缓存中查找imp
-
-// Superclass cache.
-
-imp = cache_getImp(curClass, sel);
-
-if (imp) {
-
-if (imp != (IMP)_objc_msgForward_impcache) {
-
-// Found the method in a superclass. Cache it in this class.
-
-log_and_fill_cache(cls, imp, sel, inst, curClass);
-
-goto done;
-
-}
-
-else {
-
-// Found a forward:: entry in a superclass.
-
-// Stop searching, but don&#39;t cache yet; call method
-
-// resolver for this class first.
-
-break;
-
-}
-
-}
-
-// 从父类方法列表中查找imp
-
-// Superclass method list.
-
-Method meth = getMethodNoSuper_nolock(curClass, sel);
-
-if (meth) {
-
-log_and_fill_cache(cls, meth-&gt;imp, sel, inst, curClass);
-
-imp = meth-&gt;imp;
-
-goto done;
-
-}
-
-}
-
-}
-
-</code></pre><p>4)如果以上尝试都没有找到imp,则尝试一次_class_resolveMethod(动态方法解析),把以上3步再走一遍:</p>
-<pre><code>
-// 如果以上过程都没有找到,尝试一次动态方法解析
-
-// No implementation found. Try method resolver once.
-
-if (resolver &amp;&amp; !triedResolver) {
-
-runtimeLock.unlock();
-
-// 动态方法解析
-
-_class_resolveMethod(cls, sel, inst);
-
-runtimeLock.lock();
-
-// Don&#39;t cache the result; we don&#39;t hold the lock so it may have
-
-// changed already. Re-do the search from scratch instead.
-
-triedResolver = YES;
-
-goto retry;
-
-}
-
-</code></pre><p>5)如果动态方法解析也没有返回imp,则直接启动消息转发并会缓存转发的imp:</p>
-<pre><code>
-// 如果方法解析也没有IMP,启动消息转发
-
-// No implementation found, and method resolver didn&#39;t help.
-
-// Use forwarding.
-
-imp = (IMP)_objc_msgForward_impcache;
-
-// 缓存imp
-
-cache_fill(cls, sel, imp, inst);
-
-</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;查找imp的过程相对简单,苹果为了提高性能添加了缓存功能.如果没有找到相应的函数实现指针,则会通过动态方法解析和消息转发来给objc_msgSend()提供一些”补救措施”.</p>
-<h2 id="消息转发"><a href="#消息转发" class="headerlink" title="消息转发"></a>消息转发</h2><p>在Person类中声明了一个- age()方法,并没有实现,运行一下程序:</p>
-<pre><code>
-Person *person = [[Person alloc]init];
-
-[person age];
-
-</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- age方法我们没有添加实现,其调用栈,走到了IMP lookUpImpOrForward()查找imp的动态方法解析中,也就是我们上面提到的第5步:</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/1715253-2a5446f48be014cd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="resolveMethod"></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以得出初步结论,如果我们没有给提个声明的方法添加实现,动态方法解析会被调用.最终程序走到了static void _objc_terminate(void){}函数里面,抛出一个常见的错误:</p>
-<pre><code>
-2019-04-25 11:49:55.039691+0800 RuntimeDylibTest[6426:102439] *** Terminating app due to uncaught exception &#39;NSInvalidArgumentException&#39;, reason: &#39;-[Person age]: unrecognized selector sent to instance 0x100e8e5b0&#39;
-
-*** First throw call stack:
-
-(
-
-0 CoreFoundation 0x00007fff44dbc43d __exceptionPreprocess + 256
-
-1 libobjc.A.dylib 0x000000010036c64f objc_exception_throw + 47
-
-2 CoreFoundation 0x00007fff44e39255 -[NSObject(NSObject) __retain_OA] + 0
-
-3 CoreFoundation 0x00007fff44d5bad0 ___forwarding___ + 1486
-
-4 CoreFoundation 0x00007fff44d5b478 _CF_forwarding_prep_0 + 120
-
-5 RuntimeDylibTest 0x0000000100000c9d main + 301
-
-6 libdyld.dylib 0x00007fff71d9c085 start + 1
-
-7 ??? 0x0000000000000001 0x0 + 1
-
-)
-
-libc++abi.dylib: terminating with uncaught exception of type NSException
-
-</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这个错误意思是我们向一个对象(person)发送了一个不能识别的消息.通常这种错误,苹果给我提供了三种补救措施.这就是接下来要讲的内容–消息转发.之前我们讲过一个sel对应一个imp,而这个imp就是函数实现指针,正常的消息发送就是找到了sel对应的imp,而消息转发就是是正常消息调用过程遇到问题了没有找到与之对应的imp而启动转发流程的过程,尝试将调用的sel转发到我们指定的imp的过程.</p>
-<h3 id="动态方法解析resolveMethod"><a href="#动态方法解析resolveMethod" class="headerlink" title="动态方法解析resolveMethod"></a>动态方法解析resolveMethod</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在运行时系统中正常消息发送如果没有找到imp,会默认走一次动态方法解析.在NSObject.h文件中,关于动态方法解析的接口有两个方法:</p>
-<pre><code>
-// MARK: - 动态方法解析
-
-+ (BOOL)resolveClassMethod:(SEL)sel OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
-
-+ (BOOL)resolveInstanceMethod:(SEL)sel OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
-
-</code></pre><p>其在NSObject.mm的实现默认返回值是false,即在没有找到sel对应的imp时则会继续执行转发流程直到找不到imp报错,如果我们给没有实现的sel添加了一个imp并且返回true时,则最终方法调用会走我们添加的imp.</p>
-<pre><code>
-// MARK: - 动态方法解析
-
-+ (BOOL)resolveClassMethod:(SEL)sel {
-
-return NO;
-
-}
-
-+ (BOOL)resolveInstanceMethod:(SEL)sel {
-
-return NO;
-
-}
-
-</code></pre><p>如果我们自己重写了这个两个方法,并返回true,就可以给未实现的方法添加一个实现imp.</p>
-<pre><code>
-/**
-
-添加一个newAge
-
-@param obj obj
-
-@param _cmd 当前方法的sel
-
-*/
-
-void newAge (id obj, SEL _cmd) {
-
-NSLog(@&quot;added newAge method:%@&quot;,NSStringFromSelector(_cmd));
-
-}
-
-/**
-
-动态方法解析
-
-@param sel 不能识别的sel
-
-@return 消息是否处理了
-
-*/
-
-+ (BOOL)resolveInstanceMethod:(SEL)sel {
-
-if (sel == @selector(age)) {
-
-class_addMethod([self class], @selector(age), (IMP)newAge, &quot;V@:&quot;);
-
-return true;
-
-}
-
-return [super resolveInstanceMethod:sel];
-
-}
-
-</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;运行时一些类型编码符合V表示void;@表示id或者obj对象;:表示SEL;_cmd表示当前方法的sel.其他的可以看<a href="[https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html#//apple_ref/doc/uid/TP40008048-CH100](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html#//apple_ref/doc/uid/TP40008048-CH100">苹果接口文档</a>).</p>
-<p>可以看到调用-age方法时走到我们添加的imp里面了.</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/1715253-cda5b5a09dc4439b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="resolve_instance_method"></p>
-<h3 id="快速消息转发-重定向-fast-forwarding"><a href="#快速消息转发-重定向-fast-forwarding" class="headerlink" title="快速消息转发(重定向) fast forwarding"></a>快速消息转发(重定向) fast forwarding</h3><p>当我们没有重写动态方法解析或者没有未实现sel添加imp时,则会启动快速消息转发流程.快速消息转发需要重写系统提供的一个方法:</p>
-<pre><code>
-- (id)forwardingTargetForSelector:(SEL)aSelector OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);
-
-- (id)forwardingTargetForSelector:(SEL)sel {
-
-return nil;
-
-}
-
-</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其实现在NSObject.mm文件中,快速消息转发可以将某个没有实现的sel转发给某个对象obj,让这个对象来处理这个消息.其过程也是消息发送和转发的全过程,如果在obj所在的类中也没有找到sel对应的imp则会报错. 这里我们将-age方法转发给NSObject实例,因为NSObject类中并没有age方法的实现,所以直接报错.</p>
-<pre><code>
-// MARK: - 快速消息转发
-
-- (id)forwardingTargetForSelector:(SEL)aSelector {
-
-if (aSelector == @selector(age)) {
-
-return [[NSObject alloc]init];
-
-}
-
-return [super forwardingTargetForSelector:aSelector];
-
-}
-
-2019-04-25 15:12:53.252362+0800 RuntimeDylibTest[18037:222826] *** Terminating app due to uncaught exception &#39;NSInvalidArgumentException&#39;, reason: &#39;-[NSObject age]: unrecognized selector sent to instance 0x100e622e0&#39;
-
-*** First throw call stack:
-
-(
-
-0 CoreFoundation 0x00007fff44dbc43d __exceptionPreprocess + 256
-
-1 libobjc.A.dylib 0x000000010036c64f objc_exception_throw + 47
-
-2 CoreFoundation 0x00007fff44e39255 -[NSObject(NSObject) __retain_OA] + 0
-
-3 CoreFoundation 0x00007fff44d5bad0 ___forwarding___ + 1486
-
-4 CoreFoundation 0x00007fff44d5b478 _CF_forwarding_prep_0 + 120
-
-5 RuntimeDylibTest 0x0000000100000d8d main + 237
-
-6 libdyld.dylib 0x00007fff71d9c085 start + 1
-
-7 ??? 0x0000000000000001 0x0 + 1
-
-)
-
-</code></pre><p>当我们新创建一个NewPerson类,并添加一个- age方法,然后将快速消息转发的方法返回值给NewPerson实例.可以看到消息被正常处理了:</p>
-<pre><code>
-- (id)forwardingTargetForSelector:(SEL)aSelector {
-
-if (aSelector == @selector(age)) {
-
-return [[NewPerson alloc]init];
-
-}
-
-return [super forwardingTargetForSelector:aSelector];
-
-}
-
-2019-04-25 15:21:34.094385+0800 RuntimeDylibTest[18083:227346] new person age
-
-</code></pre><p><img src="https://upload-images.jianshu.io/upload_images/1715253-ca32727a2046e96a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="NewPerson_age"></p>
-<h3 id="正常消息转发-Normal-forward"><a href="#正常消息转发-Normal-forward" class="headerlink" title="正常消息转发 Normal forward"></a>正常消息转发 Normal forward</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当快速消息转发方法返回值为nil或者self时,将启动下一层级的消息转发流程也就是正常消息转发.正常消息转发可以说是给一个sel补救的最后措施,也是任何不能识别sel的转发中心,通常我们可以在NSObject的分类里面将不能识别的消息汇总在一起,统一处理.这里系统为我们提供了两个必现实现的方法:</p>
-<pre><code>
-- (void)forwardInvocation:(NSInvocation *)anInvocation OBJC_SWIFT_UNAVAILABLE(&quot;&quot;);
-
-- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector OBJC_SWIFT_UNAVAILABLE(&quot;&quot;);
-
-</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NSInvocation是一个消息调用类,它包含了所有OC消息的成分:target,SEL,参数,返回值等.NSInvocation可以将消息转换成一个对象,消息的每一个参数能够直接设定,而当一个NSInvocation对象调度时返回值是可以自己设定的,一个NSInvocation对象能够重复调度不同target,而且他的sel也能设置为另一个方法签名.NSInvocation遵守NSCoding协议，但是仅支持NSPortCoder编码，不支持归档型操作。</p>
-<p>使用步骤</p>
-<p>1)根据方法创建签名对象(NSMethodSignature对象)</p>
-<p>2)根据签名对象创建调用对象(NSInvocation对象)</p>
-<p>3)设置调用对象(NSInvocation对象)的相关信息</p>
-<p>4)调用方法</p>
-<p>5)获取方法返回值</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在正常消息转发过程中,重写- (NSMethodSignature <em>)methodSignatureForSelector:(SEL)aSelector;方法返回方法签名就是用于生产NSInvocation对象,然后我们就可以在- (void)forwardInvocation:(NSInvocation </em>)anInvocation;方法中截货具体消息的发送对象target,选择子sel等信息,然后统一处理.</p>
-<pre><code>
-// MARK: - 正常消息转发
-
-- (void)forwardInvocation:(NSInvocation *)anInvocation {
-
-SEL sel = anInvocation.selector;
-
-if (sel == @selector(age)) {
-
-NSLog(@&quot;umimplementation age&quot;);
-
-} else {
-
-NSLog(@&quot;give user a hint&quot;);
-
-}
-
-}
-
-- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector {
-
-NSMethodSignature *methodSignature = [super methodSignatureForSelector:aSelector];
-
-if (!methodSignature) {
-
-methodSignature = [NSMethodSignature signatureWithObjCTypes:&quot;v@:*&quot;];
-
-}
-
-return methodSignature;
-
-}
-
-</code></pre><p><img src="https://upload-images.jianshu.io/upload_images/1715253-5cd4c03c365cb5ee.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="normal_forward"></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;消息是Runtime核心的问题之一,消息发送和转发的其实是对imp的查找处理过程,对这些过程了解后应该对实际开发遇到的问题及解决会有较大帮助.</p>
-<h2 id="编译后源码库"><a href="#编译后源码库" class="headerlink" title="编译后源码库"></a>编译后源码库</h2><p><strong>编译后的源码放在<a href="https://github.com/waitwalker/Runtime" target="_blank" rel="noopener">Github</a>, 如果对你有帮助,请给一个star吧!</strong></p>
-<h2 id="博客地址-amp-相关文章"><a href="#博客地址-amp-相关文章" class="headerlink" title="博客地址&amp;相关文章"></a>博客地址&amp;相关文章</h2><p><strong>博客地址:</strong> <a href="https://waitwalker.cn/" target="_blank" rel="noopener">https://waitwalker.cn/</a></p>
-<p>系列文章:</p>
-<p><a href="https://waitwalker.github.io/2019/04/08/Runtime%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91/">1. Runtime源码编译</a></p>
-<p><a href="https://waitwalker.github.io/2019/04/10/objc-object%E8%A7%A3%E8%AF%BB/">2. objc_object解读</a></p>
-<p><a href="https://waitwalker.github.io/2019/04/12/Method%E8%A7%A3%E8%AF%BB/">3. Method解读</a></p>
-<p><a href="https://waitwalker.github.io/2019/04/15/Class%E8%A7%A3%E8%AF%BB/">4. Class解读</a></p>
-<p><a href="https://waitwalker.github.io/2019/04/15/Ivar-objc-property-t-Protocol%E8%A7%A3%E8%AF%BB/">5. Ivar objc_property_t Protocol解读</a></p>
-<p><a href="https://waitwalker.github.io/2019/04/18/Block解读/">6. Block解读</a></p>
-<p><a href="http://waitwalker.cn/2019/04/22/Retain-Release解读/" target="_blank" rel="noopener">7. Retain&amp;Release解读</a></p>
-<p><a href="http://waitwalker.cn/2019/04/23/Autorelease解读/" target="_blank" rel="noopener">8. Autorelease解读</a></p>
-<p><a href="http://waitwalker.cn/2019/04/24/Weak解读/" target="_blank" rel="noopener">9. Weak解读</a></p>
-<p><a href="http://waitwalker.cn/2019/04/25/msgSend-解读/" target="_blank" rel="noopener">10. msgSend()解读</a></p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://blog.csdn.net/SSIrreplaceable/article/details/53375972" target="_blank" rel="noopener">https://blog.csdn.net/SSIrreplaceable/article/details/53375972</a></p>
+let person = Person()
+let new = person(1,2,3)
+print(new)
+</code></pre><h3 id="Swift标准库"><a href="#Swift标准库" class="headerlink" title="Swift标准库"></a>Swift标准库</h3><p>DictionaryLiteral类型在系统库中被命名为KeyValuePairs<br>Sequence 协议不再具有 SubSequence 关联类型.之前返回 SubSequence 的 Sequence 方法现在返回的是具体的类型.例如,suffix(_:) 现在返回 Array.</p>
+<h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><p>String之前需要转义\和”等,现在可以通过##,把你要写的字符串全部放这里就可以了,如果某个字符串需要转义通过”#()”操作.</p>
+<pre><code>let str = #&quot; &quot;zhang&quot; san &quot;#
+print(str)
+
+let newStr = #&quot; \#(str) 是谁 \ &quot;#
+print(newStr)
+
+log:
+ &quot;zhang&quot; san
+  &quot;zhang&quot; san  是谁 \
+</code></pre><p>多行字符:</p>
+<pre><code>let multiLineStr = #&quot;&quot;&quot;
+                            今天
+                            明天
+                            昨天 \#(newStr)
+                            &quot;&quot;&quot;#
+
+        print(multiLineStr)
+</code></pre><h3 id="isMultiple"><a href="#isMultiple" class="headerlink" title="isMultiple"></a>isMultiple</h3><p>检查一个整数是否是另一个整数的倍数</p>
+<pre><code>let originalNum = 18
+
+        if originalNum.isMultiple(of: 2) {
+            print(#&quot;\#(originalNum)是2的倍数&quot;#)
+        }
+</code></pre><h3 id="Swift-包管理器"><a href="#Swift-包管理器" class="headerlink" title="Swift 包管理器"></a>Swift 包管理器</h3><p>现在,在使用 Swift 5 Package.swift 工具版本时,可以声明一些常用的特定于目标的构建设置.新的设置也可以基于平台和构建配置进行条件化。构建设置支持 Swift 和 C 语言定义、C 语言头文件搜索路径、链接库和链接框架.</p>
+<p>现在,在使用 Swift 5 Package.swift 工具版本时,可以为 Apple 平台自定义最低部署目标.如果程序包的任何依赖项指定的最小部署目标大于程序包自身的最低部署目标，就会抛出错误.<br>新的依赖项镜像功能允许顶层包覆盖依赖项 URL.</p>
 
             </div>
             <hr>
@@ -1224,7 +614,7 @@ return methodSignature;
                     </span>
                     <a href="https://waitwalker.github.io" class="b-link-green">waitwalker</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/04/25/msgSend-解读/" class="b-link-green">msgSend()解读</a>
+                    <a href="/2019/04/26/Swift-5-新增特性/" class="b-link-green">Swift 5 新增特性 </a>
                 </p>
             </div>
         </div>
@@ -1247,7 +637,8 @@ return methodSignature;
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2019/04/26/Swift-5-新增特性/">
                     <div class="card-image">
@@ -1261,9 +652,9 @@ return methodSignature;
                 <div class="card-content article-content">
                     <div class="summary block-with-text">ABI稳定Swift 社区最近最重大的新闻应该就是 ABI 稳定了.ABI稳定就是binary接口稳定,也就是运行的时候只要是Swift5或者以上的编译器编译出来的binary,就可以跑在任意的Swift 5或以上的runtime上.这样我</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-26
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-26
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -1276,6 +667,7 @@ return methodSignature;
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -1302,23 +694,20 @@ return methodSignature;
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/04/24/Weak解读/">
+                <a href="/2019/04/25/msgSend-解读/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Weak解读">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="msgSend()解读">
                         
-                        <span class="card-title">Weak解读</span>
+                        <span class="card-title">msgSend()解读</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary block-with-text">在常规开发中我们经常使用__weak修饰符来修饰一个对象,来解决比如循环引用问题.今天具体来看看weak底层实现原理.
-首先创建一个weak修饰的对象,并查看其调用栈:
-
-int main(int argc, const char * ar</div>
+                    <div class="summary block-with-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;runtime最重要的两个核心问题:类的组装和消息.之前文章已经对Method,SEL,IMP,Class等有了初步的介绍,IMP就是一个SEL</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-24
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-25
                             </span>
                         <span class="publish-author">
                             
@@ -1335,16 +724,16 @@ int main(int argc, const char * ar</div>
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/iOS/" target="_blank">
-                        <span class="chip bg-color">iOS</span>
-                    </a>
-                    
                     <a href="/tags/Runtime/" target="_blank">
                         <span class="chip bg-color">Runtime</span>
                     </a>
                     
-                    <a href="/tags/source-code/" target="_blank">
-                        <span class="chip bg-color">source code</span>
+                    <a href="/tags/底层/" target="_blank">
+                        <span class="chip bg-color">底层</span>
+                    </a>
+                    
+                    <a href="/tags/源码/" target="_blank">
+                        <span class="chip bg-color">源码</span>
                     </a>
                     
                 </div>
