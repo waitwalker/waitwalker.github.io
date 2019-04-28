@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>二叉搜索树</title>
+      <link href="/2019/04/28/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/"/>
+      <url>/2019/04/28/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/</url>
+      
+        <content type="html"><![CDATA[<h2 id="二叉查找树定义"><a href="#二叉查找树定义" class="headerlink" title="二叉查找树定义"></a>二叉查找树定义</h2><p>二叉搜索树也叫二叉查找树(Binary Search Tree)是二叉树的一个类型.二叉搜索树具有以下性质:<br>1)若任意节点的左子树不空,则左子树上所有节点的值均小于它根节点的值;<br>2)若任意节点的右子树不空,则右子树上所有节点的值均大于它根节点的值;<br>3)任意节点的左右子树也分别为二叉查找树;<br>4)没有键值相等的节点.<br>二叉查找树相比去其他数据结构的优势在于查找,插入的时间复杂度较低,为O(logn).二叉查找树是基础数据结构,长用于构建更为抽象的数据结构,如集合,关联数组等.搜索,插入,删除的复杂度等于树高,期望O(logn),最坏O(n),虽然二叉查找树的最坏效率是O(n),但它支持动态查询,而且一些改进版的二叉查找树可以使树高为O(logn),从而将最坏效率将至O(logn),如AVL树,红黑树等.<br>二叉查找树的存储结构常用二叉链表来构建.</p><p><img src="http://abc.waitwalker.cn/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.jpg" alt="二叉搜索树"></p><h2 id="二叉查找树实现"><a href="#二叉查找树实现" class="headerlink" title="二叉查找树实现"></a>二叉查找树实现</h2><p>这里二叉查找树的存储结构我们用的是上一节定义的二叉树.</p><pre><code>// MARK: - 二叉查找树class BinarySearchTree&lt;T:Comparable&gt; {    private(set) var root:BinaryTree&lt;T&gt;?    // MARK: - 构造函数    init() {    }}</code></pre><h2 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h2><p>查找逻辑:<br>1)从根节点开始查找,如果待查找的值等于根节点的值,直接返回;<br>2)如果待查找的值小于根节点的值,则在根节点的左子树执行查找;<br>3)如果待查找的值大于根节点的值,则在根节点的右子树执行查找;<br>4)递归执行以上步骤</p><pre><code>/// 查找例程    ///    /// - Parameter value: 待查找的值    /// - Returns: 查找到的值    func find(value:T) -&gt; BinaryTree&lt;T&gt;? {       guard let node = binaryTree else { return nil }        if node.value == value {            return node        } else if value &lt; node.value {            return find(binaryTree: node.leftChildNode, value: value)        } else {            return find(binaryTree: node.rightChildNode, value: value)        }    }</code></pre><p>在我们的示例中,查找128:<br>数组需要对整个列表进行查找,逐个元素比较128是否相等;<br>二叉搜索树则先比较和根元素120比较,128比120大,则在120的右子树查找,然后找到130,128比130小,则在130的左子树找,最终找到.</p><h2 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h2><p>插入逻辑:<br>1)先创建一个新节点,如果新节点的值与根节点的值相等,则插入到根节点位置;<br>2)如果新节点的值小于等于根节点的值,则将新节点赋值给根节点的左子树;<br>3)如果新节点的值大于根节点的值,则将新节点赋值给根节点的右子树;<br>4)递归执行以上步骤.</p><pre><code>/// 插入例程    ///    /// - Parameter value: 插入的值    /// - Returns: 插入后返回的二叉查找树    func insert(value:T) -&gt; Void {        root = insert(root: root, value: value)    }    private func insert(root binaryTree:BinaryTree&lt;T&gt;?, value:T) -&gt; BinaryTree&lt;T&gt;? {        guard let node = binaryTree else { return BinaryTree(value: value) }        if value &lt;= node.value {            node.leftChildNode = insert(root: node.leftChildNode, value: value)        } else {            node.rightChildNode = insert(root: node.rightChildNode, value: value)        }        return node    }</code></pre><h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><p>删除逻辑:<br>1)删除的节点是叶子节点,直接删除;<br>2)删除的节点只有一个儿子,则将其儿子赋值给当前节点<br>3)删除的节点有两个儿子,则需要将此节点替换为左子树最大的子节点或者右子树最小子节点</p><pre><code>func delete(value:T) -&gt; Void {        root = delete(binaryTree: root, value: value)    }    private func delete(binaryTree:BinaryTree&lt;T&gt;?, value:T) -&gt; BinaryTree&lt;T&gt;? {        guard let node = binaryTree else { return nil }        if node.value == value {            // 左右节点都为空            if node.leftChildNode == nil &amp;&amp; node.rightChildNode == nil {                return nil            }            // 左右节点有一个为空            if node.leftChildNode == nil {                return node.rightChildNode            }            if node.rightChildNode == nil {                return node.leftChildNode            }            // 左右节点都不为空            // 将左子树中最小的节点赋值给当前节点            node.value = (node.rightChildNode?.minNode.value)!            // 删除右子树中最小节点            node.rightChildNode = delete(binaryTree: node.rightChildNode, value: node.value)        } else if value &lt; node.value {            node.leftChildNode = delete(binaryTree: node.leftChildNode, value: value)        } else {            node.rightChildNode = delete(binaryTree: node.rightChildNode, value: value)        }        return node    }</code></pre><h2 id="最小值"><a href="#最小值" class="headerlink" title="最小值"></a>最小值</h2><p>最小值一直遍历二叉搜索树的左子树,直到左子树为空.</p><pre><code>/// 最小值    ///    /// - Returns: 最小值节点    func min() -&gt; BinaryTree&lt;T&gt;? {        guard let node = root else { return nil }        var tmp = node        while tmp.leftChildNode != nil {            tmp = tmp.leftChildNode!        }        return tmp    }</code></pre><h2 id="最大值"><a href="#最大值" class="headerlink" title="最大值"></a>最大值</h2><p>最大值一直遍历二叉搜索树右子树,直到右子树为空</p><pre><code>/// 最大值    ///    /// - Returns: 最大值节点    func max() -&gt; BinaryTree&lt;T&gt;? {        guard let node = root else { return nil }        var tmp = node        while tmp.rightChildNode != nil {            tmp = node.rightChildNode!        }        return tmp    }</code></pre><h2 id="源码地址"><a href="#源码地址" class="headerlink" title="源码地址"></a>源码地址</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这里的实现代码已放到<a href="https://github.com/waitwalker/DataStructureAlgorithm" target="_blank" rel="noopener">GitHub</a>,测试用例详见DataStructureAlgorithmTests.swift文件</p><h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>《数据结构与算法分析C语言描述》(Data Structures and Algorithm Analysis in C:Second Edition)–译者: 冯舜玺<br><a href="https://zh.wikipedia.org/wiki/%E4%BA%8C%E5%85%83%E6%90%9C%E5%B0%8B%E6%A8%B9" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/%E4%BA%8C%E5%85%83%E6%90%9C%E5%B0%8B%E6%A8%B9</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 数据结构与算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Swift </tag>
+            
+            <tag> 数据结构 </tag>
+            
+            <tag> 算法 </tag>
+            
+            <tag> 二叉搜索树 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Swift 5 新增特性 </title>
       <link href="/2019/04/26/Swift-5-%E6%96%B0%E5%A2%9E%E7%89%B9%E6%80%A7/"/>
       <url>/2019/04/26/Swift-5-%E6%96%B0%E5%A2%9E%E7%89%B9%E6%80%A7/</url>
