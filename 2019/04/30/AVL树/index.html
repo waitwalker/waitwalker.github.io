@@ -4,8 +4,8 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="Swift_mutating, Swift, iOS, Python">
-    <meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在swift中:struct,enum,class都可以定义方法和属性.但是struct和enum是值类型,值类型存储在栈区.class是引用类">
+    <meta name="keywords" content="AVL树, Swift, iOS, Python">
+    <meta name="description" content="AVL树定义AVL树是一个带平衡条件的二叉搜索树.AVL树得名于它的发明者G. M. Adelson-Velsky和Evgenii Landis,他们在1962年的论文《An algorithm for the organization o">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Swift_mutating | waitwalker</title>
+    <title>AVL树 | waitwalker</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -259,13 +259,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        Swift_mutating
+                        AVL树
                     </div>
                 </div>
             </div>
@@ -376,16 +376,20 @@
                     
                     <div class="article-tag">
                         
+                            <a href="/tags/数据结构/" target="_blank">
+                                <span class="chip bg-color">数据结构</span>
+                            </a>
+                        
+                            <a href="/tags/算法/" target="_blank">
+                                <span class="chip bg-color">算法</span>
+                            </a>
+                        
                             <a href="/tags/Swift/" target="_blank">
                                 <span class="chip bg-color">Swift</span>
                             </a>
                         
-                            <a href="/tags/Swift开发/" target="_blank">
-                                <span class="chip bg-color">Swift开发</span>
-                            </a>
-                        
-                            <a href="/tags/mutating/" target="_blank">
-                                <span class="chip bg-color">mutating</span>
+                            <a href="/tags/栈/" target="_blank">
+                                <span class="chip bg-color">栈</span>
                             </a>
                         
                     </div>
@@ -396,8 +400,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Swift开发/" class="post-category" target="_blank">
-                                Swift开发
+                            <a href="/categories/数据结构与算法/" class="post-category" target="_blank">
+                                数据结构与算法
                             </a>
                         
                     </div>
@@ -408,7 +412,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-04-11
+                    2019-04-30
                 </div>
 
                 
@@ -424,97 +428,129 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在swift中:struct,enum,class都可以定义方法和属性.但是struct和enum是值类型,值类型存储在栈区.class是引用类型,引用类型存在在堆区.</p>
-<h3 id="值类型"><a href="#值类型" class="headerlink" title="值类型:"></a>值类型:</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;平时我们常用的数据类型Int,Double,String,Array,Set等都是用结构体实现的,即也是值类型.当我们赋值或者复制一个值类型时,Swift编译器会复制一个全新的实例,包括它的所有成员属性,每次复制都会产生一个单独的,没有数据共享的新实例.值类型的复制是深拷贝类型.</p>
-<h3 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型:"></a>引用类型:</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;引用类型是隐式数据共享,复制一个引用类型时,Swift编译器将会复制实例的一个引用,但不包括实例的属性,当对一个引用类型进行多次复制时,每一份复制将共享一份数据,执行的是浅拷贝.</p>
-<pre><code>struct Student {
-    var name:String = &quot;&quot;
-    var age:Int = 18
-
-    init(name:String, age:Int) {
-        self.name = name
-        self.age = age
-    }
-}
-
-class Teacher {
-    var name:String = &quot;&quot;
-    var age:Int = 18
-
-    init(name:String, age:Int) {
-        self.name = name
-        self.age = age
-    }
-}
-
-func printAddress(values:AnyObject...){
-        for value in values {
-            print(Unmanaged.passUnretained(value).toOpaque())
-        }
-        print(&quot;-----------------------------------------&quot;)
-    }
-
-        let stuA = Student(name: &quot;张三&quot;, age: 18)
-        let stuB = stuA
-
-        printAddress(values: stuA.name as AnyObject)
-        printAddress(values: stuB.name as AnyObject)
-
-        let tchA = Teacher(name: &quot;李四&quot;, age: 28)
-        let tchB = tchA
-
-        printAddress(values: tchA)
-        printAddress(values: tchB)
-
-
-// log:
-
-stuA 和 stuB
-0x000060000387b660
------------------------------------------
-0x000060000387c1a0
------------------------------------------
-
-tchA 和 tchB
-0x000060000366bcf0
------------------------------------------
-0x000060000366bcf0
------------------------------------------
-</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以看出stuA完全深拷贝了一份给stuB.</p>
-<h3 id="mutating关键字"><a href="#mutating关键字" class="headerlink" title="mutating关键字"></a>mutating关键字</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;结构体和枚举是值类型。默认情况下，值类型的属性不能在它的实例方法中被修改。如果要在某个function中修改属性的值就必须要在这个function前使用mutating关键词.</p>
-<pre><code>private(set) var elements:[T] = []
-
-    /// isEmpty
-    var isEmpty:Bool{
-        get {
-            return elements.count == 0 ? true : false
-        }
-    }
-
-    /// top
-    var top:T? {
-        get {
-            return elements.count &gt; 0 ? elements.last : nil
-        }
-    }
-
+                <h2 id="AVL树定义"><a href="#AVL树定义" class="headerlink" title="AVL树定义"></a>AVL树定义</h2><p>AVL树是一个带平衡条件的二叉搜索树.AVL树得名于它的发明者G. M. Adelson-Velsky和Evgenii Landis,他们在1962年的论文《An algorithm for the organization of information》中公开了这一数据结构.其主要满足以下性质:<br>1)左右子树高度差的绝对值不超过1;<br>2)左右子树也是AVL树.<br>之前我们已经了解到一颗具有n个节点二叉搜索树最大深度为n,最小深度为logn.二叉树的深度越小其搜索时间复杂度对应也就越小.一个深度为logn的二叉查找树其搜索算法的时间复杂度为logn.</p>
+<h3 id="平衡因子"><a href="#平衡因子" class="headerlink" title="平衡因子"></a>平衡因子</h3><p>AVL树是带有平衡条件二叉搜索树,其左右子树的高度差绝对值不超过1,这个平衡条件我们称为平衡因子(balance factor).</p>
+<h2 id="AVL树的构造"><a href="#AVL树的构造" class="headerlink" title="AVL树的构造"></a>AVL树的构造</h2><pre><code>var root:BinaryTree&lt;T&gt;?
 
     // MARK: - 构造函数
     init() {
 
     }
-
-    mutating func push(element:T) -&gt; Void {
-        elements.append(element)
-    }
-
-    mutating func pop() -&gt; Void {
-        guard elements.count &gt; 0 else {
-            return
+</code></pre><h2 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h2><pre><code>/// 查找操作
+    ///
+    /// - Parameters:
+    ///   - binaryTreeNode: 根节点
+    ///   - value: 待查找的值
+    /// - Returns: 查找到的节点
+    func find(binaryTreeNode:BinaryTree&lt;T&gt;?, value:T) -&gt; BinaryTree&lt;T&gt;? {
+        guard let node = binaryTreeNode else { return nil }
+        if node.value == value {
+            return node
+        } else if value &lt; node.value {
+            return find(binaryTreeNode: node.leftChildNode, value: value)
+        } else {
+            return find(binaryTreeNode: node.rightChildNode, value: value)
         }
-        elements.removeLast()
     }
-</code></pre>
+</code></pre><h2 id="旋转"><a href="#旋转" class="headerlink" title="旋转"></a>旋转</h2><p>对于一个非平衡的二叉搜索树,我们可以通过旋转的手段让其左右子树高度差不超过1从而达到平衡转变成一个AVL树.其中旋转的次数可能是1次或者多次.</p>
+<h3 id="左旋转"><a href="#左旋转" class="headerlink" title="左旋转"></a>左旋转</h3><p>左旋转即向左旋转,逆时针旋转.</p>
+<pre><code>/// 左旋转
+    ///
+    /// - Parameter binaryTreeNode: 待旋转的节点
+    /// - Returns: 旋转后的节点
+    func leftRotate(binaryTreeNode:BinaryTree&lt;T&gt;?) -&gt; BinaryTree&lt;T&gt;? {
+        guard let pivot = binaryTreeNode?.rightChildNode else { return binaryTreeNode }
+        binaryTreeNode?.rightChildNode = pivot.rightChildNode
+        pivot.leftChildNode = binaryTreeNode
+        binaryTreeNode?.height = max((binaryTreeNode?.leftHeight)!, (binaryTreeNode?.rightHeight)!) + 1
+        pivot.height = max(pivot.leftHeight, pivot.rightHeight) + 1
+        return pivot
+    }
+</code></pre><h3 id="右旋转"><a href="#右旋转" class="headerlink" title="右旋转"></a>右旋转</h3><p>右旋转即向右旋转,顺时针旋转.</p>
+<pre><code>/// 右旋转
+    ///
+    /// - Parameter binaryTreeNode: 待旋转的节点
+    /// - Returns: 旋转后的节点
+    func rightRotate(binaryTreeNode:BinaryTree&lt;T&gt;?) -&gt; BinaryTree&lt;T&gt;? {
+        guard let pivot = binaryTreeNode?.rightChildNode else { return binaryTreeNode }
+        binaryTreeNode?.leftChildNode = pivot.rightChildNode
+        pivot.rightChildNode = binaryTreeNode
+        binaryTreeNode?.height = max((binaryTreeNode?.leftHeight)!, (binaryTreeNode?.rightHeight)!) + 1
+        pivot.height = max(pivot.leftHeight, pivot.rightHeight) + 1
+        return pivot
+    }
+</code></pre><h3 id="左右旋转"><a href="#左右旋转" class="headerlink" title="左右旋转"></a>左右旋转</h3><pre><code>/// 左右旋转
+    ///
+    /// - Parameter binaryTreeNode: 待旋转的节点
+    /// - Returns: 选择后的节点
+    func leftRightRotate(binaryTreeNode:BinaryTree&lt;T&gt;?) -&gt; BinaryTree&lt;T&gt;? {
+        guard let leftChild = binaryTreeNode?.leftChildNode else { return binaryTreeNode }
+        binaryTreeNode?.leftChildNode = leftRotate(binaryTreeNode: leftChild)
+        return rightRotate(binaryTreeNode: binaryTreeNode)
+    }
+</code></pre><h3 id="右左旋转"><a href="#右左旋转" class="headerlink" title="右左旋转"></a>右左旋转</h3><pre><code>/// 右左旋转
+    ///
+    /// - Parameter binaryTreeNode: 待旋转的节点
+    /// - Returns: 旋转后的节点
+    func rightLeftRotate(binaryTreeNode:BinaryTree&lt;T&gt;?) -&gt; BinaryTree&lt;T&gt;? {
+        guard let rightChild = binaryTreeNode?.rightChildNode else { return binaryTreeNode }
+        binaryTreeNode?.rightChildNode = rightRotate(binaryTreeNode: rightChild)
+        return leftRotate(binaryTreeNode: binaryTreeNode)
+    }
+</code></pre><h2 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h2><pre><code>/// 插入操作
+    ///
+    /// - Parameter value: 待插入的值
+    func insert(value:T) -&gt; Void {
+        root = insert(binaryTreeNode: root, value: value)
+    }
+
+    private func insert(binaryTreeNode:BinaryTree&lt;T&gt;?, value:T) -&gt; BinaryTree&lt;T&gt;? {
+        guard let node = binaryTreeNode else { return BinaryTree(value: value) }
+        if value &lt; node.value {
+            node.leftChildNode = insert(binaryTreeNode: node.leftChildNode, value: value)
+        } else {
+            node.rightChildNode = insert(binaryTreeNode: node.rightChildNode, value: value)
+        }
+        let balanceNode = balance(binaryTreeNode: node)
+        balanceNode.height = max(balanceNode.leftHeight, balanceNode.rightHeight) + 1
+        return balanceNode
+    }
+</code></pre><h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><pre><code>/// 删除操作
+    ///
+    /// - Parameter value: 待删除的值
+    func delete(value:T) -&gt; Void {
+        root = delete(binaryTreeNode: root, value: value)
+    }
+
+    func delete(binaryTreeNode:BinaryTree&lt;T&gt;?, value:T) -&gt; BinaryTree&lt;T&gt;? {
+        guard let node = binaryTreeNode else { return nil }
+        if node.value == value {
+            if node.leftChildNode == nil &amp;&amp; node.rightChildNode == nil {
+                return nil
+            }
+
+            if node.leftChildNode == nil {
+                return node.rightChildNode
+            }
+
+            if node.rightChildNode == nil {
+                return node.leftChildNode
+            }
+
+            node.value = (node.rightChildNode?.minNode.value)!
+            node.rightChildNode = delete(binaryTreeNode: node.rightChildNode, value: node.value)
+        } else if value &lt; node.value {
+            node.leftChildNode = delete(binaryTreeNode: node.leftChildNode, value: value)
+        } else {
+            node.rightChildNode = delete(binaryTreeNode: node.rightChildNode, value: value)
+        }
+        let balanceNode = balance(binaryTreeNode: node)
+        balanceNode.height = max(balanceNode.leftHeight, balanceNode.rightHeight) + 1
+        return balanceNode
+    }
+</code></pre><h2 id="源码地址"><a href="#源码地址" class="headerlink" title="源码地址"></a>源码地址</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这里的实现代码已放到<a href="https://github.com/waitwalker/DataStructureAlgorithm" target="_blank" rel="noopener">GitHub</a>,测试用例详见DataStructureAlgorithmTests.swift文件</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://zh.wikipedia.org/wiki/AVL%E6%A0%91" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/AVL%E6%A0%91</a><br>《数据结构与算法分析C语言描述》(Data Structures and Algorithm Analysis in C:Second Edition)–译者: 冯舜玺</p>
+
             </div>
             <hr>
 
@@ -661,7 +697,7 @@ tchA 和 tchB
                     </span>
                     <a href="https://waitwalker.github.io" class="b-link-green">waitwalker</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/04/11/Swift-mutating/" class="b-link-green">Swift_mutating</a>
+                    <a href="/2019/04/30/AVL树/" class="b-link-green">AVL树</a>
                 </p>
             </div>
         </div>
@@ -684,23 +720,24 @@ tchA 和 tchB
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/04/11/栈/">
+                <a href="/2019/04/30/AVL树/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="栈">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="AVL树">
                         
-                        <span class="card-title">栈</span>
+                        <span class="card-title">AVL树</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary block-with-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;栈(stack)是限制插入和删除只能在一端进行的表,该位置称为栈顶(top).对栈的基本操作有Push(压栈)和Pop(出栈).前者相当于插入,</div>
+                    <div class="summary block-with-text">AVL树定义AVL树是一个带平衡条件的二叉搜索树.AVL树得名于它的发明者G. M. Adelson-Velsky和Evgenii Landis,他们在1962年的论文《An algorithm for the organization o</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-11
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-30
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -713,6 +750,7 @@ tchA 和 tchB
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -743,27 +781,27 @@ tchA 和 tchB
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/04/10/objc-object解读/">
+                <a href="/2019/04/28/二叉搜索树/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="objc_object解读">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="二叉搜索树">
                         
-                        <span class="card-title">objc_object解读</span>
+                        <span class="card-title">二叉搜索树</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary block-with-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Objective-C是面向对象的语言.面向对象语言有一句话说:”万物皆对象”,这个”对象”从哪里来呢?下面从Runtime源码实现来进一步查看</div>
+                    <div class="summary block-with-text">二叉查找树定义二叉搜索树也叫二叉查找树(Binary Search Tree)是二叉树的一个类型.二叉搜索树具有以下性质:1)若任意节点的左子树不空,则左子树上所有节点的值均小于它根节点的值;2)若任意节点的右子树不空,则右子树上所有节点的</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-10
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-28
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Runtime源码解读/" class="post-category" target="_blank">
-                                    Runtime源码解读
+                            <a href="/categories/数据结构与算法/" class="post-category" target="_blank">
+                                    数据结构与算法
                                 </a>
                             
                             
@@ -773,16 +811,20 @@ tchA 和 tchB
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Runtime/" target="_blank">
-                        <span class="chip bg-color">Runtime</span>
+                    <a href="/tags/数据结构/" target="_blank">
+                        <span class="chip bg-color">数据结构</span>
                     </a>
                     
-                    <a href="/tags/底层/" target="_blank">
-                        <span class="chip bg-color">底层</span>
+                    <a href="/tags/算法/" target="_blank">
+                        <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/源码/" target="_blank">
-                        <span class="chip bg-color">源码</span>
+                    <a href="/tags/Swift/" target="_blank">
+                        <span class="chip bg-color">Swift</span>
+                    </a>
+                    
+                    <a href="/tags/二叉搜索树/" target="_blank">
+                        <span class="chip bg-color">二叉搜索树</span>
                     </a>
                     
                 </div>
