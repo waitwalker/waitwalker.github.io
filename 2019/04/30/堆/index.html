@@ -4,8 +4,8 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="AVL树, Swift, iOS, Python">
-    <meta name="description" content="AVL树定义AVL树是一个带平衡条件的二叉搜索树.AVL树得名于它的发明者G. M. Adelson-Velsky和Evgenii Landis,他们在1962年的论文《An algorithm for the organization o">
+    <meta name="keywords" content="堆, Swift, iOS, Python">
+    <meta name="description" content="堆是二叉树的一种,分为最小堆:其根节点恒小于子节点;最大堆:其根节点恒大于子节点.堆总是一颗完全二叉树,除了最底层,其它层都被填满,且最底层尽可能从左往右填入.常见的堆有二叉堆,斐波那契堆等.堆又名优先队列,但并不是队列.之前我们了解队列是">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>AVL树 | waitwalker</title>
+    <title>堆 | waitwalker</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -259,13 +259,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        AVL树
+                        堆
                     </div>
                 </div>
             </div>
@@ -388,8 +388,12 @@
                                 <span class="chip bg-color">Swift</span>
                             </a>
                         
-                            <a href="/tags/栈/" target="_blank">
-                                <span class="chip bg-color">栈</span>
+                            <a href="/tags/堆/" target="_blank">
+                                <span class="chip bg-color">堆</span>
+                            </a>
+                        
+                            <a href="/tags/优先队列/" target="_blank">
+                                <span class="chip bg-color">优先队列</span>
                             </a>
                         
                     </div>
@@ -428,128 +432,150 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="AVL树定义"><a href="#AVL树定义" class="headerlink" title="AVL树定义"></a>AVL树定义</h2><p>AVL树是一个带平衡条件的二叉搜索树.AVL树得名于它的发明者G. M. Adelson-Velsky和Evgenii Landis,他们在1962年的论文《An algorithm for the organization of information》中公开了这一数据结构.其主要满足以下性质:<br>1)左右子树高度差的绝对值不超过1;<br>2)左右子树也是AVL树.<br>之前我们已经了解到一颗具有n个节点二叉搜索树最大深度为n,最小深度为logn.二叉树的深度越小其搜索时间复杂度对应也就越小.一个深度为logn的二叉查找树其搜索算法的时间复杂度为logn.</p>
-<h3 id="平衡因子"><a href="#平衡因子" class="headerlink" title="平衡因子"></a>平衡因子</h3><p>AVL树是带有平衡条件二叉搜索树,其左右子树的高度差绝对值不超过1,这个平衡条件我们称为平衡因子(balance factor).</p>
-<h2 id="AVL树的构造"><a href="#AVL树的构造" class="headerlink" title="AVL树的构造"></a>AVL树的构造</h2><pre><code>var root:BinaryTree&lt;T&gt;?
+                <p>堆是二叉树的一种,分为最小堆:其根节点恒小于子节点;最大堆:其根节点恒大于子节点.堆总是一颗完全二叉树,除了最底层,其它层都被填满,且最底层尽可能从左往右填入.常见的堆有二叉堆,斐波那契堆等.<br>堆又名优先队列,但并不是队列.之前我们了解队列是满足FIFO的数据结构,而堆是按照元素的优先级来处理元素.通常我们最小堆或者最大堆都是我们给堆设定的优先级.<br>堆的存储结构一般用数组来实现,本文主要实现的最大堆的结构.</p>
+<h2 id="构造"><a href="#构造" class="headerlink" title="构造"></a>构造</h2><pre><code>// MARK: - 堆
+class Heap&lt;T:Comparable&gt; {
 
-    // MARK: - 构造函数
+    // 存储结构
+    private(set) var elements:[T] = []
+
+   // MARK: - 构造
     init() {
 
     }
-</code></pre><h2 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h2><pre><code>/// 查找操作
+}
+</code></pre><h2 id="节点索引"><a href="#节点索引" class="headerlink" title="节点索引"></a>节点索引</h2><p>因为堆是一颗完全二叉树,其在数组中的存储结构也满足二叉树一些性质,比如一个索引为i的节点其左子树索引为2i + 1,其右子树索引为2i + 2;其父节点的索引为(i - 1) / 2.</p>
+<pre><code>/// 左子树索引
+    ///
+    /// - Parameter index: 当前节点索引
+    /// - Returns: 左子树的索引
+    func leftChildIndex(index:Int) -&gt; Int {
+        return 2 * index + 1
+    }
+
+
+    /// 右子树索引
+    ///
+    /// - Parameter index: 当前节点索引
+    /// - Returns: 右子树的索引
+    func rightChildIndex(index:Int) -&gt; Int {
+        return 2 * index + 2
+    }
+
+
+    /// 父节点索引
+    ///
+    /// - Parameter index: 当前节点索引
+    /// - Returns: 父节点的索引
+    func parentIndex(index:Int) -&gt; Int {
+        guard index &gt; 0 else {
+            return 0
+        }
+        return (index - 1) / 2
+    }
+</code></pre><h2 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h2><p>插入逻辑:<br>1)将新元素插入到数组的末尾<br>2)将新元素节点与其父节点进行比较,如果优先级大于父节点(也就是其值大于父节点),则新节点与父节点进行位置更换,继续新节点与父节点进行比较<br>3)递归</p>
+<pre><code>/***
+        1)将新元素插入到数组的末尾
+        2)将新元素节点与其父节点进行比较,如果优先级大于父节点(也就是其值大于父节点),则新节点与父节点进行位置更换,继续新节点与父节点进行比较
+        3)递归
+     */
+    /// 插入操作
+    ///
+    /// - Parameter element: 待插入的元素
+    func insert(element:T) -&gt; Void {
+        elements.append(element)
+        guard elements.count &gt; 1 else {
+            return
+        }
+        shiftUp(index: elements.count - 1)
+    }
+
+
+    /// 上滤
+    ///
+    /// - Parameter index: 当前索引
+    func shiftUp(index:Int) -&gt; Void {
+        let parentIndex = self.parentIndex(index: index)
+        guard isHigherPriority(firstIndex: index, secondIndex: parentIndex) else {
+            return
+        }
+        swapElement(with: index, and: parentIndex)
+
+        // 向上继续比较
+        shiftUp(index: parentIndex)
+    }
+
+
+    /// 最大堆判断优先级
     ///
     /// - Parameters:
-    ///   - binaryTreeNode: 根节点
-    ///   - value: 待查找的值
-    /// - Returns: 查找到的节点
-    func find(binaryTreeNode:BinaryTree&lt;T&gt;?, value:T) -&gt; BinaryTree&lt;T&gt;? {
-        guard let node = binaryTreeNode else { return nil }
-        if node.value == value {
-            return node
-        } else if value &lt; node.value {
-            return find(binaryTreeNode: node.leftChildNode, value: value)
-        } else {
-            return find(binaryTreeNode: node.rightChildNode, value: value)
+    ///   - firstIndex: 新元素索引
+    ///   - secondIndex: 父节点索引
+    /// - Returns: 新节点是否具有优先级
+    private func isHigherPriority(firstIndex:Int, secondIndex:Int) -&gt; Bool {
+        guard firstIndex &lt; elements.count &amp;&amp; secondIndex &lt; elements.count  else {
+            return false
         }
-    }
-</code></pre><h2 id="旋转"><a href="#旋转" class="headerlink" title="旋转"></a>旋转</h2><p>对于一个非平衡的二叉搜索树,我们可以通过旋转的手段让其左右子树高度差不超过1从而达到平衡转变成一个AVL树.其中旋转的次数可能是1次或者多次.</p>
-<h3 id="左旋转"><a href="#左旋转" class="headerlink" title="左旋转"></a>左旋转</h3><p>左旋转即向左旋转,逆时针旋转.</p>
-<pre><code>/// 左旋转
-    ///
-    /// - Parameter binaryTreeNode: 待旋转的节点
-    /// - Returns: 旋转后的节点
-    func leftRotate(binaryTreeNode:BinaryTree&lt;T&gt;?) -&gt; BinaryTree&lt;T&gt;? {
-        guard let pivot = binaryTreeNode?.rightChildNode else { return binaryTreeNode }
-        binaryTreeNode?.rightChildNode = pivot.rightChildNode
-        pivot.leftChildNode = binaryTreeNode
-        binaryTreeNode?.height = max((binaryTreeNode?.leftHeight)!, (binaryTreeNode?.rightHeight)!) + 1
-        pivot.height = max(pivot.leftHeight, pivot.rightHeight) + 1
-        return pivot
-    }
-</code></pre><h3 id="右旋转"><a href="#右旋转" class="headerlink" title="右旋转"></a>右旋转</h3><p>右旋转即向右旋转,顺时针旋转.</p>
-<pre><code>/// 右旋转
-    ///
-    /// - Parameter binaryTreeNode: 待旋转的节点
-    /// - Returns: 旋转后的节点
-    func rightRotate(binaryTreeNode:BinaryTree&lt;T&gt;?) -&gt; BinaryTree&lt;T&gt;? {
-        guard let pivot = binaryTreeNode?.rightChildNode else { return binaryTreeNode }
-        binaryTreeNode?.leftChildNode = pivot.rightChildNode
-        pivot.rightChildNode = binaryTreeNode
-        binaryTreeNode?.height = max((binaryTreeNode?.leftHeight)!, (binaryTreeNode?.rightHeight)!) + 1
-        pivot.height = max(pivot.leftHeight, pivot.rightHeight) + 1
-        return pivot
-    }
-</code></pre><h3 id="左右旋转"><a href="#左右旋转" class="headerlink" title="左右旋转"></a>左右旋转</h3><pre><code>/// 左右旋转
-    ///
-    /// - Parameter binaryTreeNode: 待旋转的节点
-    /// - Returns: 选择后的节点
-    func leftRightRotate(binaryTreeNode:BinaryTree&lt;T&gt;?) -&gt; BinaryTree&lt;T&gt;? {
-        guard let leftChild = binaryTreeNode?.leftChildNode else { return binaryTreeNode }
-        binaryTreeNode?.leftChildNode = leftRotate(binaryTreeNode: leftChild)
-        return rightRotate(binaryTreeNode: binaryTreeNode)
-    }
-</code></pre><h3 id="右左旋转"><a href="#右左旋转" class="headerlink" title="右左旋转"></a>右左旋转</h3><pre><code>/// 右左旋转
-    ///
-    /// - Parameter binaryTreeNode: 待旋转的节点
-    /// - Returns: 旋转后的节点
-    func rightLeftRotate(binaryTreeNode:BinaryTree&lt;T&gt;?) -&gt; BinaryTree&lt;T&gt;? {
-        guard let rightChild = binaryTreeNode?.rightChildNode else { return binaryTreeNode }
-        binaryTreeNode?.rightChildNode = rightRotate(binaryTreeNode: rightChild)
-        return leftRotate(binaryTreeNode: binaryTreeNode)
-    }
-</code></pre><h2 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h2><pre><code>/// 插入操作
-    ///
-    /// - Parameter value: 待插入的值
-    func insert(value:T) -&gt; Void {
-        root = insert(binaryTreeNode: root, value: value)
+        return elements[firstIndex] &gt; elements[secondIndex]
     }
 
-    private func insert(binaryTreeNode:BinaryTree&lt;T&gt;?, value:T) -&gt; BinaryTree&lt;T&gt;? {
-        guard let node = binaryTreeNode else { return BinaryTree(value: value) }
-        if value &lt; node.value {
-            node.leftChildNode = insert(binaryTreeNode: node.leftChildNode, value: value)
-        } else {
-            node.rightChildNode = insert(binaryTreeNode: node.rightChildNode, value: value)
+
+    /// 交换两个元素
+    ///
+    /// - Parameters:
+    ///   - firstIndex: 第一个元素索引
+    ///   - secondIndex: 第二个元素索引
+    private func swapElement(with firstIndex:Int, and secondIndex:Int) -&gt; Void {
+        guard firstIndex &lt; elements.count &amp;&amp; secondIndex &lt; elements.count else {
+            return
         }
-        let balanceNode = balance(binaryTreeNode: node)
-        balanceNode.height = max(balanceNode.leftHeight, balanceNode.rightHeight) + 1
-        return balanceNode
+        elements.swapAt(firstIndex, secondIndex)
     }
-</code></pre><h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><pre><code>/// 删除操作
-    ///
-    /// - Parameter value: 待删除的值
-    func delete(value:T) -&gt; Void {
-        root = delete(binaryTreeNode: root, value: value)
-    }
-
-    func delete(binaryTreeNode:BinaryTree&lt;T&gt;?, value:T) -&gt; BinaryTree&lt;T&gt;? {
-        guard let node = binaryTreeNode else { return nil }
-        if node.value == value {
-            if node.leftChildNode == nil &amp;&amp; node.rightChildNode == nil {
-                return nil
-            }
-
-            if node.leftChildNode == nil {
-                return node.rightChildNode
-            }
-
-            if node.rightChildNode == nil {
-                return node.leftChildNode
-            }
-
-            node.value = (node.rightChildNode?.minNode.value)!
-            node.rightChildNode = delete(binaryTreeNode: node.rightChildNode, value: node.value)
-        } else if value &lt; node.value {
-            node.leftChildNode = delete(binaryTreeNode: node.leftChildNode, value: value)
-        } else {
-            node.rightChildNode = delete(binaryTreeNode: node.rightChildNode, value: value)
+</code></pre><h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><p>删除逻辑:<br>1)删除操作通常将最大堆元素移除,及根节点移除,首先将根节点与最后的元素互换位置<br>2)删除最后的元素(即移到最后的根元素)<br>3)将移动到root位置的新根节点与其子节点进行比较,如果其小于子节点,则与子节点互换位置<br>4)递归</p>
+<pre><code>/// 删除操作
+    func delete() -&gt; Void {
+        guard !isEmpty else {
+            return
         }
-        let balanceNode = balance(binaryTreeNode: node)
-        balanceNode.height = max(balanceNode.leftHeight, balanceNode.rightHeight) + 1
-        return balanceNode
+
+        swapElement(with: 0, and: count - 1)
+
+        elements.removeLast()
+
+        guard !isEmpty else {
+            return
+        }
+
+        shiftDown(elememtIndex: 0)
+    }
+
+
+    /// 下滤
+    ///
+    /// - Parameter elememtIndex: 元素索引
+    func shiftDown(elememtIndex:Int) -&gt; Void {
+        // 获取当前节点与其子节点的高优先级的节点
+        var tmpIndex = elememtIndex
+        let leftIndex = leftChildIndex(index: elememtIndex)
+        let rightIndex = rightChildIndex(index: elememtIndex)
+
+        if leftIndex &lt; count &amp;&amp; isHigherPriority(firstIndex: leftIndex, secondIndex: rightIndex) {
+            tmpIndex = leftIndex
+        }
+
+        if rightIndex &lt; count &amp;&amp; isHigherPriority(firstIndex: rightIndex, secondIndex: leftIndex) {
+            tmpIndex = rightIndex
+        }
+
+        if elememtIndex == tmpIndex {
+            return
+        }
+
+        swapElement(with: elememtIndex, and: tmpIndex)
+        shiftDown(elememtIndex: tmpIndex)
     }
 </code></pre><h2 id="源码地址"><a href="#源码地址" class="headerlink" title="源码地址"></a>源码地址</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这里的实现代码已放到<a href="https://github.com/waitwalker/DataStructureAlgorithm" target="_blank" rel="noopener">GitHub</a>,测试用例详见DataStructureAlgorithmTests.swift文件</p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://zh.wikipedia.org/wiki/AVL%E6%A0%91" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/AVL%E6%A0%91</a><br>《数据结构与算法分析C语言描述》(Data Structures and Algorithm Analysis in C:Second Edition)–译者: 冯舜玺</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://zh.wikipedia.org/wiki/%E5%A0%86%E7%A9%8D" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/%E5%A0%86%E7%A9%8D</a><br>《数据结构与算法分析C语言描述》(Data Structures and Algorithm Analysis in C:Second Edition)–译者: 冯舜玺</p>
 
             </div>
             <hr>
@@ -697,7 +723,7 @@
                     </span>
                     <a href="https://waitwalker.github.io" class="b-link-green">waitwalker</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/04/30/AVL树/" class="b-link-green">AVL树</a>
+                    <a href="/2019/04/30/堆/" class="b-link-green">堆</a>
                 </p>
             </div>
         </div>
@@ -720,7 +746,8 @@
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2019/04/30/堆/">
                     <div class="card-image">
@@ -734,9 +761,9 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">堆是二叉树的一种,分为最小堆:其根节点恒小于子节点;最大堆:其根节点恒大于子节点.堆总是一颗完全二叉树,除了最底层,其它层都被填满,且最底层尽可能从左往右填入.常见的堆有二叉堆,斐波那契堆等.堆又名优先队列,但并不是队列.之前我们了解队列是</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-30
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-30
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -749,6 +776,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -783,20 +811,20 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/04/28/二叉搜索树/">
+                <a href="/2019/04/30/AVL树/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="二叉搜索树">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="AVL树">
                         
-                        <span class="card-title">二叉搜索树</span>
+                        <span class="card-title">AVL树</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary block-with-text">二叉查找树定义二叉搜索树也叫二叉查找树(Binary Search Tree)是二叉树的一个类型.二叉搜索树具有以下性质:1)若任意节点的左子树不空,则左子树上所有节点的值均小于它根节点的值;2)若任意节点的右子树不空,则右子树上所有节点的</div>
+                    <div class="summary block-with-text">AVL树定义AVL树是一个带平衡条件的二叉搜索树.AVL树得名于它的发明者G. M. Adelson-Velsky和Evgenii Landis,他们在1962年的论文《An algorithm for the organization o</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-28
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-30
                             </span>
                         <span class="publish-author">
                             
@@ -825,8 +853,8 @@
                         <span class="chip bg-color">Swift</span>
                     </a>
                     
-                    <a href="/tags/二叉搜索树/" target="_blank">
-                        <span class="chip bg-color">二叉搜索树</span>
+                    <a href="/tags/栈/" target="_blank">
+                        <span class="chip bg-color">栈</span>
                     </a>
                     
                 </div>
