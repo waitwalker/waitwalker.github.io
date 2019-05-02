@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://waitwalker.github.io/"/>
-  <updated>2019-04-30T10:49:25.280Z</updated>
+  <updated>2019-05-02T10:04:59.923Z</updated>
   <id>https://waitwalker.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>读《人生》</title>
+    <link href="https://waitwalker.github.io/2019/05/02/%E8%AF%BB%E3%80%8A%E4%BA%BA%E7%94%9F%E3%80%8B/"/>
+    <id>https://waitwalker.github.io/2019/05/02/读《人生》/</id>
+    <published>2019-05-02T09:50:59.000Z</published>
+    <updated>2019-05-02T10:04:59.923Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;读完路遥的人生之后，心情有点沉重。人生如戏,戏如人生。当我们旅途不顺时应该怎样调节;当我们面对这一系列的艰难抉择时，我们该怎么办;在一些诱惑面前我们，是否能够把握好自己。人生这条
+        
+      
+    
+    </summary>
+    
+      <category term="读书" scheme="https://waitwalker.github.io/categories/%E8%AF%BB%E4%B9%A6/"/>
+    
+    
+      <category term="人生" scheme="https://waitwalker.github.io/tags/%E4%BA%BA%E7%94%9F/"/>
+    
+      <category term="读后感" scheme="https://waitwalker.github.io/tags/%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
+    
+  </entry>
   
   <entry>
     <title>堆</title>
@@ -595,37 +623,6 @@ int main(int argc, const
       <category term="Swift" scheme="https://waitwalker.github.io/tags/Swift/"/>
     
       <category term="栈" scheme="https://waitwalker.github.io/tags/%E6%A0%88/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Swift_mutating</title>
-    <link href="https://waitwalker.github.io/2019/04/11/Swift-mutating/"/>
-    <id>https://waitwalker.github.io/2019/04/11/Swift-mutating/</id>
-    <published>2019-04-11T10:31:22.000Z</published>
-    <updated>2019-04-11T10:32:13.519Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在swift中:struct,enum,class都可以定义方法和属性.但是struct和enum是值类型,值类型存储在栈区.class是引用类型,引用类型存在在堆区.&lt;/p&gt;
-
-        
-      
-    
-    </summary>
-    
-      <category term="Swift开发" scheme="https://waitwalker.github.io/categories/Swift%E5%BC%80%E5%8F%91/"/>
-    
-    
-      <category term="Swift" scheme="https://waitwalker.github.io/tags/Swift/"/>
-    
-      <category term="Swift开发" scheme="https://waitwalker.github.io/tags/Swift%E5%BC%80%E5%8F%91/"/>
-    
-      <category term="mutating" scheme="https://waitwalker.github.io/tags/mutating/"/>
     
   </entry>
   

@@ -4,8 +4,8 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="堆, Swift, iOS, Python">
-    <meta name="description" content="堆是二叉树的一种,分为最小堆:其根节点恒小于子节点;最大堆:其根节点恒大于子节点.堆总是一颗完全二叉树,除了最底层,其它层都被填满,且最底层尽可能从左往右填入.常见的堆有二叉堆,斐波那契堆等.堆又名优先队列,但并不是队列.之前我们了解队列是">
+    <meta name="keywords" content="读《人生》, Swift, iOS, Python">
+    <meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;读完路遥的人生之后，心情有点沉重。人生如戏,戏如人生。当我们旅途不顺时应该怎样调节;当我们面对这一系列的艰难抉择时，我们该怎么办;在一些诱惑面前">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>堆 | waitwalker</title>
+    <title>读《人生》 | waitwalker</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -259,13 +259,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        堆
+                        读《人生》
                     </div>
                 </div>
             </div>
@@ -376,24 +376,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/数据结构/" target="_blank">
-                                <span class="chip bg-color">数据结构</span>
+                            <a href="/tags/人生/" target="_blank">
+                                <span class="chip bg-color">人生</span>
                             </a>
                         
-                            <a href="/tags/算法/" target="_blank">
-                                <span class="chip bg-color">算法</span>
-                            </a>
-                        
-                            <a href="/tags/Swift/" target="_blank">
-                                <span class="chip bg-color">Swift</span>
-                            </a>
-                        
-                            <a href="/tags/堆/" target="_blank">
-                                <span class="chip bg-color">堆</span>
-                            </a>
-                        
-                            <a href="/tags/优先队列/" target="_blank">
-                                <span class="chip bg-color">优先队列</span>
+                            <a href="/tags/读后感/" target="_blank">
+                                <span class="chip bg-color">读后感</span>
                             </a>
                         
                     </div>
@@ -404,8 +392,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/数据结构与算法/" class="post-category" target="_blank">
-                                数据结构与算法
+                            <a href="/categories/读书/" class="post-category" target="_blank">
+                                读书
                             </a>
                         
                     </div>
@@ -416,7 +404,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-04-30
+                    2019-05-02
                 </div>
 
                 
@@ -432,150 +420,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>堆是二叉树的一种,分为最小堆:其根节点恒小于子节点;最大堆:其根节点恒大于子节点.堆总是一颗完全二叉树,除了最底层,其它层都被填满,且最底层尽可能从左往右填入.常见的堆有二叉堆,斐波那契堆等.<br>堆又名优先队列,但并不是队列.之前我们了解队列是满足FIFO的数据结构,而堆是按照元素的优先级来处理元素.通常我们最小堆或者最大堆都是我们给堆设定的优先级.<br>堆的存储结构一般用数组来实现,本文主要实现的最大堆的结构.</p>
-<h2 id="构造"><a href="#构造" class="headerlink" title="构造"></a>构造</h2><pre><code>// MARK: - 堆
-class Heap&lt;T:Comparable&gt; {
-
-    // 存储结构
-    private(set) var elements:[T] = []
-
-   // MARK: - 构造
-    init() {
-
-    }
-}
-</code></pre><h2 id="节点索引"><a href="#节点索引" class="headerlink" title="节点索引"></a>节点索引</h2><p>因为堆是一颗完全二叉树,其在数组中的存储结构也满足二叉树一些性质,比如一个索引为i的节点其左子树索引为2i + 1,其右子树索引为2i + 2;其父节点的索引为(i - 1) / 2.</p>
-<pre><code>/// 左子树索引
-    ///
-    /// - Parameter index: 当前节点索引
-    /// - Returns: 左子树的索引
-    func leftChildIndex(index:Int) -&gt; Int {
-        return 2 * index + 1
-    }
-
-
-    /// 右子树索引
-    ///
-    /// - Parameter index: 当前节点索引
-    /// - Returns: 右子树的索引
-    func rightChildIndex(index:Int) -&gt; Int {
-        return 2 * index + 2
-    }
-
-
-    /// 父节点索引
-    ///
-    /// - Parameter index: 当前节点索引
-    /// - Returns: 父节点的索引
-    func parentIndex(index:Int) -&gt; Int {
-        guard index &gt; 0 else {
-            return 0
-        }
-        return (index - 1) / 2
-    }
-</code></pre><h2 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h2><p>插入逻辑:<br>1)将新元素插入到数组的末尾<br>2)将新元素节点与其父节点进行比较,如果优先级大于父节点(也就是其值大于父节点),则新节点与父节点进行位置更换,继续新节点与父节点进行比较<br>3)递归</p>
-<pre><code>/***
-        1)将新元素插入到数组的末尾
-        2)将新元素节点与其父节点进行比较,如果优先级大于父节点(也就是其值大于父节点),则新节点与父节点进行位置更换,继续新节点与父节点进行比较
-        3)递归
-     */
-    /// 插入操作
-    ///
-    /// - Parameter element: 待插入的元素
-    func insert(element:T) -&gt; Void {
-        elements.append(element)
-        guard elements.count &gt; 1 else {
-            return
-        }
-        shiftUp(index: elements.count - 1)
-    }
-
-
-    /// 上滤
-    ///
-    /// - Parameter index: 当前索引
-    func shiftUp(index:Int) -&gt; Void {
-        let parentIndex = self.parentIndex(index: index)
-        guard isHigherPriority(firstIndex: index, secondIndex: parentIndex) else {
-            return
-        }
-        swapElement(with: index, and: parentIndex)
-
-        // 向上继续比较
-        shiftUp(index: parentIndex)
-    }
-
-
-    /// 最大堆判断优先级
-    ///
-    /// - Parameters:
-    ///   - firstIndex: 新元素索引
-    ///   - secondIndex: 父节点索引
-    /// - Returns: 新节点是否具有优先级
-    private func isHigherPriority(firstIndex:Int, secondIndex:Int) -&gt; Bool {
-        guard firstIndex &lt; elements.count &amp;&amp; secondIndex &lt; elements.count  else {
-            return false
-        }
-        return elements[firstIndex] &gt; elements[secondIndex]
-    }
-
-
-    /// 交换两个元素
-    ///
-    /// - Parameters:
-    ///   - firstIndex: 第一个元素索引
-    ///   - secondIndex: 第二个元素索引
-    private func swapElement(with firstIndex:Int, and secondIndex:Int) -&gt; Void {
-        guard firstIndex &lt; elements.count &amp;&amp; secondIndex &lt; elements.count else {
-            return
-        }
-        elements.swapAt(firstIndex, secondIndex)
-    }
-</code></pre><h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><p>删除逻辑:<br>1)删除操作通常将最大堆元素移除,及根节点移除,首先将根节点与最后的元素互换位置<br>2)删除最后的元素(即移到最后的根元素)<br>3)将移动到root位置的新根节点与其子节点进行比较,如果其小于子节点,则与子节点互换位置<br>4)递归</p>
-<pre><code>/// 删除操作
-    func delete() -&gt; Void {
-        guard !isEmpty else {
-            return
-        }
-
-        swapElement(with: 0, and: count - 1)
-
-        elements.removeLast()
-
-        guard !isEmpty else {
-            return
-        }
-
-        shiftDown(elememtIndex: 0)
-    }
-
-
-    /// 下滤
-    ///
-    /// - Parameter elememtIndex: 元素索引
-    func shiftDown(elememtIndex:Int) -&gt; Void {
-        // 获取当前节点与其子节点的高优先级的节点
-        var tmpIndex = elememtIndex
-        let leftIndex = leftChildIndex(index: elememtIndex)
-        let rightIndex = rightChildIndex(index: elememtIndex)
-
-        if leftIndex &lt; count &amp;&amp; isHigherPriority(firstIndex: leftIndex, secondIndex: rightIndex) {
-            tmpIndex = leftIndex
-        }
-
-        if rightIndex &lt; count &amp;&amp; isHigherPriority(firstIndex: rightIndex, secondIndex: leftIndex) {
-            tmpIndex = rightIndex
-        }
-
-        if elememtIndex == tmpIndex {
-            return
-        }
-
-        swapElement(with: elememtIndex, and: tmpIndex)
-        shiftDown(elememtIndex: tmpIndex)
-    }
-</code></pre><h2 id="源码地址"><a href="#源码地址" class="headerlink" title="源码地址"></a>源码地址</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这里的实现代码已放到<a href="https://github.com/waitwalker/DataStructureAlgorithm" target="_blank" rel="noopener">GitHub</a>,测试用例详见DataStructureAlgorithmTests.swift文件</p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://zh.wikipedia.org/wiki/%E5%A0%86%E7%A9%8D" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/%E5%A0%86%E7%A9%8D</a><br>《数据结构与算法分析C语言描述》(Data Structures and Algorithm Analysis in C:Second Edition)–译者: 冯舜玺</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;读完路遥的人生之后，心情有点沉重。人生如戏,戏如人生。当我们旅途不顺时应该怎样调节;当我们面对这一系列的艰难抉择时，我们该怎么办;在一些诱惑面前我们，是否能够把握好自己。人生这条路曲曲折折，走得越长，我们从中学到的东西越多，领悟得越多。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;《人生》一书叙述了高加林回到土地又离开土地，再回到土地这样人生的变化过程。他与两个女人之间的事情构成了书的一个发展线索。我个人比较喜欢刘巧珍，她美丽善良、贴心，处处为所爱的人着想。当高加林是一个老师时，她站在旁边默默的关注他，虽然很爱他却不敢表达，觉得自己配不上他。当爱的人被人顶替了教师职位回到家种地时，看着他在山坡上拼命挖地把手弄伤之后，心里很心疼，给他送药水;当加林提着馒头到县城卖时，她在一旁悄悄的观察着他，心里很替他着急，当加林一个馒头都没有卖出去时，她帮他卖……….这些行动都深深的打动了高加林，于是他俩恋爱了。恋爱中，有一次他俩在草堆中谈话，巧珍对加林说“当我们结婚之后，我要让你像在学校一样，过星期天”，还有一次她到县城里看着爱人的被子薄，便说要给加林续棉花……….这些我们都可以体会到巧珍对加林无私真挚的爱。对于巧珍，我是十分的佩服，一个女人到底有多大的胸怀才可以这样默默的付出，可以苦自己，却不愿意自己所爱的人受苦，处处为爱的人着想，把最好的东西留给爱的人。也从侧面表现出了农民的那种淳朴,单纯,宽阔的心胸.<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对于高加林的遭遇有恨也有同情。恨他无情的抛弃了真心真意他好的人，同情他来来去去最后又回到了黄土，落下一个”不好的下场”。他是一个才貌双全、文武皆备的高中毕业生，自信、有抱负、有思想，毕业后当上了民办教师，但是被人不公平的顶替了。他的心里很不平衡，是巧珍慢慢的安抚着他。给予了他无私的爱，让他感受到快乐。但是当他进城工作之后，渐渐的觉得自己与巧珍有差距，开始抛弃在农村的相好。记得那次巧珍到县城看他时，对他说他家里的猪生了十二个猪娃，被老母猪压死一个…….他表现出反感，不耐烦，这预示着这段感情快走到了尽头。加上黄亚萍对他的热烈追求，他更是动摇了。黄亚萍是一个城里的女人，有知识有文化，大胆、开朗活泼，对高加林穷追不舍。她与高加林之间有共同的文学爱好，这拉近了他们之间的距离。在这种情况下，最后高加林无情的丢下了巧珍，投向了那外一个女人的怀抱，我想换做现在的一些人也会这样做的。但是就像我们说的一样，任何事情有得必有失，有人告发了他进城工作是靠关系。他又回到了生他养他的那片黄土地，所有的东西顷刻之间又没有了，原有的爱人早已离开,而淳朴的乡民更多的是去宽慰他,人生无常,更需抬起眼来朝前看。虽然他的内心十分痛苦，世上没有后悔药，一切已来不及。我们不能把这些全怪罪在他自己身上，造成这种结局的也有社会原因。我们面对他这种情景时，也不敢保证不会像他那样做。在现实面前，有好多事情是被逼无奈。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;到现在为止，看过路遥的好多作品，对《人生》和《平凡的世界》感触比较深,对所描绘的黄土高原千沟万壑的印象更深。《人生》给了我很多想法和启示，其中有句话特别好“人生的道路虽然漫长，但紧要处常常只有几步，特别是当人年轻的时候。”是啊，人生这条路需要我们好好的走，要记得曾经对我们好的人，不管在什么时候都不能忘了。做事要凭自己的良心，不能被自己所处的环境所变化，保留自己最真实的一面。在面对一系列艰难抉择的时候，好好的想清楚，不要伤害那些深深爱你的人，我们可能会失去一些机会，但是它还有可能会得到，有些人我们一旦错过了就不会再有。<br></p>
 
             </div>
             <hr>
@@ -723,7 +568,7 @@ class Heap&lt;T:Comparable&gt; {
                     </span>
                     <a href="https://waitwalker.github.io" class="b-link-green">waitwalker</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/04/30/堆/" class="b-link-green">堆</a>
+                    <a href="/2019/05/02/读《人生》/" class="b-link-green">读《人生》</a>
                 </p>
             </div>
         </div>
@@ -746,7 +591,8 @@ class Heap&lt;T:Comparable&gt; {
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2019/05/02/读《人生》/">
                     <div class="card-image">
@@ -760,9 +606,9 @@ class Heap&lt;T:Comparable&gt; {
                 <div class="card-content article-content">
                     <div class="summary block-with-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;读完路遥的人生之后，心情有点沉重。人生如戏,戏如人生。当我们旅途不顺时应该怎样调节;当我们面对这一系列的艰难抉择时，我们该怎么办;在一些诱惑面前</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-02
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-02
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -775,6 +621,7 @@ class Heap&lt;T:Comparable&gt; {
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -797,17 +644,17 @@ class Heap&lt;T:Comparable&gt; {
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/04/30/AVL树/">
+                <a href="/2019/04/30/堆/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="AVL树">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="堆">
                         
-                        <span class="card-title">AVL树</span>
+                        <span class="card-title">堆</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary block-with-text">AVL树定义AVL树是一个带平衡条件的二叉搜索树.AVL树得名于它的发明者G. M. Adelson-Velsky和Evgenii Landis,他们在1962年的论文《An algorithm for the organization o</div>
+                    <div class="summary block-with-text">堆是二叉树的一种,分为最小堆:其根节点恒小于子节点;最大堆:其根节点恒大于子节点.堆总是一颗完全二叉树,除了最底层,其它层都被填满,且最底层尽可能从左往右填入.常见的堆有二叉堆,斐波那契堆等.堆又名优先队列,但并不是队列.之前我们了解队列是</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-30
@@ -839,8 +686,12 @@ class Heap&lt;T:Comparable&gt; {
                         <span class="chip bg-color">Swift</span>
                     </a>
                     
-                    <a href="/tags/栈/" target="_blank">
-                        <span class="chip bg-color">栈</span>
+                    <a href="/tags/堆/" target="_blank">
+                        <span class="chip bg-color">堆</span>
+                    </a>
+                    
+                    <a href="/tags/优先队列/" target="_blank">
+                        <span class="chip bg-color">优先队列</span>
                     </a>
                     
                 </div>
