@@ -1,0 +1,1608 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="完整前后台开源项目--狗圈儿, Swift, iOS, Python">
+    <meta name="description" content="
+
+简介&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;狗圈儿是一个宠物社交软件,目的是广纳狗友,深入交流,分享快乐.狗圈儿是一个包含前台和后台的完整项目,从代码编写,图形图标设计,再到部署,">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>完整前后台开源项目--狗圈儿 | waitwalker</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+
+<!--导航-->
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    <!---->
+                    <!--<img src="/medias/logo.png" class="logo-img" alt="LOGO">-->
+                    <!---->
+                    <span class="logo-span">waitwalker</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">waitwalker</div>
+        <div class="logo-desc">
+            
+            Life is measured by thought and action not by time.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/waitwalker" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/waitwalker" class="github-corner tooltipped hide-on-med-and-down" target="_blank" data-tooltip="https://github.com/waitwalker" data-position="left" data-delay="50">
+    <svg viewbox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        完整前后台开源项目--狗圈儿
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Swift/" target="_blank">
+                                <span class="chip bg-color">Swift</span>
+                            </a>
+                        
+                            <a href="/tags/iOS/" target="_blank">
+                                <span class="chip bg-color">iOS</span>
+                            </a>
+                        
+                            <a href="/tags/开源/" target="_blank">
+                                <span class="chip bg-color">开源</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/开源项目/" class="post-category" target="_blank">
+                                开源项目
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-05-15
+                </div>
+
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p align="center"><br><img src="https://upload-images.jianshu.io/upload_images/1715253-c27077ff77062e8a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Pet" title="Pet" width="200"><br></p>
+
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;狗圈儿是一个宠物社交软件,目的是广纳狗友,深入交流,分享快乐.狗圈儿是一个包含前台和后台的完整项目,从代码编写,图形图标设计,再到部署,调试,上架发布都由本人完成,稀稀拉拉历经几个月完成.前台开发采用的是Swift编写,现在已经适配到最新的SDK版本,如果你的Xcode不是最新的请先升级到最新版本.项目已经打包发布到<a href="https://itunes.apple.com/US/app/id1395622129?mt=8" target="_blank" rel="noopener"><strong>App Store</strong></a>,App主要适配了iPhone端,iPad接口预留了,没有适配.目前<a href="https://itunes.apple.com/US/app/id1395622129?mt=8" target="_blank" rel="noopener"><strong>App Store</strong></a>中版本是1.4.后台Web服务接口用Python语言开发,采用的是Tornado web server.数据库用的MySql和Redis缓存,server和数据库都部署在一台vps上了,资源文件托管在七牛上.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在前台和后台源码全部开源到GitHub上,如果有需要,可以clone下来看一下.由于个人的服务器再朝外,涉及到流量等问题,服务器地址,七牛托管上传文件的token等暂不对外公布,如果想部署服务,在下文中会详细讲一下具体改哪些地方或者私信给我也行.</p>
+<p>前台代码:<a href="https://github.com/waitwalker/Pet" target="_blank" rel="noopener">https://github.com/waitwalker/Pet</a></p>
+<p>后台代码:<a href="https://github.com/waitwalker/PetAPI" target="_blank" rel="noopener">https://github.com/waitwalker/PetAPI</a></p>
+<p><strong>如果对你有帮助,请给我一个赞或星,感谢!</strong></p>
+<p>贴几张图:<br><img src="https://upload-images.jianshu.io/upload_images/1715253-9a0046e4dc959330.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="狗圈儿"></p>
+<h2 id="前台"><a href="#前台" class="headerlink" title="前台"></a>前台</h2><h3 id="整体结构"><a href="#整体结构" class="headerlink" title="整体结构"></a>整体结构</h3><p>项目结构基本按照模块来划分.</p>
+<pre><code>
+.
+
+└── PetGroup
+
+├── ApplicationLayer
+
+│   └── CommentDetail
+
+├── CommonConfig
+
+│   └── MTTCommonConfig.swift
+
+├── Commons # 一些封装组件&amp;扩展等
+
+│   ├── BaseClass
+
+│   ├── Bridge
+
+│   ├── Const
+
+│   ├── Core
+
+│   ├── Database
+
+│   ├── Extension
+
+│   ├── Router
+
+│   ├── Security
+
+│   ├── Sequence
+
+│   ├── ThirdFramework
+
+│   └── Tools
+
+├── Main #入口函数&amp;资源文件
+
+│   ├── AppDelegate.swift
+
+│   ├── Assets.xcassets
+
+│   ├── Base.lproj
+
+│   ├── Info.plist
+
+│   ├── zh-Hans.lproj
+
+│   └── zh-Hant.lproj
+
+├── Modules #主要模块
+
+│   ├── Circle #首页
+
+│   ├── LaunchProgress #启动广告页
+
+│   ├── Login&amp;Register #登录注册
+
+│   ├── Personal #个人中心
+
+│   ├── PetRecognise #鉴宠
+
+│   ├── PopularScience
+
+│   └── WelcomePage #欢迎引导页
+
+├── PetGroup.entitlements
+
+└── README.md
+
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;程序在启动的时候封装了一个超级管理类MTTSuperiorManager,其主要作用是接收不同的任务类型,然后将任务任务下发给助手实施.MTTAssistantManager是一个基类,其只负责转接超级管理者下发的任务,具体的任务由其子类去实现.MTTAssistantManager就像人体的大脑一样,指挥着MTTArmManager手臂,MTTLegManager等去完成具体的任务.然后将执行的结果回调给命令的发出者.</p>
+<p>下面是一个简单的示例:</p>
+<p>1)程序启动-&gt;给MTTSuperiorManager发一个launchAssistant任务</p>
+<pre><code>
+MTTSuperiorManager.sharedSuperiorManager.applyAssitant(application: application, assistantType: MTTAssistantType.launchAssistant)
+
+</code></pre><p>2)MTTSuperiorManager收到任务后,将任务交给MTTAssistantManager基类</p>
+<pre><code>
+func applyAssitant(application: UIApplication, assistantType:MTTAssistantType) -&gt; Void {
+
+MTTAssistantManager.assistantHandler([&quot;application&quot;: application], assistantType: assistantType)
+
+}
+
+</code></pre><p>3)MTTAssistantManager基类判断具体任务类型,将任务交给去实施</p>
+<pre><code>
+static func assistantHandler(_ info: [String:Any]?, assistantType: MTTAssistantType) -&gt; Void {
+
+switch assistantType {
+
+case .interfaceAssistant:
+
+let interfaceAssistant = MTTInterfaceAssistantManager()
+
+let application = info![&quot;application&quot;] as! UIApplication
+
+//具体实施&amp;回调
+
+interfaceAssistant.handlerInterface(application: application)
+
+case .launchAssistant:
+
+handlerLaunch()
+
+case .initializePetRecogniseData:
+
+MTTPetRecogniseDataAssistant.initializePetRecogniseData()
+
+}
+
+}
+
+</code></pre><p>4)MTTInterfaceAssistantManager子类实施启动任务</p>
+<pre><code>
+override func handlerInterface(application: UIApplication) {
+
+pSetupStatistic()
+
+_ = UMConfigure.deviceIDForIntegration()
+
+//MTTPrint(&quot;deviceID:\(deviceID)&quot;)
+
+self.setupMainUI()
+
+let appDelegate = application.delegate as! AppDelegate
+
+let tabBarController = UITabBarController()
+
+tabBarController.viewControllers = makeChildControllers()
+
+appDelegate.window?.rootViewController = tabBarController
+
+appDelegate.window?.makeKeyAndVisible()
+
+}
+
+</code></pre><p><img src="https://upload-images.jianshu.io/upload_images/1715253-79ff6b9e385da533.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="狗圈儿任务时序图"></p>
+<p>其它任务类型具体请看源码.</p>
+<h3 id="主要模块"><a href="#主要模块" class="headerlink" title="主要模块"></a>主要模块</h3><p>项目整体大概分为:广告页,欢迎引导,登录注册等模块</p>
+<h4 id="广告页"><a href="#广告页" class="headerlink" title="广告页"></a>广告页</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;广告页MTTLauchProgressController,其弹出的方法定义在MTTLaunchInterface接口文件中,然后有首页MTTCircleViewController实现了这个方法,然后弹出广告页,广告页的内容暂时定的为一张静态图片,如果有需要你可以在这里面拓展你自己的广告图片链接.</p>
+<pre><code>
+extension MTTCircleViewController: MTTLaunchInterface
+
+{
+
+func iLaunchProgressPage(info: [String : Any]?) {
+
+let progressVC = MTTLauchProgressController()
+
+self.pushViewController(progressVC)
+
+}
+
+}
+
+</code></pre><p><img src="https://upload-images.jianshu.io/upload_images/1715253-eaa6e0393d5f933a.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="广告页"></p>
+<h4 id="欢迎引导"><a href="#欢迎引导" class="headerlink" title="欢迎引导"></a>欢迎引导</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;欢迎引导出现在第一次安装启动应用或者版本有变化时.应用启动完毕后,判断是否应该弹出欢迎引导页并通过回调方式告诉调用者是否需要显示欢迎引导页:</p>
+<pre><code>
+// 注册欢迎引导页,判断是否弹出欢迎引导页
+
+MTTWelcomePageManager.handlerWelcomePage(handler: self, appVersion: MTTDeviceInfoManager.currentDeviceManager.appVersion)
+
+/// 处理启动页 :是否需要出现启动页
+
+///
+
+/// - Parameters:
+
+/// - handler: 处理者
+
+/// - appVersion: 版本
+
+static func handlerWelcomePage(handler:MTTWelcomePageInterface, appVersion:String) -&gt; Void {
+
+let filterStr = &quot;name = &#39;petGroup&#39;&quot;
+
+let result = MTTRealm.queryObject(type: MTTPetGroupInfoModel.self, filter: filterStr)
+
+// 已经插入数据了
+
+if (result?.count)! &gt; Int(0) {
+
+let petGroup = result?.first as! MTTPetGroupInfoModel
+
+var isShow:Bool = false
+
+if petGroup.version == appVersion
+
+{
+
+isShow = false
+
+handler.iShouldShowWelcomePage(show: isShow)
+
+}else {
+
+isShow = true
+
+MTTRealm.sharedRealm.beginWrite()
+
+petGroup.version = appVersion
+
+try! MTTRealm.sharedRealm.commitWrite()
+
+handler.iShouldShowWelcomePage(show: isShow)
+
+}
+
+} else {
+
+MTTRealm.sharedRealm.beginWrite()
+
+let petGroupInfo = MTTPetGroupInfoModel()
+
+petGroupInfo.name = &quot;petGroup&quot;
+
+petGroupInfo.version = appVersion
+
+MTTRealm.sharedRealm.add(petGroupInfo)
+
+try! MTTRealm.sharedRealm.commitWrite()
+
+handler.iShouldShowWelcomePage(show: true)
+
+}
+
+}
+
+</code></pre><p>回调处理:</p>
+<pre><code>
+extension AppDelegate: MTTWelcomePageInterface
+
+{
+
+func iShouldShowWelcomePage(show: Bool) {
+
+if show {
+
+// 第一次 显示欢迎引导
+
+MTTTaskCenter.iDispatchTask(registerTo: self, taskType: MTTTaskCenterTaskType.welcomePageTask, info: nil)
+
+} else {
+
+// 非第一次 注册广告任务 到根控制器
+
+MTTSuperiorManager.sharedSuperiorManager.applyAssitant(application: UIApplication.shared, assistantType: MTTAssistantType.interfaceAssistant)
+
+}
+
+}
+
+}
+
+</code></pre><h4 id="登录注册"><a href="#登录注册" class="headerlink" title="登录注册"></a>登录注册</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;登录和注册均采用的是手机号注册,方式简单,由于需要一些投入前期没有添加验证码验证.第三方登录目前支持QQ,微博和钉钉.</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1715253-eb993feca589d4ed.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="登录注册"></p>
+<h4 id="首页心情"><a href="#首页心情" class="headerlink" title="首页心情"></a>首页心情</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首页心情列表实现逻辑,如果用户是第一次启动APP,将根据设备UUID获取心情列表,最多获取10条数据.如果已经注册登录过,可以分页加载列表,每页10条. 之前在上传到App Store中遇到一个问题:需要举报屏蔽功能,因此首页某条心情被举报了,应该屏蔽掉,其实现算法如下:</p>
+<pre><code>
+// MARK: - 查询被屏蔽的用户
+
+private func pSetupBlockUserUid() -&gt; Void {
+
+let result = MTTRealm.queryObjects(type: MTTBlockAbuseUserTable.self)
+
+if (result?.count)! &gt; 0 {
+
+for (_,abuseUser) in (result?.enumerated())! {
+
+let abuse = abuseUser as! MTTBlockAbuseUserTable
+
+MTTUserInfoManager.sharedUserInfo.blockUserUidArray.insert(abuse.uid)
+
+}
+
+}
+
+}
+
+func dDynamicListSuccessCallBack(_ info: [String : Any]?) {
+
+let dataSource = info![&quot;dataSource&quot;] as! [MTTCircleModel]
+
+let isHaveMoreData = info![&quot;isHaveMoreData&quot;] as! Int
+
+if MTTUserInfoManager.sharedUserInfo.blockUserUidArray.count &lt;= 0 {
+
+for (_,circelModel) in dataSource.enumerated() {
+
+ODataSource.append(circelModel)
+
+}
+
+} else {
+
+var tmpD = dataSource
+
+var tmpIndexArray:[Int] = []
+
+for (index, model) in dataSource.enumerated() {
+
+if MTTUserInfoManager.sharedUserInfo.blockUserUidArray.contains(model.uid) {
+
+tmpIndexArray.append(index)
+
+}
+
+}
+
+for (i, index) in tmpIndexArray.enumerated() {
+
+tmpD.remove(at: index - i)
+
+}
+
+let tmpDataSource:[MTTCircleModel] = tmpD
+
+let newDataSource = tmpDataSource.sorted { (model_one, model_two) -&gt; Bool in
+
+return model_one.modelIndex &lt; model_two.modelIndex
+
+}
+
+for (_,circelModel) in newDataSource.enumerated() {
+
+ODataSource.append(circelModel)
+
+}
+
+}
+
+pRemoveHUD()
+
+VCircleTableView.reloadData()
+
+self.VCircleTableView.mj_footer.endRefreshing()
+
+self.VCircleTableView.mj_header.endRefreshing()
+
+self.isHaveMoreData = isHaveMoreData
+
+if isHaveMoreData == 0 {
+
+self.view.toast(message: &quot;没有更多数据啦&quot;)
+
+}
+
+}
+
+</code></pre><p><img src="https://upload-images.jianshu.io/upload_images/1715253-2f27e7d632ca4633.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="首页"></p>
+<h4 id="撰写评论-amp-点赞"><a href="#撰写评论-amp-点赞" class="headerlink" title="撰写评论&amp;点赞"></a>撰写评论&amp;点赞</h4><p><img src="https://upload-images.jianshu.io/upload_images/1715253-c8a11004c6f12291.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="撰写评论"></p>
+<h4 id="举报-amp-屏蔽"><a href="#举报-amp-屏蔽" class="headerlink" title="举报&amp;屏蔽"></a>举报&amp;屏蔽</h4><p><img src="https://upload-images.jianshu.io/upload_images/1715253-f9aba3038818752c.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="举报屏蔽"></p>
+<h4 id="鉴宠"><a href="#鉴宠" class="headerlink" title="鉴宠"></a>鉴宠</h4><p><img src="https://upload-images.jianshu.io/upload_images/1715253-c9f5ca3b15ed4177.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="鉴宠"></p>
+<h4 id="个人中心"><a href="#个人中心" class="headerlink" title="个人中心"></a>个人中心</h4><p><img src="https://upload-images.jianshu.io/upload_images/1715253-a0c21d2350c68bf8.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="个人中心"></p>
+<h4 id="推送"><a href="#推送" class="headerlink" title="推送"></a>推送</h4><p><img src="https://upload-images.jianshu.io/upload_images/1715253-92a33893379b444f.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="推送"></p>
+<h4 id="分享"><a href="#分享" class="headerlink" title="分享"></a>分享</h4><p><img src="https://upload-images.jianshu.io/upload_images/1715253-f9eeeaa579941429.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="分享"></p>
+<h3 id="主要技术"><a href="#主要技术" class="headerlink" title="主要技术"></a>主要技术</h3><h4 id="自动布局"><a href="#自动布局" class="headerlink" title="自动布局"></a>自动布局</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;自动布局是给控件添加约束,最终转换成计算控件frame,从而实现布局的过程.苹果的SDK可以通过代码实现,也可以通过Interface Builder直接给控件添加约束.也有一些第三方的封装组件,像Masonry,SnapKit等.本项目中一些页面大多采用SnapKit来布局.SnapKit为每个view拓展了一个snp计算属性,继承自ConstraintViewDSL,通过如下构造函数,将待约束的view传给ConstraintViewDSL</p>
+<pre><code>
+internal init(view: ConstraintView) {
+
+self.view = view
+
+}
+
+</code></pre><p>ConstraintViewDSL内部持有个待约束的存储属性view:</p>
+<pre><code>
+internal let view: ConstraintView
+
+</code></pre><p>然后snp调用其内部的实例方法,给控件添加约束,通过closure回调:</p>
+<pre><code>
+public func makeConstraints(_ closure: (_ make: ConstraintMaker) -&gt; Void) {
+
+ConstraintMaker.makeConstraints(item: self.view, closure: closure)
+
+}
+
+</code></pre><p>如果需要,可以继续深入继续研究.</p>
+<h4 id="响应式"><a href="#响应式" class="headerlink" title="响应式"></a>响应式</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RxSwift把程序中的每一个操作都看成一个事件,而事件是从事件源中不断发出的,事件源可以是一个button,一个textField等.每一个事件都涉及到输入和输出,比如当你把点击一个事件输入给一个button时,这个button会给你输出一个touch事件,你只需要监听这个touch事件,对这个事件作出需要的响应就可以了.项目中部分模块采用MVVM架构,将相关事件的输入和输出封装到viewModel里面,view持有viewModel,将事件源输入给viewModel,viewModel依据业务逻辑处理后将事件输出给view去响应.</p>
+<h4 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;加密有对称加密和非对称加密,加密可以理解为将明文经过某种转换或计算使之成为你看不懂的过程.常见的非对称加密方法:RSA,有一把公钥,一把私钥;公钥加密的内容只有私钥能解开,私钥加密的内容只有公钥能解开.对称加密加密方法有:AES,DES等,其使用同一把秘钥key.其加密强度主要取决于key的复杂度.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;项目在密码那块采用了AES加密,然后将密文传输到服务器,同时持久化在本地用于下次自动登录.第二用到的地方是在上传图片获取七牛token时,用密码密文当做一个验证.这里封装了加解密方法:</p>
+<pre><code>
+// MARK: - instance method 实例方法
+
+// MARK: - class method 类方法
+
+/// AES ECB 128 加密
+
+///
+
+/// - Parameter originalString: 原始内容
+
+/// - Returns: 加密后内容
+
+static func AES_ECB_128_Encode(originalString:String) -&gt; String {
+
+let data = originalString.data(using: String.Encoding.utf8)
+
+// byte 数组
+
+var encrypted:[UInt8] = []
+
+do {
+
+let aes = try AES(key: key, blockMode: CBC(iv: iv), padding: Padding.pkcs7)
+
+encrypted = try aes.encrypt((data?.bytes)!)
+
+} catch let error {
+
+print(error)
+
+}
+
+let encoded = Data(encrypted)
+
+return encoded.base64EncodedString()
+
+}
+
+/// AES ECB 128 解密
+
+///
+
+/// - Parameter content: 加密内容
+
+/// - Returns: 解密后
+
+static func AES_ECB_128_Decode(content:String) -&gt; String {
+
+let data = NSData(base64Encoded: content, options: NSData.Base64DecodingOptions.init(rawValue: 0))
+
+var encrypted:[UInt8] = []
+
+let count = data?.length
+
+for i in 0..&lt;count! {
+
+var tmp:UInt8 = 0
+
+data?.getBytes(&amp;tmp, range: NSRange(location: i,length:1 ))
+
+encrypted.append(tmp)
+
+}
+
+// decode AES
+
+var decrypted: [UInt8] = []
+
+do {
+
+let aes = try AES(key: key, blockMode: CBC(iv: iv), padding: Padding.pkcs7)
+
+decrypted = try aes.decrypt(encrypted)
+
+} catch let error {
+
+print(error)
+
+}
+
+// byte 转换成NSData
+
+let encoded = Data(decrypted)
+
+//解密结果从data转成string
+
+let str = String(data: encoded, encoding: String.Encoding.utf8)
+
+return str!
+
+}
+
+</code></pre><h4 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iOS上的持久化方案有多种:plist,用户偏好,sqlite,Core Data,还有目前比较流行的Realm.除了Core Data,大都使用过,使用方法都相对简单.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;狗圈儿中在存储设备信息,登录后用户信息,屏蔽用户,鉴宠中的宠物名称等地方建立了对应的表在本地保存相应的信息.</p>
+<pre><code>
+class MTTLoginInfoTable: Object {
+
+@objc dynamic var id:Int = 0 //主键
+
+@objc dynamic var deviceToken:String = &quot;&quot; //设备标识
+
+@objc dynamic var isNeedAutoLogin:Bool = false //是否需要自动登录
+
+@objc dynamic var phone:String = &quot;&quot; //手机
+
+@objc dynamic var password:String = &quot;&quot; //密码
+
+@objc dynamic var isNormalLogin = true
+
+@objc dynamic var header_photo = &quot;&quot;
+
+override static func primaryKey() -&gt; String? {
+
+return &quot;id&quot;
+
+}
+
+// 添加索引
+
+override static func indexedProperties() -&gt; [String] {
+
+return [&quot;phone&quot;]
+
+}
+
+}
+
+/// 屏蔽用户数据表
+
+class MTTBlockAbuseUserTable: Object {
+
+@objc dynamic var id:String = &quot;&quot; //主键
+
+@objc dynamic var uid:String = &quot;&quot;
+
+@objc dynamic var blockUids:String = &quot;&quot;
+
+override static func primaryKey() -&gt; String? {
+
+return &quot;id&quot;
+
+}
+
+}
+
+</code></pre><h4 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h4><p>程序中网络利用Alamofire来请求服务.</p>
+<p>基本用法:</p>
+<p>HTTP - <a href="#HTTP 方法">HTTP 方法</a>, 请求参数编码, HTTP Headers, 认证</p>
+<p>大量数据 - 下载数据到文件, 上传数据到服务器</p>
+<p>工具 - 指标统计, <a href="#cURL 命令输出">cURL 命令输出</a></p>
+<p>高级用法:</p>
+<p>URL 会话 - 会话管理, 会话代理, 请求</p>
+<p>请求路由 - 请求路由, Adapting and Retrying Requests</p>
+<p>模型对象 - 自定义响应序列化器</p>
+<p>网络连接 - 安全性, 网络可用性</p>
+<h4 id="图片缓存"><a href="#图片缓存" class="headerlink" title="图片缓存"></a>图片缓存</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;图片缓存采用的是Kingfisher. Kingfisher是基于NSURLSession的异步图片下载和缓存框架.其实现原理和SDWebImage有些类似.可以通过源码了解其过程原理.</p>
+<h4 id="远程推送"><a href="#远程推送" class="headerlink" title="远程推送"></a>远程推送</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iOS远程推送主要是APNs(Apple Push Ontification service),主要利用的是苹果server和每个device建立连接,ANPs收到推送provider的推送任务,然后将推送任务下发到目标device,device将推送消息下发给具体的APP.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;项目中推送后台主要利用友盟提供的API,用Python实现了一个推送接口,管理员用户(也就是我的手机),会有推送页面,添加完推送参数后直接,调用这个接口,实现推送服务.当然也可以直接在后台封装苹果的推送API,在需要的时候直接调用,不过deviceToken等你需要自己维护.</p>
+<h3 id="资源托管"><a href="#资源托管" class="headerlink" title="资源托管"></a>资源托管</h3><p>七牛</p>
+<h3 id="第三方依赖库"><a href="#第三方依赖库" class="headerlink" title="第三方依赖库"></a>第三方依赖库</h3><h2 id="后台"><a href="#后台" class="headerlink" title="后台"></a>后台</h2><h3 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;狗圈儿后台web服务接口用的是Tornado.Tornado 是一个Python web框架和异步网络库，起初由 FriendFeed 开发. 通过使用非阻塞网络I/O， Tornado可以支撑上万级的连接，处理 长连接, WebSockets ，和其他需要与每个用户保持长久连接的应用.后来被Facebook收纳开源.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;目前部署在购买的Google vps上(之前试过多家的vps,个人觉得谷歌的很稳定,不过价钱也高),这个vps除了跑了一个Tornado服务,之前还用Nginx搭了一个个人站点(<a href="https://waitwalker.cn),后来撤了,迁移到别的地方了.一些资源图片保存在七牛上,七牛给每个人用户提供10G对象存储空间,每月固定万次请求,超过收费了" target="_blank" rel="noopener">https://waitwalker.cn),后来撤了,迁移到别的地方了.一些资源图片保存在七牛上,七牛给每个人用户提供10G对象存储空间,每月固定万次请求,超过收费了</a>.</p>
+<p>后台项目结构:</p>
+<pre><code>
+.
+
+├── Configs
+
+│   └── __init__.py
+
+├── Handlers
+
+│   ├── MTTAESHandler.py
+
+│   ├── MTTBaseHandler.py
+
+│   ├── MTTChangeAvatarHandler.py
+
+│   ├── MTTChangePasswordHandler.py
+
+│   ├── MTTChangeUsernameHandler.py
+
+│   ├── MTTCommentListHandler.py
+
+│   ├── MTTCommentReplyListHandler.py
+
+│   ├── MTTDeviceDynamicListHandler.py
+
+│   ├── MTTDynamicListHandler.py
+
+│   ├── MTTFileUploadHandler.py
+
+│   ├── MTTFilterKeywordManager.py
+
+│   ├── MTTLoginHandler.py
+
+│   ├── MTTPublishCommentHandler.py
+
+│   ├── MTTPublishDynamicHandler.py
+
+│   ├── MTTPublishReplyHandler.py
+
+│   ├── MTTRegisterDeviceHandler.py
+
+│   ├── MTTRegisterHandler.py
+
+│   ├── MTTReplyListHandler.py
+
+│   ├── MTTReportAbuseHandler.py
+
+│   ├── MTTUploadTokenHandler.py
+
+│   ├── __init__.py
+
+│   ├── __pycache__
+
+│   └── files
+
+├── Libs
+
+│   └── __init__.py
+
+├── MainServer.py
+
+├── Models
+
+│   ├── MTTDataBase.py
+
+│   ├── __init__.py
+
+│   └── __pycache__
+
+├── Security
+
+│   ├── MTTSecurityManager.py
+
+│   ├── __init__.py
+
+│   └── __pycache__
+
+├── loggers
+
+│   ├── pet_error.log
+
+│   ├── pet_info.log
+
+│   └── tornado_main.log
+
+└── urls
+
+├── __init__.py
+
+├── __pycache__
+
+└── urls.py
+
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;入口函数在MainServer.py文件. urls是路由层,匹配请求的接口名称,转发到Handlers处理具体的接口业务.算了一下,大概写了20个左右接口,其中MTTUploadTokenHandler.py模块是处理七牛上传token的接口,这个接口加了redis缓存,10个小时内七牛token不会过期.如果你需要,可以把下面的三个替换成你自己的:</p>
+<pre><code>
+access_key = &#39;七牛access_key&#39;
+
+secret_key = &#39;七牛secret_key&#39;
+
+bucket_name = &#39;文件桶名称&#39;
+
+</code></pre><h3 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h3><p>项目中用的第三方依赖安装文件放在/Configs/requirements.txt中:</p>
+<pre><code>
+tornado==4.5.1
+
+qiniu==7.2.2 #七牛token模块
+
+redis==3.0.1
+
+PyMySOL==0.7.11
+
+bcrypy==3.1.3
+
+pycrypto==2.6.1
+
+</code></pre><p>如果想部署安装直接执行:pip install -r requirements.txt</p>
+<h3 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;后台项目的数据存储主要是MySql和Redis,共创建了6张表.MySql server也安装在自己vps上了.Redis主要用于做缓存处理了.这里我导出创建相关表的sql脚本,放到项目的Configs下,需要的可以跑一下.</p>
+<h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><p>部署分为要不要调用上传图片接口:</p>
+<p>1)不涉及资源图片上传:</p>
+<p>后台:</p>
+<p>直接将项目clone下来,安装requirements.txt里面想的相关依赖,运行MainServer.py里面的入口函数.</p>
+<p>前台:</p>
+<p>将/Commons/Const/MTTServerAPIConst.swift文件中的kServerHost改成你自己的server地址,例如:</p>
+<pre><code>
+let kServerHost:String = &quot;http://192.168.10.63:8000/
+
+</code></pre><p>2)涉及到资源图片上传:</p>
+<p>后台:</p>
+<p>在MTTUploadTokenHandler.py模块中,添加自己的相关key,用于获取上传资源token.然后安装requirements.txt里面想的相关依赖,运行MainServer.py里面的入口函数.</p>
+<p>前台:</p>
+<p>将/Commons/Const/MTTServerAPIConst.swift文件中的kServerHost和kQiNiuServer改成你自己的server地址,例如:</p>
+<pre><code>
+let kServerHost:String = &quot;[http://192.168.10.63:8000/](http://192.168.10.63:8000/)
+
+let kQiNiuServer = &quot;http://xx.xxxx.xx/&quot;
+
+</code></pre><h3 id="博客地址-amp-相关文章"><a href="#博客地址-amp-相关文章" class="headerlink" title="博客地址&amp;相关文章"></a>博客地址&amp;相关文章</h3><p><strong>博客地址:</strong> <a href="https://waitwalker.cn/" target="_blank" rel="noopener">https://waitwalker.cn/</a></p>
+
+            </div>
+            <hr>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://waitwalker.github.io" class="b-link-green">waitwalker</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2019/05/15/完整前后台开源项目-狗圈儿/" class="b-link-green">完整前后台开源项目--狗圈儿</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2019/05/15/完整前后台开源项目-狗圈儿/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="完整前后台开源项目--狗圈儿">
+                        
+                        <span class="card-title">完整前后台开源项目--狗圈儿</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+
+简介&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;狗圈儿是一个宠物社交软件,目的是广纳狗友,深入交流,分享快乐.狗圈儿是一个包含前台和后台的完整项目,从代码编写,图形图标设计,再到部署,</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-15
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/开源项目/" class="post-category" target="_blank">
+                                    开源项目
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Swift/" target="_blank">
+                        <span class="chip bg-color">Swift</span>
+                    </a>
+                    
+                    <a href="/tags/iOS/" target="_blank">
+                        <span class="chip bg-color">iOS</span>
+                    </a>
+                    
+                    <a href="/tags/开源/" target="_blank">
+                        <span class="chip bg-color">开源</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/05/02/读《人生》/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="读《人生》">
+                        
+                        <span class="card-title">读《人生》</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;读完路遥的人生之后，心情有点沉重。人生如戏,戏如人生。当我们旅途不顺时应该怎样调节;当我们面对这一系列的艰难抉择时，我们该怎么办;在一些诱惑面前</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-02
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/读书/" class="post-category" target="_blank">
+                                    读书
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/人生/" target="_blank">
+                        <span class="chip bg-color">人生</span>
+                    </a>
+                    
+                    <a href="/tags/读后感/" target="_blank">
+                        <span class="chip bg-color">读后感</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站在原作者&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题基础上搭建.
+
+            
+
+            
+			
+                <br>
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis"><!---->
+<a href="https://github.com/waitwalker" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <i class="fa fa-github"></i>
+</a>
+
+<a href="https://twitter.com/284485487" class="tooltipped" target="_blank" data-tooltip="Twitter联系我" data-position="top" data-delay="50">
+    <i class="fa fa-twitter"></i>
+</a>
+
+<a href="https://www.facebook.com/profile.php?id=100003684945279" class="tooltipped" target="_blank" data-tooltip="Twitter联系我" data-position="top" data-delay="50">
+    <i class="fa fa-facebook"></i>
+</a>
+
+<a href="https://t.me/joinchat/Ej0o0A1ntlq5ZFIMzzO5Pw" class="tooltipped" target="_blank" data-tooltip="Twitter联系我" data-position="top" data-delay="50">
+    <i class="fa fa-telegram"></i>
+</a>
+
+<a href="https://www.weibo.com/1789419613/profile?topnav=1&wvr=6&is_all=1" class="tooltipped" target="_blank" data-tooltip="Twitter联系我" data-position="top" data-delay="50">
+    <i class="fa fa-weibo"></i>
+</a>
+
+
+<!--原来-->
+<!---->
+    <!--<a href="mailto:xxx@xx.xx" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">-->
+        <!--<i class="fa fa-envelope-open"></i>-->
+    <!--</a>-->
+<!---->
+
+<!---->
+    <!--<a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=123123123" class="tooltipped" data-tooltip="QQ联系我: 123123123" data-position="top" data-delay="50">-->
+        <!--<i class="fa fa-qq"></i>-->
+    <!--</a>-->
+<!---->
+
+<!---->
+    <!--<a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">-->
+        <!--<i class="fa fa-rss"></i>-->
+    <!--</a>-->
+<!----></div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>
