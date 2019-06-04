@@ -4,6 +4,50 @@
   
     
     <entry>
+      <title>WWDC 2019</title>
+      <link href="/2019/06/04/WWDC-2019/"/>
+      <url>/2019/06/04/WWDC-2019/</url>
+      
+        <content type="html"><![CDATA[<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;苹果在今天的WWDC 2019苹果开发者大会上发布了全新的iOS 13系统。传了很久期待很久的黑暗模式也出现在了全新的iOS 13系统上。黑暗模式为iPhone带来了一种引人注目的全新外观。<br><img src="https://upload-images.jianshu.io/upload_images/1715253-6a69106562faa0bf.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="iOS 13.0_1"></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;全新的黑暗模式为 iPhone 带来了一种引人注目的全新外观，以及在 iOS 上浏览和编辑照片，登录应用程序和网站以及使用全新地图浏览世界的新方法。通过整个系统的优化，iOS 13 更快，App 响应更快，可以改善应用启动，减少应用程序下载大小并使 Face ID 体验更加无缝。</p><p><img src="https://upload-images.jianshu.io/upload_images/1715253-626c101c4c8a514f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="iOS 13.0_2"></p><h3 id="黑暗模式：iPhone-的戏剧性新面貌"><a href="#黑暗模式：iPhone-的戏剧性新面貌" class="headerlink" title="黑暗模式：iPhone 的戏剧性新面貌"></a>黑暗模式：iPhone 的戏剧性新面貌</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iPhone 采用了黑暗模式（Dark Mode），这是一种新的深色配色方案，适用于全系统和所有原生应用程序，可提供出色的观看体验，尤其是在低光环境下。第三方应用开发者可以使用暗模式集成到自己的应用中，并可以安排在日落时或特定时间自动开启。</p><p><img src="https://upload-images.jianshu.io/upload_images/1715253-e750d2d5558efabe.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="iOS 13.0_3"></p><h3 id="更轻松的浏览和强大的照片编辑工具"><a href="#更轻松的浏览和强大的照片编辑工具" class="headerlink" title="更轻松的浏览和强大的照片编辑工具"></a>更轻松的浏览和强大的照片编辑工具</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用设备上的机器学习， 原生照片 App 会对整个图片库进行智能筛选以突出最佳图像，自动隐藏杂乱和类似的照片，以展示过去的一天，一个月或一年中的重大事件。照片和视频采用智能组织，可以更轻松地浏览、发现和重温最喜爱的记忆，并通过自动播放视频直观地展示给用户。</p><p><img src="https://upload-images.jianshu.io/upload_images/1715253-d5564ff6145d5a7d.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="iOS 13.0_4"></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过更便捷的调整和查看新工具，照片编辑变得更全面和直观。只需轻扫一下，添加的修改效果就可以增加或减少，以创造完美的视觉感官，为摄影师提供更多的创作可能性并控制他们的图像。在 iOS 13 中，大多数照片编辑工具现在也可以用在视频编辑中，你可以在对视频进行旋转，裁剪或应用滤镜了。</p><p><img src="https://upload-images.jianshu.io/upload_images/1715253-c6cb24188949ef58.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="iOS 13.0_5"></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用 iOS 13，可以在相机应用程序中进行人像调整，以便将光线移近，使眼睛更加有神，使面部特征更加明亮和平滑，或者将光线推得更远，从而营造出微妙、精致的形象。全新的高调单色效果还为人像模式创造了美丽的单色构图。</p><h3 id="快速、轻松和私密的-Apple-登录"><a href="#快速、轻松和私密的-Apple-登录" class="headerlink" title="快速、轻松和私密的 Apple 登录"></a>快速、轻松和私密的 Apple 登录</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;苹果正在推出一种新的，更私密的方式来简单快速地登录应用和网站。用户可以简单地使用他们的 Apple ID 进行身份验证，而无需使用社交帐户或填写表单，验证电子邮件地址或选择密码，苹果会通过唯一的随机 ID 来保护用户的隐私。即使在开发人员选择要求提供姓名和电子邮件地址的情况下，用户也可以选择将其电子邮件地址保密，并共享一个独特的随机电子邮件地址。</p><p><img src="https://upload-images.jianshu.io/upload_images/1715253-fb636a5678138ebc.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="iOS 13.0_6"></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用 Apple 登录可以让用户轻松通过 Face ID 或 Touch ID 进行身份验证，并且内置双因素身份验证以增加安全性。苹果承诺不会使用 Apple 登录来分析用户以及他们在应用中的活动。</p><h3 id="全新的地图体验"><a href="#全新的地图体验" class="headerlink" title="全新的地图体验"></a>全新的地图体验</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Apple Maps 可帮助数百万人浏览和探索世界，同时保护用户隐私。在驾驶 400 万英里从头开始重建底图后，苹果正在提供新的地图体验，包括更广泛的道路覆盖范围，更好的行人数据，更精确的地址和更详细的土地覆盖。新地图现已在部分城市和州推出，并将于 2019 年底在美国推广，2020 年将推广到更多国家。</p><p><img src="https://upload-images.jianshu.io/upload_images/1715253-55552ff0fa0238fa.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="iOS 13.0_7"></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在新的底图和高分辨率 3D 摄影的支持下，全新的 Look Around 功能可以为城市提供美丽的街道图像，并实现平滑无缝的过渡。iOS 13 为地图应用带来了额外的新功能，包括轻松分享喜爱的餐厅，旅游目的地或与朋友一起购物的地方的收藏品，以及用于导航到常用目的地（如家庭、公司、健身房或学校）的收藏夹，只需简单点击屏幕就能启用。</p><p><img src="https://upload-images.jianshu.io/upload_images/1715253-414074bde2855630.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="iOS 13.0_8"></p><h3 id="其他补充更新功能"><a href="#其他补充更新功能" class="headerlink" title="其他补充更新功能"></a>其他补充更新功能</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提醒功能现已拥有全新的外观，并提供创建和编辑提醒的智能方法，以及更多组织和跟踪提醒的方法。快速工具栏可以更轻松地添加时间、日期、位置和标记，或添加附件。通过与消息进行更深入的集成，可以很容易地在提醒中标记某人，以便在用户向该人发送消息时显示。</p><p><img src="https://upload-images.jianshu.io/upload_images/1715253-3c93efa6d8027c5b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="iOS 13.0_9"></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;消息可以自动共享用户的姓名和照片，或自定义的 Memoji 或 Animoji，以便轻松识别消息线程中的人员。Memoji 会自动制作成 iOS 键盘内置的贴纸包，可以在消息，邮件和其他应用中使用。Memoji 还有新发型、头饰、化妆、耳饰和挂饰等新装扮。</p><p><img src="https://upload-images.jianshu.io/upload_images/1715253-6248f3983d4eb1a9.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="iOS 13.0_10"></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Siri 改进了新的，更自然的人声，Siri Shortcuts 现在支持推荐的自动化，为上班或去健身房等事项提供个性化的例程。</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CarPlay 凭借新的仪表板获得了有史以来最大的更新，可以在一个视图中查看音乐、地图等，新的日历应用以及 Siri 现已支持第三方导航和音频应用。</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HomePod 可以区分家中任何人的声音，以提供个人请求，包括消息、音乐等。Siri 可以从 iHeartRadio，radio.com 和 TuneIn 访问超过 100,000 个电台，新的睡眠定时器会在一段时间后关闭音乐。Handoff 使用户能够在回家后轻松地将音乐，播客或电话转移到 HomePod 上继续播放。</p><p><img src="https://upload-images.jianshu.io/upload_images/1715253-039e7aa1a45713f6.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="iOS 13.0_11"></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用 AirPods，Siri 可以在收到消息后立即从消息或任何支持 SiriKit 的消息应用程序中读取传入消息。通过简单地将第二对AirPods 靠近 iPhone 或 iPad，就可以轻松地与朋友一起观看电影或分享歌曲。</p><p><img src="https://upload-images.jianshu.io/upload_images/1715253-5a4c2f2f806de771.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="iOS 13.0_12"></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;语音控制提供强大的全新体验，使用户可以完全通过语音操作 iPhone，iPad 或 Mac。语音控制采用最新的 Siri 语音识别技术，可以更准确地进行文本转录和编辑。</p><p><img src="https://upload-images.jianshu.io/upload_images/1715253-db7d441910ea1a99.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="iOS 13.0_13"></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Notes 具有新的 Gallery View 与共享文件夹，支持新搜索工具和清单选项的更强大协作。滑键输入（QuickPath）可通过连续滑动单词的字母，为 iOS 键盘提供单手打字体验。</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;文本编辑功能得到增强，可以滚动文档，移动光标并更快，更准确地选择文本。</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;文件管理（Files）App 引入了与 iCloud Drive 共享文件夹的功能，以及从外部存储设备（如 SD 卡和 USB 闪存驱动器）访问文件的功能。</p><p><img src="https://upload-images.jianshu.io/upload_images/1715253-8fc83b9bb4f270f0.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="iOS 13.0_14"></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Health 提供监控听力健康的方法，并提供跟踪、可视化和预测女性生理周期的新方法。</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;位置服务控件为用户提供了与应用共享位置数据的更多选择，包括新的一次性位置选项以及有关应用何时在后台使用位置的更多信息。</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;更快的 Face ID 解锁和性能改进使整个系统响应更灵敏，新的 App 方法将下载包体的大小减少了 50％，使应用更新缩小了 60％ 以上，同时应用启动速度比以往要快两倍。</p><p><img src="https://upload-images.jianshu.io/upload_images/1715253-cc94382741024e74.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="iOS 13.0_15"></p><p>以下是iPadOS 13.0 和iOS 13.0 Beta1 版本试玩视频:</p><h4 id="iPadOS-13-0"><a href="#iPadOS-13-0" class="headerlink" title="iPadOS 13.0"></a>iPadOS 13.0</h4><video poster="https://upload-images.jianshu.io/upload_images/1715253-f8969b6ec367e17c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" src="https://v.youku.com/v_show/id_XNDIxNTM0MTY5Ng==.html?spm=a2h3j.8428770.3416059.1" style="max-height :100%; max-width: 100%; display: block; margin-left: auto; margin-right: auto;" controls="controls" loop="loop" preload="meta">Your browser does not support the video tag.</video><h4 id="iOS-13-0"><a href="#iOS-13-0" class="headerlink" title="iOS 13.0"></a>iOS 13.0</h4><video poster="https://upload-images.jianshu.io/upload_images/1715253-9b90feec88a52fac.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" src="https://v.youku.com/v_show/id_XNDIxNTMzODcyOA==.html?spm=a2h3j.8428770.3416059.1" style="max-height :100%; max-width: 100%; display: block; margin-left: auto; margin-right: auto;" controls="controls" loop="loop" preload="meta">Your browser does not support the video tag.</video>]]></content>
+      
+      
+      <categories>
+          
+          <category> WWDC </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> iOS 13.0 </tag>
+            
+            <tag> iPadOS 13.0 </tag>
+            
+            <tag> WWDC </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;苹果在今天的WWDC 2019苹果开发者大会上发布了全新的iOS 13系统。传了很久期待很久的黑暗模式也出现在了全新的iOS 13系统上。黑暗模式为iPhone带来了一种引人注目的全新外观。</title>
+      <link href="/2019/06/04/nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-%E8%8B%B9%E6%9E%9C%E5%9C%A8%E4%BB%8A%E5%A4%A9%E7%9A%84WWDC-2019%E8%8B%B9%E6%9E%9C%E5%BC%80%E5%8F%91%E8%80%85%E5%A4%A7%E4%BC%9A%E4%B8%8A%E5%8F%91%E5%B8%83%E4%BA%86%E5%85%A8%E6%96%B0%E7%9A%84iOS-13%E7%B3%BB%E7%BB%9F%E3%80%82%E4%BC%A0%E4%BA%86%E5%BE%88%E4%B9%85%E6%9C%9F%E5%BE%85%E5%BE%88%E4%B9%85%E7%9A%84%E9%BB%91%E6%9A%97%E6%A8%A1%E5%BC%8F%E4%B9%9F%E5%87%BA%E7%8E%B0%E5%9C%A8%E4%BA%86%E5%85%A8%E6%96%B0%E7%9A%84iOS-13%E7%B3%BB%E7%BB%9F%E4%B8%8A%E3%80%82%E9%BB%91%E6%9A%97%E6%A8%A1%E5%BC%8F%E4%B8%BAiPhone%E5%B8%A6%E6%9D%A5%E4%BA%86%E4%B8%80%E7%A7%8D%E5%BC%95%E4%BA%BA%E6%B3%A8%E7%9B%AE%E7%9A%84%E5%85%A8%E6%96%B0%E5%A4%96%E8%A7%82%E3%80%82/"/>
+      <url>/2019/06/04/nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-%E8%8B%B9%E6%9E%9C%E5%9C%A8%E4%BB%8A%E5%A4%A9%E7%9A%84WWDC-2019%E8%8B%B9%E6%9E%9C%E5%BC%80%E5%8F%91%E8%80%85%E5%A4%A7%E4%BC%9A%E4%B8%8A%E5%8F%91%E5%B8%83%E4%BA%86%E5%85%A8%E6%96%B0%E7%9A%84iOS-13%E7%B3%BB%E7%BB%9F%E3%80%82%E4%BC%A0%E4%BA%86%E5%BE%88%E4%B9%85%E6%9C%9F%E5%BE%85%E5%BE%88%E4%B9%85%E7%9A%84%E9%BB%91%E6%9A%97%E6%A8%A1%E5%BC%8F%E4%B9%9F%E5%87%BA%E7%8E%B0%E5%9C%A8%E4%BA%86%E5%85%A8%E6%96%B0%E7%9A%84iOS-13%E7%B3%BB%E7%BB%9F%E4%B8%8A%E3%80%82%E9%BB%91%E6%9A%97%E6%A8%A1%E5%BC%8F%E4%B8%BAiPhone%E5%B8%A6%E6%9D%A5%E4%BA%86%E4%B8%80%E7%A7%8D%E5%BC%95%E4%BA%BA%E6%B3%A8%E7%9B%AE%E7%9A%84%E5%85%A8%E6%96%B0%E5%A4%96%E8%A7%82%E3%80%82/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>完整前后台开源项目--狗圈儿</title>
       <link href="/2019/05/15/%E5%AE%8C%E6%95%B4%E5%89%8D%E5%90%8E%E5%8F%B0%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE-%E7%8B%97%E5%9C%88%E5%84%BF/"/>
       <url>/2019/05/15/%E5%AE%8C%E6%95%B4%E5%89%8D%E5%90%8E%E5%8F%B0%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE-%E7%8B%97%E5%9C%88%E5%84%BF/</url>
@@ -229,9 +273,9 @@
       
         <tags>
             
-            <tag> iOS </tag>
-            
             <tag> Runtime </tag>
+            
+            <tag> iOS </tag>
             
             <tag> source code </tag>
             
@@ -776,9 +820,9 @@
       
         <tags>
             
-            <tag> iOS </tag>
-            
             <tag> Runtime </tag>
+            
+            <tag> iOS </tag>
             
             <tag> source code </tag>
             
