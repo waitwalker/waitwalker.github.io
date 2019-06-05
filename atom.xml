@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://waitwalker.github.io/"/>
-  <updated>2019-06-05T11:21:24.420Z</updated>
+  <updated>2019-06-05T13:11:41.644Z</updated>
   <id>https://waitwalker.github.io/</id>
   
   <author>
@@ -17,43 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>WWDC2019</title>
-    <link href="https://waitwalker.github.io/2019/06/05/WWDC2019/"/>
-    <id>https://waitwalker.github.io/2019/06/05/WWDC2019/</id>
-    <published>2019-06-05T11:20:27.000Z</published>
-    <updated>2019-06-05T11:21:24.420Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;苹果在今天的WWDC 2019苹果开发者大会上发布了全新的iOS 13系统。传了很久期待很久的黑暗模式也出现在了全新的iOS
-        
-      
-    
-    </summary>
-    
-      <category term="WWDC" scheme="https://waitwalker.github.io/categories/WWDC/"/>
-    
-    
-      <category term="iOS" scheme="https://waitwalker.github.io/tags/iOS/"/>
-    
-      <category term="iOS 13.0" scheme="https://waitwalker.github.io/tags/iOS-13-0/"/>
-    
-      <category term="iPadOS 13.0" scheme="https://waitwalker.github.io/tags/iPadOS-13-0/"/>
-    
-      <category term="WWDC" scheme="https://waitwalker.github.io/tags/WWDC/"/>
-    
-  </entry>
-  
-  <entry>
     <title>WWDC 2019</title>
-    <link href="https://waitwalker.github.io/2019/06/04/WWDC-2019/"/>
-    <id>https://waitwalker.github.io/2019/06/04/WWDC-2019/</id>
-    <published>2019-06-04T10:31:41.000Z</published>
-    <updated>2019-06-05T11:15:42.889Z</updated>
+    <link href="https://waitwalker.github.io/2019/06/05/WWDC-2019/"/>
+    <id>https://waitwalker.github.io/2019/06/05/WWDC-2019/</id>
+    <published>2019-06-05T13:09:20.000Z</published>
+    <updated>2019-06-05T13:11:41.644Z</updated>
     
     <summary type="html">
     
@@ -77,20 +45,6 @@
       <category term="iPadOS 13.0" scheme="https://waitwalker.github.io/tags/iPadOS-13-0/"/>
     
       <category term="WWDC" scheme="https://waitwalker.github.io/tags/WWDC/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;苹果在今天的WWDC 2019苹果开发者大会上发布了全新的iOS 13系统。传了很久期待很久的黑暗模式也出现在了全新的iOS 13系统上。黑暗模式为iPhone带来了一种引人注目的全新外观。</title>
-    <link href="https://waitwalker.github.io/2019/06/04/nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-%E8%8B%B9%E6%9E%9C%E5%9C%A8%E4%BB%8A%E5%A4%A9%E7%9A%84WWDC-2019%E8%8B%B9%E6%9E%9C%E5%BC%80%E5%8F%91%E8%80%85%E5%A4%A7%E4%BC%9A%E4%B8%8A%E5%8F%91%E5%B8%83%E4%BA%86%E5%85%A8%E6%96%B0%E7%9A%84iOS-13%E7%B3%BB%E7%BB%9F%E3%80%82%E4%BC%A0%E4%BA%86%E5%BE%88%E4%B9%85%E6%9C%9F%E5%BE%85%E5%BE%88%E4%B9%85%E7%9A%84%E9%BB%91%E6%9A%97%E6%A8%A1%E5%BC%8F%E4%B9%9F%E5%87%BA%E7%8E%B0%E5%9C%A8%E4%BA%86%E5%85%A8%E6%96%B0%E7%9A%84iOS-13%E7%B3%BB%E7%BB%9F%E4%B8%8A%E3%80%82%E9%BB%91%E6%9A%97%E6%A8%A1%E5%BC%8F%E4%B8%BAiPhone%E5%B8%A6%E6%9D%A5%E4%BA%86%E4%B8%80%E7%A7%8D%E5%BC%95%E4%BA%BA%E6%B3%A8%E7%9B%AE%E7%9A%84%E5%85%A8%E6%96%B0%E5%A4%96%E8%A7%82%E3%80%82/"/>
-    <id>https://waitwalker.github.io/2019/06/04/nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-nbsp-苹果在今天的WWDC-2019苹果开发者大会上发布了全新的iOS-13系统。传了很久期待很久的黑暗模式也出现在了全新的iOS-13系统上。黑暗模式为iPhone带来了一种引人注目的全新外观。/</id>
-    <published>2019-06-04T10:31:14.000Z</published>
-    <updated>2019-06-04T10:31:14.726Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
     
   </entry>
   
@@ -609,6 +563,63 @@ int main(int argc, const
     
     
       <category term="狗圈儿隐私政策" scheme="https://waitwalker.github.io/tags/%E7%8B%97%E5%9C%88%E5%84%BF%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Bedrock Privacy Policy</title>
+    <link href="https://waitwalker.github.io/2019/04/13/Bedrock-Privacy-Policy/"/>
+    <id>https://waitwalker.github.io/2019/04/13/Bedrock-Privacy-Policy/</id>
+    <published>2019-04-13T10:47:52.000Z</published>
+    <updated>2019-04-13T11:35:19.908Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;font size=&quot;3&quot;&gt;&lt;strong&gt;1.我们尊重用户的隐私并对非法窃取用户隐私的行为予以坚决抵制.&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font size=&quot;3&quot;&gt;We respect user privacy and resist those
+        
+      
+    
+    </summary>
+    
+      <category term="隐私政策" scheme="https://waitwalker.github.io/categories/%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96/"/>
+    
+    
+      <category term="Bedrock隐私政策" scheme="https://waitwalker.github.io/tags/Bedrock%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Method解读</title>
+    <link href="https://waitwalker.github.io/2019/04/12/Method%E8%A7%A3%E8%AF%BB/"/>
+    <id>https://waitwalker.github.io/2019/04/12/Method解读/</id>
+    <published>2019-04-12T11:26:32.000Z</published>
+    <updated>2019-04-25T13:30:29.621Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;我们知道iOS程序的入口函数在main.其实mian只是苹果给我们的”直观能够感受”的入口,在执行main之前,编译器已经帮我们做了相当多的事情.具体可以参考objc-os.h文
+        
+      
+    
+    </summary>
+    
+      <category term="Runtime源码解读" scheme="https://waitwalker.github.io/categories/Runtime%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/"/>
+    
+    
+      <category term="Runtime" scheme="https://waitwalker.github.io/tags/Runtime/"/>
+    
+      <category term="底层" scheme="https://waitwalker.github.io/tags/%E5%BA%95%E5%B1%82/"/>
+    
+      <category term="源码" scheme="https://waitwalker.github.io/tags/%E6%BA%90%E7%A0%81/"/>
     
   </entry>
   
