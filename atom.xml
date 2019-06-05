@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://waitwalker.github.io/"/>
-  <updated>2019-06-05T11:05:48.169Z</updated>
+  <updated>2019-06-05T11:21:24.420Z</updated>
   <id>https://waitwalker.github.io/</id>
   
   <author>
@@ -17,11 +17,43 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>WWDC2019</title>
+    <link href="https://waitwalker.github.io/2019/06/05/WWDC2019/"/>
+    <id>https://waitwalker.github.io/2019/06/05/WWDC2019/</id>
+    <published>2019-06-05T11:20:27.000Z</published>
+    <updated>2019-06-05T11:21:24.420Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;苹果在今天的WWDC 2019苹果开发者大会上发布了全新的iOS 13系统。传了很久期待很久的黑暗模式也出现在了全新的iOS
+        
+      
+    
+    </summary>
+    
+      <category term="WWDC" scheme="https://waitwalker.github.io/categories/WWDC/"/>
+    
+    
+      <category term="iOS" scheme="https://waitwalker.github.io/tags/iOS/"/>
+    
+      <category term="iOS 13.0" scheme="https://waitwalker.github.io/tags/iOS-13-0/"/>
+    
+      <category term="iPadOS 13.0" scheme="https://waitwalker.github.io/tags/iPadOS-13-0/"/>
+    
+      <category term="WWDC" scheme="https://waitwalker.github.io/tags/WWDC/"/>
+    
+  </entry>
+  
+  <entry>
     <title>WWDC 2019</title>
     <link href="https://waitwalker.github.io/2019/06/04/WWDC-2019/"/>
     <id>https://waitwalker.github.io/2019/06/04/WWDC-2019/</id>
     <published>2019-06-04T10:31:41.000Z</published>
-    <updated>2019-06-05T11:05:48.169Z</updated>
+    <updated>2019-06-05T11:15:42.889Z</updated>
     
     <summary type="html">
     
@@ -577,33 +609,6 @@ int main(int argc, const
     
     
       <category term="狗圈儿隐私政策" scheme="https://waitwalker.github.io/tags/%E7%8B%97%E5%9C%88%E5%84%BF%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Bedrock Privacy Policy</title>
-    <link href="https://waitwalker.github.io/2019/04/13/Bedrock-Privacy-Policy/"/>
-    <id>https://waitwalker.github.io/2019/04/13/Bedrock-Privacy-Policy/</id>
-    <published>2019-04-13T10:47:52.000Z</published>
-    <updated>2019-04-13T11:35:19.908Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;&lt;font size=&quot;3&quot;&gt;&lt;strong&gt;1.我们尊重用户的隐私并对非法窃取用户隐私的行为予以坚决抵制.&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;
-&lt;p&gt;&lt;font size=&quot;3&quot;&gt;We respect user privacy and resist those
-        
-      
-    
-    </summary>
-    
-      <category term="隐私政策" scheme="https://waitwalker.github.io/categories/%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96/"/>
-    
-    
-      <category term="Bedrock隐私政策" scheme="https://waitwalker.github.io/tags/Bedrock%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96/"/>
     
   </entry>
   
