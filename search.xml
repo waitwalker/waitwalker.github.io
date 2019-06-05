@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>SwiftUI</title>
+      <link href="/2019/06/05/SwiftUI/"/>
+      <url>/2019/06/05/SwiftUI/</url>
+      
+        <content type="html"><![CDATA[<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2019 年 WWDC 大会上，苹果在压轴环节向大众宣布了基于 Swift 语言构建的全新 UI 框架 —— SwiftUI。开发者可通过它快速为所有的 Apple 平台创建美观、动态的应用程序。在介绍过程中，苹果公司软件工程高级副总裁 Craig Federighi 演示了如何将一百行代码简化为大约十几行。<br><img src="https://github.com/waitwalker/Resources/blob/master/SwiftUI/SwiftUI_1.jpg?raw=true" alt="SwiftUI_1"><br><img src="https://github.com/waitwalker/Resources/blob/master/SwiftUI/SwiftUI_2.png?raw=true" alt="SwiftUI_2"></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;据官方介绍，SwiftUI 是一个创新且非常方便使用的框架，开发者通过 Swift 语言的强大功能即可为苹果的所有硬件设备构建用户界面 —— 只需使用一套工具和 API。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此外，SwiftUI 使用了声明式的 Swift 语法，可读性比较高，编写起来也比较容易理解。SwiftUI 可与新的 Xcode 设计工具无缝协作，让代码和设计完美同步，还提供对动态类型、暗黑模式、本地化和可访问性的自动支持。下面简单介绍一下 SwiftUI。</p><h3 id="声明式语法"><a href="#声明式语法" class="headerlink" title="声明式语法"></a>声明式语法</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SwiftUI 使用了声明式语法，所以开发者能够十分轻易地描述用户界面应该做什么。例如，编写需要包含文本字段的项目列表时，开发者可以用代码描述每个字段的对齐方式、字体和颜色。代码也比以前更简单，更易于阅读。<br><img src="https://github.com/waitwalker/Resources/blob/master/SwiftUI/SwiftUI_3.jpg?raw=true" alt="SwiftUI_3"></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这种声明式风格非常适用于像动画这样复杂的元素。通过 SwiftUI，开发者可轻松地将动画添加到几乎任何控件。</p><h3 id="拥有更直观的新设计工具"><a href="#拥有更直观的新设计工具" class="headerlink" title="拥有更直观的新设计工具"></a>拥有更直观的新设计工具</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Xcode 11 包含更直观的新设计工具，可让开发者通过拖拽的方式使用 SwiftUI 构建界面，在这过程中可以直接设置控件的相关属性。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当在设计工具中工作时，所编辑的内容会立刻反映到代码上，如果从模拟器切换到手机，手机也能立马看到预览效果。<br><img src="https://github.com/waitwalker/Resources/blob/master/SwiftUI/SwiftUI_4.png?raw=true" alt="SwiftUI_4"></p><h3 id="视频教程"><a href="#视频教程" class="headerlink" title="视频教程"></a>视频教程</h3><iframe src="https://v.youku.com/v_show/id_XNDIxNzE0ODI4NA==.html?spm=a2h3j.8428770.3416059.1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="100%" height="580" quality="high"> </iframe><h3 id="完整教程请参考"><a href="#完整教程请参考" class="headerlink" title="完整教程请参考:"></a>完整教程请参考:</h3><p><a href="https://juejin.im/post/5cf5f4596fb9a07ede0b2fa1" target="_blank" rel="noopener">https://juejin.im/post/5cf5f4596fb9a07ede0b2fa1</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>WWDC 2019</title>
       <link href="/2019/06/05/WWDC-2019/"/>
       <url>/2019/06/05/WWDC-2019/</url>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://waitwalker.github.io/"/>
-  <updated>2019-06-05T13:53:53.228Z</updated>
+  <updated>2019-06-05T14:25:03.199Z</updated>
   <id>https://waitwalker.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SwiftUI</title>
+    <link href="https://waitwalker.github.io/2019/06/05/SwiftUI/"/>
+    <id>https://waitwalker.github.io/2019/06/05/SwiftUI/</id>
+    <published>2019-06-05T14:17:53.000Z</published>
+    <updated>2019-06-05T14:25:03.199Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;2019 年 WWDC 大会上，苹果在压轴环节向大众宣布了基于 Swift 语言构建的全新 UI 框架 —— SwiftUI。开发者可通过它快速为所有的 Apple
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>WWDC 2019</title>
@@ -590,36 +612,6 @@ int main(int argc, const
     
     
       <category term="Bedrock隐私政策" scheme="https://waitwalker.github.io/tags/Bedrock%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Method解读</title>
-    <link href="https://waitwalker.github.io/2019/04/12/Method%E8%A7%A3%E8%AF%BB/"/>
-    <id>https://waitwalker.github.io/2019/04/12/Method解读/</id>
-    <published>2019-04-12T11:26:32.000Z</published>
-    <updated>2019-04-25T13:30:29.621Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;我们知道iOS程序的入口函数在main.其实mian只是苹果给我们的”直观能够感受”的入口,在执行main之前,编译器已经帮我们做了相当多的事情.具体可以参考objc-os.h文
-        
-      
-    
-    </summary>
-    
-      <category term="Runtime源码解读" scheme="https://waitwalker.github.io/categories/Runtime%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/"/>
-    
-    
-      <category term="Runtime" scheme="https://waitwalker.github.io/tags/Runtime/"/>
-    
-      <category term="底层" scheme="https://waitwalker.github.io/tags/%E5%BA%95%E5%B1%82/"/>
-    
-      <category term="源码" scheme="https://waitwalker.github.io/tags/%E6%BA%90%E7%A0%81/"/>
     
   </entry>
   
