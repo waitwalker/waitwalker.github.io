@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>Mac Flutter 环境搭建</title>
+      <link href="/2019/06/10/Mac-Flutter-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+      <url>/2019/06/10/Mac-Flutter-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
+      
+        <content type="html"><![CDATA[<p>以下内容是再Mac上搭建Flutter开发环境的过程:</p><h4 id="1-添加环境变量"><a href="#1-添加环境变量" class="headerlink" title="1. 添加环境变量"></a>1. 添加环境变量</h4><p>Mac 一般使用bash作为默认shell<br>Mac系统的环境变量，加载顺序为：<br>/etc/profile<br>/etc/paths<br>~/.bash_profile<br>~/.bash_login<br>~/.profile<br>~/.bashrc</p><p>/etc/profile和/etc/paths是系统级别的，系统启动就会加载，后面几个是当前用户级的环境变量。<br>设置PATH的语法都为：</p><pre><code>export PATH=$PATH:&lt;PATH 1&gt;:&lt;PATH 2&gt;:&lt;PATH 3&gt;:------:&lt;PATH N&gt;</code></pre><h4 id="2-全局设置"><a href="#2-全局设置" class="headerlink" title="2. 全局设置"></a>2. 全局设置</h4><p>下面的几个文件设置是全局的，修改时需要root权限<br>1）/etc/paths （全局建议修改这个文件 ）<br>编辑 paths，将环境变量添加到 paths文件中 ，一行一个路径</p><p>2）/etc/profile （建议不修改这个文件 ）<br>全局（公有）配置，不管是哪个用户，登录时都会读取该文件。</p><p>3）/etc/bashrc （一般在这个文件中添加系统级环境变量）<br>全局（公有）配置，bash shell执行时，不管是何种方式，都会读取此文件。</p><h4 id="3-单个用户设置"><a href="#3-单个用户设置" class="headerlink" title="3. 单个用户设置"></a>3. 单个用户设置</h4><p>1）~/.bash_profile （任意一个文件中添加用户级环境变量）<br>（注：Linux 里面是 .bashrc 而 Mac 是 .bash_profile）</p><p>若bash shell是以login方式执行时，才会读取此文件。该文件仅仅执行一次!默认情况下,他设置一些环境变量<br>置命令别名alias ll=’ls -la’<br>设置环境变量：</p><pre><code>export PATH=/opt/local/bin:/opt/local/sbin:$PATH</code></pre><p>2）~/.bashrc 同上<br>如果想立刻生效，则可执行下面的语句：<br>$ source 相应的文件<br>一般环境变量更改后，重启后生效。</p><h4 id="4-编辑-bash-profile文件-添加如下环境变量"><a href="#4-编辑-bash-profile文件-添加如下环境变量" class="headerlink" title="4. 编辑~/.bash_profile文件,添加如下环境变量:"></a>4. 编辑~/.bash_profile文件,添加如下环境变量:</h4><pre><code>vi ~/.bash_profile</code></pre><p>保存退出,并使文件生效</p><pre><code>source ~/.bash_profile</code></pre><p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/DevelopmentEnvironment/%E6%B7%BB%E5%8A%A0%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F1.png?raw=true" alt="添加环境变量.png"></p><h4 id="5-下载Flutter-SDK"><a href="#5-下载Flutter-SDK" class="headerlink" title="5. 下载Flutter SDK"></a>5. 下载Flutter SDK</h4><p>去flutter官网下载其最新可用的安装包，<a href="https://flutter.io/sdk-archive/#macos" target="_blank" rel="noopener">转到下载页</a>, 下载完成后解压安装包到你想安装的目录.</p><pre><code>cd ~/development unzip ~/Downloads/flutter_macos_v0.5.1-beta.zip</code></pre><h4 id="6-查看Flutter相关依赖是否安装完成-执行-flutter-doctor命令"><a href="#6-查看Flutter相关依赖是否安装完成-执行-flutter-doctor命令" class="headerlink" title="6. 查看Flutter相关依赖是否安装完成,执行 flutter doctor命令:"></a>6. 查看Flutter相关依赖是否安装完成,执行 flutter doctor命令:</h4><p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/DevelopmentEnvironment/Flutter%E7%9B%B8%E5%85%B3%E4%BE%9D%E8%B5%96.png?raw=true" alt="Flutter相关依赖.png"></p><p>如果有[!] ✗ 标志，表示本行检测不通过，需要做一些设置或者安装一些软件</p><p>解决Downloaded executables cannot execute on host.问题</p><pre><code>rm -rf ~/flutter/bin/cache flutter doctor --verbose</code></pre><h4 id="7-安装设备依赖库"><a href="#7-安装设备依赖库" class="headerlink" title="7. 安装设备依赖库"></a>7. 安装设备依赖库</h4><pre><code>✗ libimobiledevice and ideviceinstaller are not installed. To install with Brew, run:brew updatebrew install --HEAD usbmuxdbrew link usbmuxdbrew install --HEAD libimobiledevicebrew install ideviceinstaller✗ ios-deploy not installed. To install:brew install ios-deploy</code></pre><p>其它问题照着Flutter给的提示解决就可以了.</p><h4 id="8-Android-Studio安装Flutter插件"><a href="#8-Android-Studio安装Flutter插件" class="headerlink" title="8. Android Studio安装Flutter插件"></a>8. Android Studio安装Flutter插件</h4><p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/DevelopmentEnvironment/Android%20Studio%E5%AE%89%E8%A3%85Flutter%E6%8F%92%E4%BB%B6.png?raw=true" alt="Android Studio安装Flutter插件.png"></p><h4 id="9-Visual-Studio-Code安装Flutter插件"><a href="#9-Visual-Studio-Code安装Flutter插件" class="headerlink" title="9. Visual Studio Code安装Flutter插件"></a>9. Visual Studio Code安装Flutter插件</h4><p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/DevelopmentEnvironment/VS%20code%E5%AE%89%E8%A3%85Flutter%E6%8F%92%E4%BB%B6.png?raw=true" alt="VS code安装Flutter插件.png"></p><h4 id="10-创建demo"><a href="#10-创建demo" class="headerlink" title="10. 创建demo"></a>10. 创建demo</h4><p>新建空项目:</p><pre><code>flutter create project_name</code></pre><p>查看所有设备:</p><pre><code>flutter devices</code></pre><p>运行项目:</p><pre><code>flutter run</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Flutter开发 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Flutter 开发 </tag>
+            
+            <tag> Dart </tag>
+            
+            <tag> iOS </tag>
+            
+            <tag> Android </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>SwiftUI</title>
       <link href="/2019/06/05/SwiftUI/"/>
       <url>/2019/06/05/SwiftUI/</url>

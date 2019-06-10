@@ -4,8 +4,9 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="SwiftUI, Swift, iOS, Python">
-    <meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;2019 年 WWDC 大会上，苹果在压轴环节向大众宣布了基于 Swift 语言构建的全新 UI 框架 —— SwiftUI。开发者可通过它快速">
+    <meta name="keywords" content="Mac Flutter 环境搭建, Swift, iOS, Python">
+    <meta name="description" content="以下内容是再Mac上搭建Flutter开发环境的过程:
+1. 添加环境变量Mac 一般使用bash作为默认shellMac系统的环境变量，加载顺序为：/etc/profile/etc/paths~/.bash_profile~/.bash_">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +14,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>SwiftUI | waitwalker</title>
+    <title>Mac Flutter 环境搭建 | waitwalker</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -259,13 +260,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        SwiftUI
+                        Mac Flutter 环境搭建
                     </div>
                 </div>
             </div>
@@ -376,28 +377,20 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Swift/" target="_blank">
-                                <span class="chip bg-color">Swift</span>
+                            <a href="/tags/Flutter-开发/" target="_blank">
+                                <span class="chip bg-color">Flutter 开发</span>
+                            </a>
+                        
+                            <a href="/tags/Dart/" target="_blank">
+                                <span class="chip bg-color">Dart</span>
                             </a>
                         
                             <a href="/tags/iOS/" target="_blank">
                                 <span class="chip bg-color">iOS</span>
                             </a>
                         
-                            <a href="/tags/iOS-13-0/" target="_blank">
-                                <span class="chip bg-color">iOS 13.0</span>
-                            </a>
-                        
-                            <a href="/tags/iPadOS-13-0/" target="_blank">
-                                <span class="chip bg-color">iPadOS 13.0</span>
-                            </a>
-                        
-                            <a href="/tags/WWDC/" target="_blank">
-                                <span class="chip bg-color">WWDC</span>
-                            </a>
-                        
-                            <a href="/tags/Swift-UI/" target="_blank">
-                                <span class="chip bg-color">Swift UI</span>
+                            <a href="/tags/Android/" target="_blank">
+                                <span class="chip bg-color">Android</span>
                             </a>
                         
                     </div>
@@ -408,8 +401,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/WWDC/" class="post-category" target="_blank">
-                                WWDC
+                            <a href="/categories/Flutter开发/" class="post-category" target="_blank">
+                                Flutter开发
                             </a>
                         
                     </div>
@@ -420,7 +413,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-06-05
+                    2019-06-10
                 </div>
 
                 
@@ -436,15 +429,45 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2019 年 WWDC 大会上，苹果在压轴环节向大众宣布了基于 Swift 语言构建的全新 UI 框架 —— SwiftUI。开发者可通过它快速为所有的 Apple 平台创建美观、动态的应用程序。在介绍过程中，苹果公司软件工程高级副总裁 Craig Federighi 演示了如何将一百行代码简化为大约十几行。<br><img src="https://github.com/waitwalker/Resources/blob/master/SwiftUI/SwiftUI_1.jpg?raw=true" alt="SwiftUI_1"><br><img src="https://github.com/waitwalker/Resources/blob/master/SwiftUI/SwiftUI_2.png?raw=true" alt="SwiftUI_2"></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;据官方介绍，SwiftUI 是一个创新且非常方便使用的框架，开发者通过 Swift 语言的强大功能即可为苹果的所有硬件设备构建用户界面 —— 只需使用一套工具和 API。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此外，SwiftUI 使用了声明式的 Swift 语法，可读性比较高，编写起来也比较容易理解。SwiftUI 可与新的 Xcode 设计工具无缝协作，让代码和设计完美同步，还提供对动态类型、暗黑模式、本地化和可访问性的自动支持。下面简单介绍一下 SwiftUI。</p>
-<h3 id="声明式语法"><a href="#声明式语法" class="headerlink" title="声明式语法"></a>声明式语法</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SwiftUI 使用了声明式语法，所以开发者能够十分轻易地描述用户界面应该做什么。例如，编写需要包含文本字段的项目列表时，开发者可以用代码描述每个字段的对齐方式、字体和颜色。代码也比以前更简单，更易于阅读。<br><img src="https://github.com/waitwalker/Resources/blob/master/SwiftUI/SwiftUI_3.jpg?raw=true" alt="SwiftUI_3"></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这种声明式风格非常适用于像动画这样复杂的元素。通过 SwiftUI，开发者可轻松地将动画添加到几乎任何控件。</p>
-<h3 id="拥有更直观的新设计工具"><a href="#拥有更直观的新设计工具" class="headerlink" title="拥有更直观的新设计工具"></a>拥有更直观的新设计工具</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Xcode 11 包含更直观的新设计工具，可让开发者通过拖拽的方式使用 SwiftUI 构建界面，在这过程中可以直接设置控件的相关属性。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当在设计工具中工作时，所编辑的内容会立刻反映到代码上，如果从模拟器切换到手机，手机也能立马看到预览效果。<br><img src="https://github.com/waitwalker/Resources/blob/master/SwiftUI/SwiftUI_4.png?raw=true" alt="SwiftUI_4"></p>
-<h3 id="视频教程"><a href="#视频教程" class="headerlink" title="视频教程"></a>视频教程</h3><iframe src="https://v.youku.com/v_show/id_XNDIxNzE0ODI4NA==.html?spm=a2h3j.8428770.3416059.1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="100%" height="580" quality="high"> </iframe>
-
-<h3 id="完整教程请参考"><a href="#完整教程请参考" class="headerlink" title="完整教程请参考:"></a>完整教程请参考:</h3><p><a href="https://juejin.im/post/5cf5f4596fb9a07ede0b2fa1" target="_blank" rel="noopener">https://juejin.im/post/5cf5f4596fb9a07ede0b2fa1</a></p>
-
+                <p>以下内容是再Mac上搭建Flutter开发环境的过程:</p>
+<h4 id="1-添加环境变量"><a href="#1-添加环境变量" class="headerlink" title="1. 添加环境变量"></a>1. 添加环境变量</h4><p>Mac 一般使用bash作为默认shell<br>Mac系统的环境变量，加载顺序为：<br>/etc/profile<br>/etc/paths<br>~/.bash_profile<br>~/.bash_login<br>~/.profile<br>~/.bashrc</p>
+<p>/etc/profile和/etc/paths是系统级别的，系统启动就会加载，后面几个是当前用户级的环境变量。<br>设置PATH的语法都为：</p>
+<pre><code>export PATH=$PATH:&lt;PATH 1&gt;:&lt;PATH 2&gt;:&lt;PATH 3&gt;:------:&lt;PATH N&gt;
+</code></pre><h4 id="2-全局设置"><a href="#2-全局设置" class="headerlink" title="2. 全局设置"></a>2. 全局设置</h4><p>下面的几个文件设置是全局的，修改时需要root权限<br>1）/etc/paths （全局建议修改这个文件 ）<br>编辑 paths，将环境变量添加到 paths文件中 ，一行一个路径</p>
+<p>2）/etc/profile （建议不修改这个文件 ）<br>全局（公有）配置，不管是哪个用户，登录时都会读取该文件。</p>
+<p>3）/etc/bashrc （一般在这个文件中添加系统级环境变量）<br>全局（公有）配置，bash shell执行时，不管是何种方式，都会读取此文件。</p>
+<h4 id="3-单个用户设置"><a href="#3-单个用户设置" class="headerlink" title="3. 单个用户设置"></a>3. 单个用户设置</h4><p>1）~/.bash_profile （任意一个文件中添加用户级环境变量）<br>（注：Linux 里面是 .bashrc 而 Mac 是 .bash_profile）</p>
+<p>若bash shell是以login方式执行时，才会读取此文件。该文件仅仅执行一次!默认情况下,他设置一些环境变量<br>置命令别名alias ll=’ls -la’<br>设置环境变量：</p>
+<pre><code>export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+</code></pre><p>2）~/.bashrc 同上<br>如果想立刻生效，则可执行下面的语句：<br>$ source 相应的文件<br>一般环境变量更改后，重启后生效。</p>
+<h4 id="4-编辑-bash-profile文件-添加如下环境变量"><a href="#4-编辑-bash-profile文件-添加如下环境变量" class="headerlink" title="4. 编辑~/.bash_profile文件,添加如下环境变量:"></a>4. 编辑~/.bash_profile文件,添加如下环境变量:</h4><pre><code>vi ~/.bash_profile
+</code></pre><p>保存退出,并使文件生效</p>
+<pre><code>source ~/.bash_profile
+</code></pre><p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/DevelopmentEnvironment/%E6%B7%BB%E5%8A%A0%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F1.png?raw=true" alt="添加环境变量.png"></p>
+<h4 id="5-下载Flutter-SDK"><a href="#5-下载Flutter-SDK" class="headerlink" title="5. 下载Flutter SDK"></a>5. 下载Flutter SDK</h4><p>去flutter官网下载其最新可用的安装包，<a href="https://flutter.io/sdk-archive/#macos" target="_blank" rel="noopener">转到下载页</a>, 下载完成后解压安装包到你想安装的目录.</p>
+<pre><code>cd ~/development unzip ~/Downloads/flutter_macos_v0.5.1-beta.zip
+</code></pre><h4 id="6-查看Flutter相关依赖是否安装完成-执行-flutter-doctor命令"><a href="#6-查看Flutter相关依赖是否安装完成-执行-flutter-doctor命令" class="headerlink" title="6. 查看Flutter相关依赖是否安装完成,执行 flutter doctor命令:"></a>6. 查看Flutter相关依赖是否安装完成,执行 flutter doctor命令:</h4><p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/DevelopmentEnvironment/Flutter%E7%9B%B8%E5%85%B3%E4%BE%9D%E8%B5%96.png?raw=true" alt="Flutter相关依赖.png"></p>
+<p>如果有[!] ✗ 标志，表示本行检测不通过，需要做一些设置或者安装一些软件</p>
+<p>解决Downloaded executables cannot execute on host.问题</p>
+<pre><code>rm -rf ~/flutter/bin/cache flutter doctor --verbose
+</code></pre><h4 id="7-安装设备依赖库"><a href="#7-安装设备依赖库" class="headerlink" title="7. 安装设备依赖库"></a>7. 安装设备依赖库</h4><pre><code>✗ libimobiledevice and ideviceinstaller are not installed. To install with Brew, run:
+brew update
+brew install --HEAD usbmuxd
+brew link usbmuxd
+brew install --HEAD libimobiledevice
+brew install ideviceinstaller
+✗ ios-deploy not installed. To install:
+brew install ios-deploy
+</code></pre><p>其它问题照着Flutter给的提示解决就可以了.</p>
+<h4 id="8-Android-Studio安装Flutter插件"><a href="#8-Android-Studio安装Flutter插件" class="headerlink" title="8. Android Studio安装Flutter插件"></a>8. Android Studio安装Flutter插件</h4><p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/DevelopmentEnvironment/Android%20Studio%E5%AE%89%E8%A3%85Flutter%E6%8F%92%E4%BB%B6.png?raw=true" alt="Android Studio安装Flutter插件.png"></p>
+<h4 id="9-Visual-Studio-Code安装Flutter插件"><a href="#9-Visual-Studio-Code安装Flutter插件" class="headerlink" title="9. Visual Studio Code安装Flutter插件"></a>9. Visual Studio Code安装Flutter插件</h4><p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/DevelopmentEnvironment/VS%20code%E5%AE%89%E8%A3%85Flutter%E6%8F%92%E4%BB%B6.png?raw=true" alt="VS code安装Flutter插件.png"></p>
+<h4 id="10-创建demo"><a href="#10-创建demo" class="headerlink" title="10. 创建demo"></a>10. 创建demo</h4><p>新建空项目:</p>
+<pre><code>flutter create project_name
+</code></pre><p>查看所有设备:</p>
+<pre><code>flutter devices
+</code></pre><p>运行项目:</p>
+<pre><code>flutter run
+</code></pre>
             </div>
             <hr>
 
@@ -591,7 +614,7 @@
                     </span>
                     <a href="https://waitwalker.github.io" class="b-link-green">waitwalker</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/06/05/SwiftUI/" class="b-link-green">SwiftUI</a>
+                    <a href="/2019/06/10/Mac-Flutter-环境搭建/" class="b-link-green">Mac Flutter 环境搭建</a>
                 </p>
             </div>
         </div>
@@ -614,7 +637,8 @@
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2019/06/10/Mac-Flutter-环境搭建/">
                     <div class="card-image">
@@ -629,9 +653,9 @@
                     <div class="summary block-with-text">以下内容是再Mac上搭建Flutter开发环境的过程:
 1. 添加环境变量Mac 一般使用bash作为默认shellMac系统的环境变量，加载顺序为：/etc/profile/etc/paths~/.bash_profile~/.bash_</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-10
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-10
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -644,6 +668,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -674,17 +699,17 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/06/05/WWDC-2019/">
+                <a href="/2019/06/05/SwiftUI/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="WWDC 2019">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="SwiftUI">
                         
-                        <span class="card-title">WWDC 2019</span>
+                        <span class="card-title">SwiftUI</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary block-with-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;苹果在今天的WWDC 2019苹果开发者大会上发布了全新的iOS 13系统。传了很久期待很久的黑暗模式也出现在了全新的iOS 13系统上。黑暗模</div>
+                    <div class="summary block-with-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2019 年 WWDC 大会上，苹果在压轴环节向大众宣布了基于 Swift 语言构建的全新 UI 框架 —— SwiftUI。开发者可通过它快速</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-05
@@ -704,6 +729,10 @@
                 
                 <div class="card-action article-tags">
                     
+                    <a href="/tags/Swift/" target="_blank">
+                        <span class="chip bg-color">Swift</span>
+                    </a>
+                    
                     <a href="/tags/iOS/" target="_blank">
                         <span class="chip bg-color">iOS</span>
                     </a>
@@ -718,6 +747,10 @@
                     
                     <a href="/tags/WWDC/" target="_blank">
                         <span class="chip bg-color">WWDC</span>
+                    </a>
+                    
+                    <a href="/tags/Swift-UI/" target="_blank">
+                        <span class="chip bg-color">Swift UI</span>
                     </a>
                     
                 </div>

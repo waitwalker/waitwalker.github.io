@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://waitwalker.github.io/"/>
-  <updated>2019-06-08T05:24:38.223Z</updated>
+  <updated>2019-06-10T13:30:08.309Z</updated>
   <id>https://waitwalker.github.io/</id>
   
   <author>
@@ -15,6 +15,39 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Mac Flutter 环境搭建</title>
+    <link href="https://waitwalker.github.io/2019/06/10/Mac-Flutter-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    <id>https://waitwalker.github.io/2019/06/10/Mac-Flutter-环境搭建/</id>
+    <published>2019-06-10T13:22:49.000Z</published>
+    <updated>2019-06-10T13:30:08.309Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;以下内容是再Mac上搭建Flutter开发环境的过程:&lt;/p&gt;
+&lt;h4 id=&quot;1-添加环境变量&quot;&gt;&lt;a href=&quot;#1-添加环境变量&quot; class=&quot;headerlink&quot; title=&quot;1. 添加环境变量&quot;&gt;&lt;/a&gt;1. 添加环境变量&lt;/h4&gt;&lt;p&gt;Mac
+        
+      
+    
+    </summary>
+    
+      <category term="Flutter开发" scheme="https://waitwalker.github.io/categories/Flutter%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="Flutter 开发" scheme="https://waitwalker.github.io/tags/Flutter-%E5%BC%80%E5%8F%91/"/>
+    
+      <category term="Dart" scheme="https://waitwalker.github.io/tags/Dart/"/>
+    
+      <category term="iOS" scheme="https://waitwalker.github.io/tags/iOS/"/>
+    
+      <category term="Android" scheme="https://waitwalker.github.io/tags/Android/"/>
+    
+  </entry>
   
   <entry>
     <title>SwiftUI</title>
@@ -599,33 +632,6 @@ int main(int argc, const
     
     
       <category term="狗圈儿隐私政策" scheme="https://waitwalker.github.io/tags/%E7%8B%97%E5%9C%88%E5%84%BF%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Bedrock Privacy Policy</title>
-    <link href="https://waitwalker.github.io/2019/04/13/Bedrock-Privacy-Policy/"/>
-    <id>https://waitwalker.github.io/2019/04/13/Bedrock-Privacy-Policy/</id>
-    <published>2019-04-13T10:47:52.000Z</published>
-    <updated>2019-04-13T11:35:19.908Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;&lt;font size=&quot;3&quot;&gt;&lt;strong&gt;1.我们尊重用户的隐私并对非法窃取用户隐私的行为予以坚决抵制.&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;
-&lt;p&gt;&lt;font size=&quot;3&quot;&gt;We respect user privacy and resist those
-        
-      
-    
-    </summary>
-    
-      <category term="隐私政策" scheme="https://waitwalker.github.io/categories/%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96/"/>
-    
-    
-      <category term="Bedrock隐私政策" scheme="https://waitwalker.github.io/tags/Bedrock%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96/"/>
     
   </entry>
   
