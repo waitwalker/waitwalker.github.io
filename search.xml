@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>Flutter开发-Dart语言基础</title>
+      <link href="/2019/06/11/Flutter%E5%BC%80%E5%8F%91-Dart%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/"/>
+      <url>/2019/06/11/Flutter%E5%BC%80%E5%8F%91-Dart%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/</url>
+      
+        <content type="html"><![CDATA[<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dart是一种易于学习,易于扩展,并且可以部署到任何地方的应用编程语言.Dart是面向对象的编程语言,由Google在2011推出.</p><h3 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念:"></a>相关概念:</h3><p>1)Dart真正实现了”一切皆对象”,即使数值类型,函数方法和null都是对象,上帝类是Object类.<br>2)Dart是强类型语言,类型标识是可选的,Dart会自动推断变量的具体类型.如果要指明某个对象为不确定类型,可以用dynamic(动态性)关键字来修饰变量.<br>3)Dart支持泛型,和Swift类似.<br>4)Dart支持顶级函数(main函数等,也是程序的入口),静态方法,实例方法.支持嵌套函数(函数内部创建函数)等.<br>5)Dart没有public,private等关键字,默认一些变量和方法都是公有的,如果想声明私有变量或者方法,可以用”_(下户线)”开头声明.<br>6)Dart可以使用分号作为语句的结束,也可以不写.<br>7)Dart注释.//和/**/</p><h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><h4 id="变量的定义用var关键字-类型可以不写"><a href="#变量的定义用var关键字-类型可以不写" class="headerlink" title="变量的定义用var关键字,类型可以不写:"></a>变量的定义用var关键字,类型可以不写:</h4><pre><code>var name = &quot;flutter&quot;;// String类型var age = 20; // int 类型var height = 1.80; // Double 类型</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当给变量赋值的时候,变量的类型已经确定,此时不能给变量赋值其他类型值:</p><pre><code>var name = &quot;flutter&quot;; //Stringname = 12;// 此时报错</code></pre><p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/Dart/var%20error.png?raw=true" alt="var error"></p><h4 id="可以使用特定类型来定义变量"><a href="#可以使用特定类型来定义变量" class="headerlink" title="可以使用特定类型来定义变量"></a>可以使用特定类型来定义变量</h4><pre><code>String newName = &quot;my flutter&quot;;int newAge = 21;double newHeighth = 1.85;</code></pre><h4 id="变量的类型如果可变-可以用dynamic或者Obejct关键字来定义变量"><a href="#变量的类型如果可变-可以用dynamic或者Obejct关键字来定义变量" class="headerlink" title="变量的类型如果可变,可以用dynamic或者Obejct关键字来定义变量"></a>变量的类型如果可变,可以用dynamic或者Obejct关键字来定义变量</h4><pre><code>dynamic flu = &quot;Flutter&quot;; //String类型print(&quot;flu的值为:$flu&quot;);flu = 12; //int 类型print(&quot;flu的值为:$flu&quot;);I/flutter (25846): 开始点击countI/flutter (25846): 点击完成count=1I/flutter (25846): flu的值为:FlutterI/flutter (25846): flu的值为:12Object da = &quot;Dart&quot;;print(&quot;da的值为:$da&quot;);da = 2.0;print(&quot;da的值为:$da&quot;);I/flutter (25846): da的值为:DartI/flutter (25846): da的值为:2.0</code></pre><h4 id="变量默认值"><a href="#变量默认值" class="headerlink" title="变量默认值"></a>变量默认值</h4><p>如果声明一个变量而没有给他赋值的话,其默认值是null,null在Flutter中也是一个对象.</p><pre><code>var stuName;print(&quot;stu name:$stuName&quot;);dynamic stuNewName;print(&quot;stu new name:$stuNewName&quot;);I/flutter (25846): stu name:nullI/flutter (25846): stu new name:null</code></pre><h4 id="class关键字"><a href="#class关键字" class="headerlink" title="class关键字"></a>class关键字</h4><p>class关键字用于创建一个类,如果不指明继承哪个类,默认继承上帝类Object</p><pre><code>class Student extends Object {}</code></pre><h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><h4 id="final-和-const"><a href="#final-和-const" class="headerlink" title="final 和 const"></a>final 和 const</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果一个想定义一个常量,即一个变量的值被赋值后一直不会改变,可以通过final和const来声明,final修饰的变量在声明时不赋值,而在对象初始化时赋值;const修饰的变量必须赋值,否则报错.final 类似于Swift或者OC中的只读属性.</p><pre><code>class Student extends Object {  static const constVar; //const 修饰的变量必须赋值  final name;  Student(this.name);}// 使用Student stu_1 = Student(&quot;waitwalker&quot;);print(&quot;stu_1 name:${stu_1.name}&quot;);I/flutter (25846): stu_1 name:waitwalker</code></pre><p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/Dart/final%20error.png?raw=true" alt="final error"></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const 修饰的变量赋值后就不会报错了,此时如果给stu_1.name重新赋值会报错,final修饰的变量不允许调用setter方法:</p><pre><code>class Student extends Object {  static const constVar = &quot;const 修饰的变量必须赋值&quot;; //const 修饰的变量必须赋值  final name;  Student(this.name);}// 使用Student stu_1 = Student(&quot;waitwalker&quot;);print(&quot;stu_1 name:${stu_1.name}&quot;);stu_1.name = &quot;new&quot;;</code></pre><p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/Dart/const%20error.png?raw=true" alt="const error"></p><h3 id="Dart标准库中内置类型"><a href="#Dart标准库中内置类型" class="headerlink" title="Dart标准库中内置类型"></a>Dart标准库中内置类型</h3><h4 id="判断对象的类型"><a href="#判断对象的类型" class="headerlink" title="判断对象的类型"></a>判断对象的类型</h4><p>在上帝类中有个只读属性runtimeType用于获取对象的类型:</p><pre><code>print(&quot;stu_1 type:${stu_1.runtimeType}&quot;);print(&quot;stu_1 type:${stu_1.name.runtimeType}&quot;);I/flutter (25846): stu_1 type:StudentI/flutter (25846): stu_1 type:String</code></pre><h4 id="数值类型num"><a href="#数值类型num" class="headerlink" title="数值类型num"></a>数值类型num</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;num是Dart基本数值类型,其是int和doule的父类,Dart只有整型和浮点型两种基本数据类型,其长度依据操作系统自由伸缩:</p><pre><code>abstract class int extends num {}abstract class double extends num {}</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以看到int类在num基本的运算操作基础上增加了一些位运算方法,double增加了一些如取绝对值等方法.</p><h4 id="字符串String"><a href="#字符串String" class="headerlink" title="字符串String"></a>字符串String</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String是charCodes字符的集合,charCodes默认采用的是UTF-16编码,一个String在定义时可以采用单引号或者双引号将内容包起来.</p><pre><code>abstract class String implements Comparable&lt;String&gt;, Pattern {}</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果多行字符串,可以采用三重(单/双)引号,将内容包起来,这个类似于Python和Swift的相关语法.</p><pre><code>String today = &quot;&quot;&quot;Today is very hot.Yes.No.&quot;&quot;&quot;;print(&quot;toady:$today&quot;);I/flutter (26474): toady: Today is very hot.I/flutter (26474): Yes.I/flutter (26474): No.</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String类中还定义了一些截串,获取索引,比较两个字符串,获取长度等一些常规方法.</p><h4 id="布尔类型bool"><a href="#布尔类型bool" class="headerlink" title="布尔类型bool"></a>布尔类型bool</h4><p>bool类型很简单,非零即真:</p><pre><code>bool isiPad = false;print(&quot;is iPad:$isiPad&quot;);I/flutter (26474): is iPad:false</code></pre><h4 id="集合类型List"><a href="#集合类型List" class="headerlink" title="集合类型List"></a>集合类型List</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dart中集合类型List和Python中的List可以说一脉相承,List是一个泛型集合,可以存储任何需要的对象类型,其常规的增删改查操作方法和其他语言集合类型相似.</p><pre><code>List list = [&quot;date&quot;,12,45.0,&quot;weather&quot;]; //初始化方式List list_a = List(10); //指定长度初始化list_a.add(&quot;12&quot;); //添加操作list_a.add(12);list_a.removeAt(1); //移除指定索引位置元素list_a.removeLast(); //移除最后一个元素</code></pre><h4 id="字典类型-键值类型-Map"><a href="#字典类型-键值类型-Map" class="headerlink" title="字典类型(键值类型)Map"></a>字典类型(键值类型)Map</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dart中的Map类型和其他语言中Map或者Dictionary中相似,在定义的时候可以指定键值得类型.</p><pre><code>Map dic = Map();dic[&quot;name&quot;] = &quot;flutter&quot;;dic[&quot;version&quot;] = &quot;1.2&quot;;Map dic_a = {&quot;name&quot;:&quot;flutter&quot;,&quot;version&quot;:&quot;1.2&quot;};print(&quot;dic:$dic&quot;);print(&quot;dic_a:$dic_a&quot;);I/flutter (26474): dic:{name: flutter, version: 1.2}I/flutter (26474): dic_a:{name: flutter, version: 1.2}</code></pre><h4 id="Runes类型"><a href="#Runes类型" class="headerlink" title="Runes类型"></a>Runes类型</h4><p>Runes类型一般用于编码特殊的Unicode,例如emoji.</p><h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><p>方法是程序功能的集合.</p><h4 id="方法的常规定义"><a href="#方法的常规定义" class="headerlink" title="方法的常规定义"></a>方法的常规定义</h4><pre><code>返回值类 方法名() {return value;}// 例如String getName() {return name;}Student stu_1 = Student(&quot;waitwalker&quot;);print(&quot;stu_1 name:${stu_1.name}&quot;);String newN = stu_1.getName();print(&quot;newN:$newN&quot;);I/flutter (26474): stu_1 name:waitwalkerI/flutter (26474): newN:waitwalker</code></pre><h4 id="方法参数"><a href="#方法参数" class="headerlink" title="方法参数"></a>方法参数</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dart方法的参数可以是变量也可以是一个方法,如果方法参数是一个变量,可以指定变量类型也可以不指定,建议指定.</p><p>方法中也可以设定可选参数,可选参数用[]包起来.</p><pre><code>// 显示名称String showName(String firstName) {  return name + firstName;}Student student = Student(&quot;xiaoming&quot;);String fullName = student.showName(&quot;wang&quot;);print(&quot;full name:$fullName&quot;);I/flutter (26474): full name:xiaomingwang</code></pre><h4 id="方法作为参数"><a href="#方法作为参数" class="headerlink" title="方法作为参数"></a>方法作为参数</h4><p>Dart允许在方法中传递参数,其实传递的是方法的地址:</p><pre><code>int sum(int a, int b) {  print(&quot;sum result:${a + b}&quot;);  return a + b;}int toatl(int a, int b, Function getSum) {  return getSum(a,b);}void result() {int r = toatl(12, 18, sum);print(&quot;result:$r&quot;);}Student student = Student(&quot;xiaoming&quot;);String fullName = student.showName(&quot;zhang&quot;,12);print(&quot;full name:$fullName&quot;);student.result();I/flutter (26474): sum result:30I/flutter (26474): result:30</code></pre><h4 id="方法参数默认值"><a href="#方法参数默认值" class="headerlink" title="方法参数默认值"></a>方法参数默认值</h4><p>在定义方法时,可选参数也可以指定一个默认值:</p><pre><code>// 显示名称String showName(String firstName, [int age = 20]) {return name + firstName + &quot;age is&quot; + age.toString();}Student student = Student(&quot;xiaoming&quot;);String fullName = student.showName(&quot;zhang&quot;,12);print(&quot;full name:$fullName&quot;);I/flutter (26474): full name:xiaomingzhang age is12</code></pre><h4 id="方法中嵌套方法"><a href="#方法中嵌套方法" class="headerlink" title="方法中嵌套方法"></a>方法中嵌套方法</h4><p>Dart语法方法中是可以嵌套方法的:</p><pre><code>void size(int a) {void intervalSize () {print(&quot;size in:$a&quot;);}print(&quot;size out:$a&quot;);}</code></pre><h4 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数"></a>匿名函数</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dart中匿名函数和Python中的lamada匿名函数一样,不用给方法起名字了,在定义的时候直接用一个变量来接收,引用时直接引用这个变量:</p><pre><code>var lamadaFunc = (String name) =&gt; &quot;${name}&quot;;student.lamadaFunc(&quot;wangxiaoming&quot;);</code></pre><h4 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;闭包是对匿名函数的一种应用,Dart 其在Function类型,而在Swift中常当作函数参数用于一些异步回调,在Dart定义:</p><pre><code>Function totalNum(int a) {return (int b) =&gt; a + b;}var totalNum = student.totalNum(12);var value = totalNum(3);print(&quot;value:$value&quot;);I/flutter (26474): value:15</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Flutter开发 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Flutter 开发 </tag>
+            
+            <tag> Dart </tag>
+            
+            <tag> iOS </tag>
+            
+            <tag> Android </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Mac Flutter 环境搭建</title>
       <link href="/2019/06/10/Mac-Flutter-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
       <url>/2019/06/10/Mac-Flutter-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
@@ -326,9 +357,9 @@
       
         <tags>
             
-            <tag> Runtime </tag>
-            
             <tag> iOS </tag>
+            
+            <tag> Runtime </tag>
             
             <tag> source code </tag>
             
@@ -873,9 +904,9 @@
       
         <tags>
             
-            <tag> Runtime </tag>
-            
             <tag> iOS </tag>
+            
+            <tag> Runtime </tag>
             
             <tag> source code </tag>
             
