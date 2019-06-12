@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://waitwalker.github.io/"/>
-  <updated>2019-06-11T12:09:14.608Z</updated>
+  <updated>2019-06-12T12:23:52.878Z</updated>
   <id>https://waitwalker.github.io/</id>
   
   <author>
@@ -15,6 +15,40 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Flutter开发-Dart语言基础-2</title>
+    <link href="https://waitwalker.github.io/2019/06/12/Flutter%E5%BC%80%E5%8F%91-Dart%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80-2/"/>
+    <id>https://waitwalker.github.io/2019/06/12/Flutter开发-Dart语言基础-2/</id>
+    <published>2019-06-12T12:22:46.000Z</published>
+    <updated>2019-06-12T12:23:52.878Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;接着上篇Dart语言基础.&lt;/p&gt;
+&lt;h3 id=&quot;运算符&quot;&gt;&lt;a href=&quot;#运算符&quot; class=&quot;headerlink&quot; title=&quot;运算符&quot;&gt;&lt;/a&gt;运算符&lt;/h3&gt;&lt;p&gt;Dart和其他语言一样多种,支持多种运算.&lt;/p&gt;
+&lt;h4 id=&quot;点运算语法糖&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="Flutter开发" scheme="https://waitwalker.github.io/categories/Flutter%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="Flutter 开发" scheme="https://waitwalker.github.io/tags/Flutter-%E5%BC%80%E5%8F%91/"/>
+    
+      <category term="Dart" scheme="https://waitwalker.github.io/tags/Dart/"/>
+    
+      <category term="iOS" scheme="https://waitwalker.github.io/tags/iOS/"/>
+    
+      <category term="Android" scheme="https://waitwalker.github.io/tags/Android/"/>
+    
+  </entry>
   
   <entry>
     <title>Flutter开发-Dart语言基础</title>
@@ -391,9 +425,9 @@ int main(int argc, const
       <category term="Runtime源码解读" scheme="https://waitwalker.github.io/categories/Runtime%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/"/>
     
     
-      <category term="iOS" scheme="https://waitwalker.github.io/tags/iOS/"/>
-    
       <category term="Runtime" scheme="https://waitwalker.github.io/tags/Runtime/"/>
+    
+      <category term="iOS" scheme="https://waitwalker.github.io/tags/iOS/"/>
     
       <category term="source code" scheme="https://waitwalker.github.io/tags/source-code/"/>
     
@@ -613,32 +647,6 @@ int main(int argc, const
       <category term="Swift" scheme="https://waitwalker.github.io/tags/Swift/"/>
     
       <category term="树" scheme="https://waitwalker.github.io/tags/%E6%A0%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>快识别隐私政策(Fast OCR Privacy Policy)</title>
-    <link href="https://waitwalker.github.io/2019/04/13/%E5%BF%AB%E8%AF%86%E5%88%AB%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96-Fast-OCR-Privacy-Policy/"/>
-    <id>https://waitwalker.github.io/2019/04/13/快识别隐私政策-Fast-OCR-Privacy-Policy/</id>
-    <published>2019-04-13T12:17:06.000Z</published>
-    <updated>2019-05-22T10:31:29.218Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;&lt;strong&gt;我们尊重用户的隐私并对非法窃取用户隐私的行为予以坚决抵制.&lt;/strong&gt;&lt;br&gt;We respect user privacy and resist those who illegally steal user
-        
-      
-    
-    </summary>
-    
-      <category term="隐私政策" scheme="https://waitwalker.github.io/categories/%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96/"/>
-    
-    
-      <category term="快识别隐私政策" scheme="https://waitwalker.github.io/tags/%E5%BF%AB%E8%AF%86%E5%88%AB%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96/"/>
     
   </entry>
   
