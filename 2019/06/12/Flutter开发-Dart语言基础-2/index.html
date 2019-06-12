@@ -478,7 +478,7 @@ I/flutter (27692): m = 12
 <pre><code>int a = 10;
 double q = (a as double);
 print(&quot;q = $q&quot;);
-</code></pre><p><img src="https://upload-images.jianshu.io/upload_images/1715253-e405653582cc76f6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="as error"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;类型验证运算-is就是判断某个对象是否是某个类的实例,和Swift中的内省方法isClassOf功能类似,如果要取反判断直接在is后面加!也就是is!:</p>
+</code></pre><p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/Dart/as%20error.png?raw=true" alt="as error"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;类型验证运算-is就是判断某个对象是否是某个类的实例,和Swift中的内省方法isClassOf功能类似,如果要取反判断直接在is后面加!也就是is!:</p>
 <pre><code>print(&quot;student is Student ? ${student is Student}&quot;);
 
 I/flutter (27692): student is Student ? true
@@ -531,7 +531,7 @@ int c = ++a;
 
 // 断言
 assert(a&gt; c);
-</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因为a不大于c,程序抛异常,停止运行.<br><img src="https://upload-images.jianshu.io/upload_images/1715253-fbafd5941c3ac58e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="assert"></p>
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因为a不大于c,程序抛异常,停止运行.<br><img src alt="assert"></p>
 <h3 id="异常捕获"><a href="#异常捕获" class="headerlink" title="异常捕获"></a>异常捕获</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;异常即非正常,在执行某段代码时如果程序发生错误,我们能够预知可能发生的错误,然后将错误捕获处理,防止程序终止.Dart中的异常和Objective-C中的几乎一样.</p>
 <pre><code>try {
   person.getAge();
