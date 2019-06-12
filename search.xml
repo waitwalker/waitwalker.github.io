@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>Flutter开发-Dart语言基础-3</title>
+      <link href="/2019/06/12/Flutter%E5%BC%80%E5%8F%91-Dart%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80-3/"/>
+      <url>/2019/06/12/Flutter%E5%BC%80%E5%8F%91-Dart%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80-3/</url>
+      
+        <content type="html"><![CDATA[<p>接着上篇,这节继续Dart基础语法.</p><h3 id="类"><a href="#类" class="headerlink" title="类"></a>类</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;类是一个实例的抽象,通过类来创建实例,创建实例的过程叫做初始化.</p><h4 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dart中的基本构造函数是通过编写一个和类同名的方法实现:</p><pre><code>class Car extends Object {// 构造函数  Car(double color, int price) {  }}</code></pre><p>也可以通过简写来创建构造函数:</p><pre><code>class Car extends Object {  // 构造函数  // Car(double color, int price) {  // }  Car(double color, int price);}</code></pre><h4 id="便利构造器"><a href="#便利构造器" class="headerlink" title="便利构造器"></a>便利构造器</h4><p>遍历构造器是类构造函数的一种方式.</p><pre><code>class Car extends Object {  // 构造函数  // Car(double color, int price) {  // }  Car(double color, int price);  // 便利构造器  Car.init(double height, double width) {    print(&quot;car height:$height, car width:$width&quot;);  }}  Car.init(12.0,2.0);</code></pre><h4 id="属性变量"><a href="#属性变量" class="headerlink" title="属性变量"></a>属性变量</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其他语言像Swift,Python等都有属性变量,其实这是成员变量的另一种写法,Dart同样也有属性变量:</p><pre><code>class Car extends Object {  double color;  int price;  // 构造函数  // Car(double color, int price) {  // }  Car(double color, int price) {    this.color = color;    this.price = price;  }  // 便利构造器  Car.init(double height, double width) {    print(&quot;car height:$height, car width:$width&quot;);  }}</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们在类中调用成员变量的时候可以通过this指针来调用,有点类似JavaScript.如果我们想设置只读属性,可以用final关键字修饰属性,之前已经提到过了.</p><h4 id="实例方法和类方法"><a href="#实例方法和类方法" class="headerlink" title="实例方法和类方法"></a>实例方法和类方法</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;类方法是通过类名直接调用方法,定义的时候需要static关键字修饰:</p><pre><code>static int newPrice = 10;// 类方法static int getPrice() {  print(&quot;price:$newPrice&quot;);  return 10;}Car.getPrice();</code></pre><p>类方法中只能调用static修饰的静态变量.</p><p>实例方法通过实例对象来调用:</p><pre><code>// 实例方法double getHeight() {  return this.height;}</code></pre><h4 id="存取方法"><a href="#存取方法" class="headerlink" title="存取方法"></a>存取方法</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dart中可以重写属性变量的setter和getter方法:</p><pre><code>int get totalPrice =&gt; this.price * 2;set totalPrice(int value) =&gt; price + value;</code></pre><h3 id="类的继承"><a href="#类的继承" class="headerlink" title="类的继承"></a>类的继承</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在Dart中类和接口是统一的,类也是一个接口.类可以被重写,也可以被实现.抽象类更像一个接口文件,其定义待实现的方法和变量等.</p><h4 id="抽象类-接口"><a href="#抽象类-接口" class="headerlink" title="抽象类(接口)"></a>抽象类(接口)</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dart中的抽象类更像Swift中的protocol,可以通过抽象类实现多继承:</p><pre><code>// 汽车价格接口文件abstract class PriceInterface {  // 获取汽车价格方法声明  int carPrice();}// 汽车颜色接口文件abstract class ColorInterface {  // 获取汽车颜色  double carColor();}</code></pre><h4 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在Dart也有一个超类Obejct,任何类都继承自这个类.Dart中支持单继承,多继承可以通过接口文件实现(抽象类),继承使用Extends关键字,实现多继承通过implements关键字.如果类中的方法被重写了,在方法的上面会添加@override关键字;</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单继承一个类,继承某个类不必须实现父类中的所有方法:</p><pre><code>class Father extends Object {  Father() {    print(&quot;this is father&quot;);  }  void name() {    print(&quot;father name&quot;);  }}class Son extends Father {  Son() {    print(&quot;this is son&quot;);  }  @override  void name() {  // TODO: implement name    super.name();    print(&quot;son name&quot;);  }}</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实现某个接口或者类必须实现接口或类中所有的方法:</p><p>多继承多个接口:</p><pre><code>// mini cooperclass MiniCooper implements PriceInterface, ColorInterface {  int price;  double color;  // 构造函数  MiniCooper(int price, double color){    this.price = price;    this.color = color;  }  @override  int carPrice() {    // TODO: implement carPrice    return 20;  }  @override  double carColor() {    // TODO: implement carColor    return 20.0;  }}</code></pre><p>单个类的实现:</p><pre><code>class grandSon implements Son {  @override  void name() {    // TODO: implement name  }}</code></pre><h3 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;泛型指的是编译期不知道对象的具体类型,对象的类型在运行时期确定.</p><pre><code>class BBQ&lt;T&gt; extends Object {  BBQ(T value) {    print(&quot;value:$value, value type: ${value.runtimeType}&quot;);  }}BBQ bbq = BBQ(&quot;bbq&quot;);I/flutter (29031): value:bbq, value type: String</code></pre><h3 id="包"><a href="#包" class="headerlink" title="包"></a>包</h3><h4 id="包管理器"><a href="#包管理器" class="headerlink" title="包管理器"></a>包管理器</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dart使用Pub来管理包,<a href="https://pub.dev/" target="_blank" rel="noopener">pub官网</a>其配置文件是pubspec.yaml,如果你想添加其他第三方依赖,直接将依赖配置添加到这个文件中:</p><pre><code>## http请求库dependencies:flutter:  sdk: flutter  # The following adds the Cupertino Icons font to your application.  # Use with the CupertinoIcons class for iOS style icons.  cupertino_icons: ^0.1.2  # http 请求库  http: ^0.12.0+2</code></pre><p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/Dart/pub.png?raw=true" alt="pub"></p><p>然后执行如下命令下载更新依赖:</p><pre><code>flutter pub get</code></pre><h4 id="导入包"><a href="#导入包" class="headerlink" title="导入包"></a>导入包</h4><pre><code>import &#39;package:http/http.dart&#39; as http;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Flutter开发 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Flutter 开发 </tag>
+            
+            <tag> Dart </tag>
+            
+            <tag> iOS </tag>
+            
+            <tag> Android </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Flutter开发-Dart语言基础-2</title>
       <link href="/2019/06/12/Flutter%E5%BC%80%E5%8F%91-Dart%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80-2/"/>
       <url>/2019/06/12/Flutter%E5%BC%80%E5%8F%91-Dart%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80-2/</url>
