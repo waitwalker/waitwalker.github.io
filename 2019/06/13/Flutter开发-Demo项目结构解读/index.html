@@ -4,10 +4,8 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="Flutter开发-Dart语言基础-3, Swift, iOS, Python">
-    <meta name="description" content="接着上篇,这节继续Dart基础语法.
-类&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;类是一个实例的抽象,通过类来创建实例,创建实例的过程叫做初始化.
-构造函数&amp;nbsp;&amp;nbsp;&amp;nb">
+    <meta name="keywords" content="Flutter开发-Demo项目结构解读, Swift, iOS, Python">
+    <meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;当我们用Flutter创建一个空的demo的时候，Flutter会为我们创建一个计数器的Demo.当点击”+”号时,页面中的数字会递增.而这个功">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -15,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Flutter开发-Dart语言基础-3 | waitwalker</title>
+    <title>Flutter开发-Demo项目结构解读 | waitwalker</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -261,13 +259,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        Flutter开发-Dart语言基础-3
+                        Flutter开发-Demo项目结构解读
                     </div>
                 </div>
             </div>
@@ -414,7 +412,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-06-12
+                    2019-06-13
                 </div>
 
                 
@@ -430,165 +428,199 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>接着上篇,这节继续Dart基础语法.</p>
-<h3 id="类"><a href="#类" class="headerlink" title="类"></a>类</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;类是一个实例的抽象,通过类来创建实例,创建实例的过程叫做初始化.</p>
-<h4 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dart中的基本构造函数是通过编写一个和类同名的方法实现:</p>
-<pre><code>class Car extends Object {
-// 构造函数
-  Car(double color, int price) {
-  }
-}
-</code></pre><p>也可以通过简写来创建构造函数:</p>
-<pre><code>class Car extends Object {
-  // 构造函数
-  // Car(double color, int price) {
-  // }
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当我们用Flutter创建一个空的demo的时候，Flutter会为我们创建一个计数器的Demo.<br><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/Demo/demo%20page.png?raw=true" alt="demo page"><br>当点击”+”号时,页面中的数字会递增.而这个功能的实现在lib/main.dart文件中:</p>
+<pre><code>import &#39;package:flutter/material.dart&#39;;
 
-  Car(double color, int price);
-}
-</code></pre><h4 id="便利构造器"><a href="#便利构造器" class="headerlink" title="便利构造器"></a>便利构造器</h4><p>遍历构造器是类构造函数的一种方式.</p>
-<pre><code>class Car extends Object {
-  // 构造函数
-  // Car(double color, int price) {
-  // }
+void main() =&gt; runApp(MyApp());
 
-  Car(double color, int price);
-  // 便利构造器
-  Car.init(double height, double width) {
-    print(&quot;car height:$height, car width:$width&quot;);
-  }
-}
-  Car.init(12.0,2.0);
-</code></pre><h4 id="属性变量"><a href="#属性变量" class="headerlink" title="属性变量"></a>属性变量</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其他语言像Swift,Python等都有属性变量,其实这是成员变量的另一种写法,Dart同样也有属性变量:</p>
-<pre><code>class Car extends Object {
-  double color;
-  int price;
-  // 构造函数
-  // Car(double color, int price) {
-  // }
-
-  Car(double color, int price) {
-    this.color = color;
-    this.price = price;
-  }
-
-  // 便利构造器
-  Car.init(double height, double width) {
-    print(&quot;car height:$height, car width:$width&quot;);
-  }
-}
-</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们在类中调用成员变量的时候可以通过this指针来调用,有点类似JavaScript.如果我们想设置只读属性,可以用final关键字修饰属性,之前已经提到过了.</p>
-<h4 id="实例方法和类方法"><a href="#实例方法和类方法" class="headerlink" title="实例方法和类方法"></a>实例方法和类方法</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;类方法是通过类名直接调用方法,定义的时候需要static关键字修饰:</p>
-<pre><code>static int newPrice = 10;
-// 类方法
-static int getPrice() {
-  print(&quot;price:$newPrice&quot;);
-  return 10;
-}
-
-Car.getPrice();
-</code></pre><p>类方法中只能调用static修饰的静态变量.</p>
-<p>实例方法通过实例对象来调用:</p>
-<pre><code>// 实例方法
-double getHeight() {
-  return this.height;
-}
-</code></pre><h4 id="存取方法"><a href="#存取方法" class="headerlink" title="存取方法"></a>存取方法</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dart中可以重写属性变量的setter和getter方法:</p>
-<pre><code>int get totalPrice =&gt; this.price * 2;
-set totalPrice(int value) =&gt; price + value;
-</code></pre><h3 id="类的继承"><a href="#类的继承" class="headerlink" title="类的继承"></a>类的继承</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在Dart中类和接口是统一的,类也是一个接口.类可以被重写,也可以被实现.抽象类更像一个接口文件,其定义待实现的方法和变量等.</p>
-<h4 id="抽象类-接口"><a href="#抽象类-接口" class="headerlink" title="抽象类(接口)"></a>抽象类(接口)</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dart中的抽象类更像Swift中的protocol,可以通过抽象类实现多继承:</p>
-<pre><code>// 汽车价格接口文件
-abstract class PriceInterface {
-  // 获取汽车价格方法声明
-  int carPrice();
-}
-
-// 汽车颜色接口文件
-abstract class ColorInterface {
-  // 获取汽车颜色
-  double carColor();
-}
-</code></pre><h4 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在Dart也有一个超类Obejct,任何类都继承自这个类.Dart中支持单继承,多继承可以通过接口文件实现(抽象类),继承使用Extends关键字,实现多继承通过implements关键字.如果类中的方法被重写了,在方法的上面会添加@override关键字;</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单继承一个类,继承某个类不必须实现父类中的所有方法:</p>
-<pre><code>class Father extends Object {
-  Father() {
-    print(&quot;this is father&quot;);
-  }
-
-  void name() {
-    print(&quot;father name&quot;);
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: &#39;Flutter Demo&#39;,
+      theme: ThemeData(
+        // This is the theme of your application.
+        //
+        // Try running your application with &quot;flutter run&quot;. You&#39;ll see the
+        // application has a blue toolbar. Then, without quitting the app, try
+        // changing the primarySwatch below to Colors.green and then invoke
+        // &quot;hot reload&quot; (press &quot;r&quot; in the console where you ran &quot;flutter run&quot;,
+        // or simply save your changes to &quot;hot reload&quot; in a Flutter IDE).
+        // Notice that the counter didn&#39;t reset back to zero; the application
+        // is not restarted.
+        primarySwatch: Colors.blue,
+      ),
+      home: MyHomePage(title: &#39;Flutter Demo Home Page&#39;),
+    );
   }
 }
 
-class Son extends Father {
-  Son() {
-    print(&quot;this is son&quot;);
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key key, this.title}) : super(key: key);
+
+  // This widget is the home page of your application. It is stateful, meaning
+  // that it has a State object (defined below) that contains fields that affect
+  // how it looks.
+
+  // This class is the configuration for the state. It holds the values (in this
+  // case the title) provided by the parent (in this case the App widget) and
+  // used by the build method of the State. Fields in a Widget subclass are
+  // always marked &quot;final&quot;.
+
+  final String title;
+
+  @override
+  _MyHomePageState createState() =&gt; _MyHomePageState();
+}
+
+class _MyHomePageState extends State&lt;MyHomePage&gt; {
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      // This call to setState tells the Flutter framework that something has
+      // changed in this State, which causes it to rerun the build method below
+      // so that the display can reflect the updated values. If we changed
+      // _counter without calling setState(), then the build method would not be
+      // called again, and so nothing would appear to happen.
+      _counter++;
+    });
   }
 
   @override
-  void name() {
-  // TODO: implement name
-    super.name();
-    print(&quot;son name&quot;);
+  Widget build(BuildContext context) {
+    // This method is rerun every time setState is called, for instance as done
+    // by the _incrementCounter method above.
+    //
+    // The Flutter framework has been optimized to make rerunning build methods
+    // fast, so that you can just rebuild anything that needs updating rather
+    // than having to individually change instances of widgets.
+    return Scaffold(
+      appBar: AppBar(
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        title: Text(widget.title),
+      ),
+      body: Center(
+        // Center is a layout widget. It takes a single child and positions it
+        // in the middle of the parent.
+        child: Column(
+          // Column is also layout widget. It takes a list of children and
+          // arranges them vertically. By default, it sizes itself to fit its
+          // children horizontally, and tries to be as tall as its parent.
+          //
+          // Invoke &quot;debug painting&quot; (press &quot;p&quot; in the console, choose the
+          // &quot;Toggle Debug Paint&quot; action from the Flutter Inspector in Android
+          // Studio, or the &quot;Toggle Debug Paint&quot; command in Visual Studio Code)
+          // to see the wireframe for each widget.
+          //
+          // Column has various properties to control how it sizes itself and
+          // how it positions its children. Here we use mainAxisAlignment to
+          // center the children vertically; the main axis here is the vertical
+          // axis because Columns are vertical (the cross axis would be
+          // horizontal).
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: &lt;Widget&gt;[
+            Text(
+              &#39;You have pushed the button this many times:&#39;,
+            ),
+            Text(
+              &#39;$_counter&#39;,
+              style: Theme.of(context).textTheme.display1,
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: &#39;Increment&#39;,
+        child: Icon(Icons.add),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
   }
 }
-</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实现某个接口或者类必须实现接口或类中所有的方法:</p>
-<p>多继承多个接口:</p>
-<pre><code>// mini cooper
-class MiniCooper implements PriceInterface, ColorInterface {
-  int price;
-  double color;
-  // 构造函数
-  MiniCooper(int price, double color){
-    this.price = price;
-    this.color = color;
+</code></pre><h4 id="1-依赖包的导入"><a href="#1-依赖包的导入" class="headerlink" title="1.依赖包的导入:"></a>1.依赖包的导入:</h4><pre><code>import &#39;package:flutter/material.dart&#39;;
+</code></pre><p>将package目录下的flutter环境下的material.dart导入到当前文件.</p>
+<h4 id="2-入口函数"><a href="#2-入口函数" class="headerlink" title="2.入口函数:"></a>2.入口函数:</h4><pre><code>void main() =&gt; runApp(MyApp());
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;和iOS中的程序一样,Flutter也有一个顶级入口函数main()函数,通过”=&gt;”操作符是方法的简写,可以理解为前面方法调用后面方法,这个main()函数内部调用的是runApp(widget)方法,这个方法定义在Binding.dart文件中:<br><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/Demo/runApp.png?raw=true" alt="runApp"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其主要作用是创建并启动Flutter应用,这里传入的是MyApp的实例,MyApp继承自StatelessWidget,StatelessWidget继承自Widget,这里你可以重写main()函数,然后调用runApp()方法:</p>
+<pre><code>void main(List&lt;String&gt; args) {
+  print(&quot;this is main method&quot;);
+}
+</code></pre><h4 id="3-app页面结构"><a href="#3-app页面结构" class="headerlink" title="3.app页面结构"></a>3.app页面结构</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在Flutter中你所能看到的一切都是Widget,甚至其内部调用的Center,Column等都是Widget:</p>
+<pre><code>class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: &#39;Flutter Demo&#39;,
+      theme: ThemeData(
+        // This is the theme of your application.
+        //
+        // Try running your application with &quot;flutter run&quot;. You&#39;ll see the
+        // application has a blue toolbar. Then, without quitting the app, try
+        // changing the primarySwatch below to Colors.green and then invoke
+        // &quot;hot reload&quot; (press &quot;r&quot; in the console where you ran &quot;flutter run&quot;,
+        // or simply save your changes to &quot;hot reload&quot; in a Flutter IDE).
+        // Notice that the counter didn&#39;t reset back to zero; the application
+        // is not restarted.
+        primarySwatch: Colors.blue,
+      ),
+      home: MyHomePage(title: &#39;Flutter Demo Home Page&#39;),
+    );
+  }
+}
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这里有一个MaterialApp也是Widget,其功能是帮助构建Flutter应用的框架,通过这个widget你可以设置APP的名称,主题,首页,路由列表等,这里主页home设置是MyHomePage.</p>
+<h4 id="4-MyHomePage首页"><a href="#4-MyHomePage首页" class="headerlink" title="4.MyHomePage首页"></a>4.MyHomePage首页</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;之前我们说过了,类的构造方法是一个与类同名的函数,MyHomePage的构造方法里面有两个参数key和title,内部定义了一个final修饰的不可变属性title,其值通过类初始化传递.首页由两部分组成:</p>
+<pre><code>class MyHomePage extends StatefulWidget {
+  MyHomePage({Key key, this.title}) : super(key: key);
+  final String title;
+
+  @override
+  _MyHomePageState createState() =&gt; _MyHomePageState();
+}
+
+class _MyHomePageState extends State&lt;MyHomePage&gt; {
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
   }
 
   @override
-  int carPrice() {
-    // TODO: implement carPrice
-    return 20;
-  }
-
-  @override
-  double carColor() {
-    // TODO: implement carColor
-    return 20.0;
+  Widget build(BuildContext context) {by
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: &lt;Widget&gt;[
+            Text(
+              &#39;You have pushed the button this many times:&#39;,
+            ),
+            Text(
+              &#39;$_counter&#39;,
+              style: Theme.of(context).textTheme.display1,
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: &#39;Increment&#39;,
+        child: Icon(Icons.add),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
   }
 }
-</code></pre><p>单个类的实现:</p>
-<pre><code>class grandSon implements Son {
-  @override
-  void name() {
-    // TODO: implement name
-  }
-}
-</code></pre><h3 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;泛型指的是编译期不知道对象的具体类型,对象的类型在运行时期确定.</p>
-<pre><code>class BBQ&lt;T&gt; extends Object {
-  BBQ(T value) {
-    print(&quot;value:$value, value type: ${value.runtimeType}&quot;);
-  }
-}
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一个是继承自StatefulWidget的 MyHomePage,一个是继承自State类的_MyHomePageState类.在MyHomePage中我们看到重写了StatefulWidget类中的createState()方法,这个方法内部调用的是_MyHomePageState()即_MyHomePageState的构造函数,createState()返回的也是_MyHomePageState即State.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;继续探究,_MyHomePageState类中重写了build()方法这个方法调用Scaffold实例化方法,返回Scaffold实例,Scaffold可以理解为APP的容器,它包括appBar,body,floatingActionButton等Widget,由它构建了Widget树(也可以称为视图树).</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;floatingActionButton是那个飘起来的按钮,它接受了一个点击后的回调方法_incrementCounter,这个回调方法内部调用的是setState(() {}方法,当按钮被点击时这个方法被回调,然后计数器数字递增,然后 setState被调用,然后调用build方法,更新页面.</p>
+<p>现在我们可以了解页面的刷新时机了:<br>1)创建state时,也就是createState(),调用build()刷新页面;<br>2)更新state时,也就是setState()时,也调用build()刷新页面.</p>
+<h4 id="5-Flutter-APP生命周期"><a href="#5-Flutter-APP生命周期" class="headerlink" title="5.Flutter APP生命周期"></a>5.Flutter APP生命周期</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在总结下来,Flutter 应用的生命周期,借用网上一张图片,可以鲜明看出:<br><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/Demo/Flutter%20life%20cycle.jpg?raw=true" alt="Flutter life cycle"></p>
 
-BBQ bbq = BBQ(&quot;bbq&quot;);
-I/flutter (29031): value:bbq, value type: String
-</code></pre><h3 id="包"><a href="#包" class="headerlink" title="包"></a>包</h3><h4 id="包管理器"><a href="#包管理器" class="headerlink" title="包管理器"></a>包管理器</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dart使用Pub来管理包,<a href="https://pub.dev/" target="_blank" rel="noopener">pub官网</a>其配置文件是pubspec.yaml,如果你想添加其他第三方依赖,直接将依赖配置添加到这个文件中:</p>
-<pre><code>## http请求库
-dependencies:
-flutter:
-  sdk: flutter
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
-
-  # http 请求库
-  http: ^0.12.0+2
-</code></pre><p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/Dart/pub.png?raw=true" alt="pub"></p>
-<p>然后执行如下命令下载更新依赖:</p>
-<pre><code>flutter pub get
-</code></pre><h4 id="导入包"><a href="#导入包" class="headerlink" title="导入包"></a>导入包</h4><pre><code>import &#39;package:http/http.dart&#39; as http;
-</code></pre>
             </div>
             <hr>
 
@@ -735,7 +767,7 @@ flutter:
                     </span>
                     <a href="https://waitwalker.github.io" class="b-link-green">waitwalker</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/06/12/Flutter开发-Dart语言基础-3/" class="b-link-green">Flutter开发-Dart语言基础-3</a>
+                    <a href="/2019/06/13/Flutter开发-Demo项目结构解读/" class="b-link-green">Flutter开发-Demo项目结构解读</a>
                 </p>
             </div>
         </div>
@@ -758,7 +790,8 @@ flutter:
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2019/06/13/Flutter开发-Demo项目结构解读/">
                     <div class="card-image">
@@ -772,9 +805,9 @@ flutter:
                 <div class="card-content article-content">
                     <div class="summary block-with-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当我们用Flutter创建一个空的demo的时候，Flutter会为我们创建一个计数器的Demo.当点击”+”号时,页面中的数字会递增.而这个功</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-13
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-13
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -787,6 +820,7 @@ flutter:
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -817,19 +851,19 @@ flutter:
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/06/12/Flutter开发-Dart语言基础-2/">
+                <a href="/2019/06/12/Flutter开发-Dart语言基础-3/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Flutter开发-Dart语言基础-2">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="Flutter开发-Dart语言基础-3">
                         
-                        <span class="card-title">Flutter开发-Dart语言基础-2</span>
+                        <span class="card-title">Flutter开发-Dart语言基础-3</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary block-with-text">接着上篇Dart语言基础.
-运算符Dart和其他语言一样多种,支持多种运算.
-点运算语法糖&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点运算和Swift中的使用类似,对象点属性相当于调用属</div>
+                    <div class="summary block-with-text">接着上篇,这节继续Dart基础语法.
+类&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;类是一个实例的抽象,通过类来创建实例,创建实例的过程叫做初始化.
+构造函数&nbsp;&nbsp;&nb</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-12
