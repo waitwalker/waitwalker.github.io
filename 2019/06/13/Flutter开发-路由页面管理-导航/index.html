@@ -4,8 +4,8 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="Flutter开发-Demo项目结构解读, Swift, iOS, Python">
-    <meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;当我们用Flutter创建一个空的demo的时候，Flutter会为我们创建一个计数器的Demo.当点击”+”号时,页面中的数字会递增.而这个功">
+    <meta name="keywords" content="Flutter开发-路由页面管理(导航), Swift, iOS, Python">
+    <meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;路由可以理解为页面的转发器,或者叫做导航器,其内部处理跳转逻辑,它规定页面具体跳转到哪里,怎么跳.在iOS中navigationControll">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Flutter开发-Demo项目结构解读 | waitwalker</title>
+    <title>Flutter开发-路由页面管理(导航) | waitwalker</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -265,7 +265,7 @@
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        Flutter开发-Demo项目结构解读
+                        Flutter开发-路由页面管理(导航)
                     </div>
                 </div>
             </div>
@@ -428,199 +428,63 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当我们用Flutter创建一个空的demo的时候，Flutter会为我们创建一个计数器的Demo.<br><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/Demo/demo%20page.png?raw=true" alt="demo page"><br>当点击”+”号时,页面中的数字会递增.而这个功能的实现在lib/main.dart文件中:</p>
-<pre><code>import &#39;package:flutter/material.dart&#39;;
-
-void main() =&gt; runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: &#39;Flutter Demo&#39;,
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with &quot;flutter run&quot;. You&#39;ll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // &quot;hot reload&quot; (press &quot;r&quot; in the console where you ran &quot;flutter run&quot;,
-        // or simply save your changes to &quot;hot reload&quot; in a Flutter IDE).
-        // Notice that the counter didn&#39;t reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: &#39;Flutter Demo Home Page&#39;),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked &quot;final&quot;.
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() =&gt; _MyHomePageState();
-}
-
-class _MyHomePageState extends State&lt;MyHomePage&gt; {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;路由可以理解为页面的转发器,或者叫做导航器,其内部处理跳转逻辑,它规定页面具体跳转到哪里,怎么跳.在iOS中navigationController就是一个路由器,其通过栈来实现,跳转到新页面时压栈操作,将新页面添加到页面栈里面,pop操作时出栈操作.<br>接着上篇Demo,创建一个新的页面,叫做页面详情:</p>
+<pre><code>class HomeDetailPage extends StatelessWidget {
+  String title;
+  HomeDetailPage(String title) {
+    this.title = title;
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Text(&quot;$title&quot;),
       ),
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke &quot;debug painting&quot; (press &quot;p&quot; in the console, choose the
-          // &quot;Toggle Debug Paint&quot; action from the Flutter Inspector in Android
-          // Studio, or the &quot;Toggle Debug Paint&quot; command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: &lt;Widget&gt;[
-            Text(
-              &#39;You have pushed the button this many times:&#39;,
-            ),
-            Text(
-              &#39;$_counter&#39;,
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
-        ),
+        child: Text(&quot;这个详情页&quot;),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: &#39;Increment&#39;,
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
-</code></pre><h4 id="1-依赖包的导入"><a href="#1-依赖包的导入" class="headerlink" title="1.依赖包的导入:"></a>1.依赖包的导入:</h4><pre><code>import &#39;package:flutter/material.dart&#39;;
-</code></pre><p>将package目录下的flutter环境下的material.dart导入到当前文件.</p>
-<h4 id="2-入口函数"><a href="#2-入口函数" class="headerlink" title="2.入口函数:"></a>2.入口函数:</h4><pre><code>void main() =&gt; runApp(MyApp());
-</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;和iOS中的程序一样,Flutter也有一个顶级入口函数main()函数,通过”=&gt;”操作符是方法的简写,可以理解为前面方法调用后面方法,这个main()函数内部调用的是runApp(widget)方法,这个方法定义在Binding.dart文件中:<br><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/Demo/runApp.png?raw=true" alt="runApp"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其主要作用是创建并启动Flutter应用,这里传入的是MyApp的实例,MyApp继承自StatelessWidget,StatelessWidget继承自Widget,这里你可以重写main()函数,然后调用runApp()方法:</p>
-<pre><code>void main(List&lt;String&gt; args) {
-  print(&quot;this is main method&quot;);
-}
-</code></pre><h4 id="3-app页面结构"><a href="#3-app页面结构" class="headerlink" title="3.app页面结构"></a>3.app页面结构</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在Flutter中你所能看到的一切都是Widget,甚至其内部调用的Center,Column等都是Widget:</p>
-<pre><code>class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: &#39;Flutter Demo&#39;,
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with &quot;flutter run&quot;. You&#39;ll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // &quot;hot reload&quot; (press &quot;r&quot; in the console where you ran &quot;flutter run&quot;,
-        // or simply save your changes to &quot;hot reload&quot; in a Flutter IDE).
-        // Notice that the counter didn&#39;t reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: &#39;Flutter Demo Home Page&#39;),
-    );
-  }
-}
-</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这里有一个MaterialApp也是Widget,其功能是帮助构建Flutter应用的框架,通过这个widget你可以设置APP的名称,主题,首页,路由列表等,这里主页home设置是MyHomePage.</p>
-<h4 id="4-MyHomePage首页"><a href="#4-MyHomePage首页" class="headerlink" title="4.MyHomePage首页"></a>4.MyHomePage首页</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;之前我们说过了,类的构造方法是一个与类同名的函数,MyHomePage的构造方法里面有两个参数key和title,内部定义了一个final修饰的不可变属性title,其值通过类初始化传递.首页由两部分组成:</p>
-<pre><code>class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
+</code></pre><p>然后将浮动按钮的回调方法改写一下:</p>
+<pre><code>onPressed: (){
+          Navigator.push(context,
+            new MaterialPageRoute(builder: (context){
+                return new HomeDetailPage(&quot;详情页面&quot;);
+              },
+              fullscreenDialog: true
 
-  @override
-  _MyHomePageState createState() =&gt; _MyHomePageState();
-}
-
-class _MyHomePageState extends State&lt;MyHomePage&gt; {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+            )
+          );
+        },
+</code></pre><p>点击按钮的时候可以看到推到详情页了:<br><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/Route/detail%20page.png?raw=true" alt="detail page"></p>
+<h4 id="MaterialPageRoute"><a href="#MaterialPageRoute" class="headerlink" title="MaterialPageRoute"></a>MaterialPageRoute</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MaterialPageRoute当个路由处理页,继承自PageRoute,其将待弹出的新页面包裹起来,然后通过Navigator的push方法推出页面.这里MaterialPageRoute可以理解为Navigator页到new page的过渡页,这个MaterialPageRoute过渡页的内部处理了Android和iOS的跳转逻辑,处理跳转动画等.<br><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/Route/MaterialPageRoute.png?raw=true" alt="MaterialPageRoute"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可看到MaterialPageRoute构造函数除了我们用到的builder参数外,还有三个参数:settings,maintainState,fullscreenDialog这些参数来控制路由页面.<br>builder作用是返回即将弹出的新页面;<br>settings作用是配置路由的基本信息,其有三个参数:name,isInitialRoute,arguments;</p>
+<pre><code>MaterialPageRoute({
+    @required this.builder,
+    RouteSettings settings,
+    this.maintainState = true,
+    bool fullscreenDialog = false,
+  }) : assert(builder != null),
+       assert(maintainState != null),
+       assert(fullscreenDialog != null),
+       assert(opaque),
+       super(settings: settings, fullscreenDialog: fullscreenDialog);
+</code></pre><p>maintainState:是否保存上个路由页面,也就是新页面出来后就业面要不要继续保存,默认是true,如果设为false,上个页面会被销毁;<br>fullscreenDilog:这个参数主要在iOS中控制页面动画方式,true的时候以模态方式弹出新页面;false时以push方式弹出新页面.</p>
+<h4 id="Navigator"><a href="#Navigator" class="headerlink" title="Navigator"></a>Navigator</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Navigator就是一个管理MaterialPageRoute的StatefulWidget,它内部实现了一个栈容器,管理了压栈和出栈的路由页面.其内部多个静态方法,最主要的由两个:</p>
+<pre><code>// 压栈
+@optionalTypeArgs
+  static Future&lt;T&gt; push&lt;T extends Object&gt;(BuildContext context, Route&lt;T&gt; route) {
+      return Navigator.of(context).push(route);
   }
 
-  @override
-  Widget build(BuildContext context) {by
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: &lt;Widget&gt;[
-            Text(
-              &#39;You have pushed the button this many times:&#39;,
-            ),
-            Text(
-              &#39;$_counter&#39;,
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: &#39;Increment&#39;,
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+//出栈
+@optionalTypeArgs
+  static bool pop&lt;T extends Object&gt;(BuildContext context, [ T result ]) {
+      return Navigator.of(context).pop&lt;T&gt;(result);
   }
-}
-</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一个是继承自StatefulWidget的 MyHomePage,一个是继承自State类的_MyHomePageState类.在MyHomePage中我们看到重写了StatefulWidget类中的createState()方法,这个方法内部调用的是_MyHomePageState()即_MyHomePageState的构造函数,createState()返回的也是_MyHomePageState即State.</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;继续探究,_MyHomePageState类中重写了build()方法这个方法调用Scaffold实例化方法,返回Scaffold实例,Scaffold可以理解为APP的容器,它包括appBar,body,floatingActionButton等Widget,由它构建了Widget树(也可以称为视图树).</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;floatingActionButton是那个飘起来的按钮,它接受了一个点击后的回调方法_incrementCounter,这个回调方法内部调用的是setState(() {}方法,当按钮被点击时这个方法被回调,然后计数器数字递增,然后 setState被调用,然后调用build方法,更新页面.</p>
-<p>现在我们可以了解页面的刷新时机了:<br>1)创建state时,也就是createState(),调用build()刷新页面;<br>2)更新state时,也就是setState()时,也调用build()刷新页面.</p>
-<h4 id="5-Flutter-APP生命周期"><a href="#5-Flutter-APP生命周期" class="headerlink" title="5.Flutter APP生命周期"></a>5.Flutter APP生命周期</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在总结下来,Flutter 应用的生命周期,借用网上一张图片,可以鲜明看出:<br><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/Demo/Flutter%20life%20cycle.jpg?raw=true" alt="Flutter life cycle"></p>
-
+</code></pre>
             </div>
             <hr>
 
@@ -767,7 +631,7 @@ class _MyHomePageState extends State&lt;MyHomePage&gt; {
                     </span>
                     <a href="https://waitwalker.github.io" class="b-link-green">waitwalker</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/06/13/Flutter开发-Demo项目结构解读/" class="b-link-green">Flutter开发-Demo项目结构解读</a>
+                    <a href="/2019/06/13/Flutter开发-路由页面管理-导航/" class="b-link-green">Flutter开发-路由页面管理(导航)</a>
                 </p>
             </div>
         </div>
@@ -792,17 +656,17 @@ class _MyHomePageState extends State&lt;MyHomePage&gt; {
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2019/06/13/Flutter开发-路由页面管理-导航/">
+                <a href="/2019/06/13/Flutter开发-加载本地资源-图片/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="Flutter开发-路由页面管理(导航)">
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="Flutter开发-加载本地资源(图片)">
                         
-                        <span class="card-title">Flutter开发-路由页面管理(导航)</span>
+                        <span class="card-title">Flutter开发-加载本地资源(图片)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary block-with-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;路由可以理解为页面的转发器,或者叫做导航器,其内部处理跳转逻辑,它规定页面具体跳转到哪里,怎么跳.在iOS中navigationControll</div>
+                    <div class="summary block-with-text">Assests&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Flutter加载本地资源文件需要将本地资源放入assets中,assets在iOS中就是一个folder,在这个assets里面</div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-13
@@ -849,22 +713,20 @@ class _MyHomePageState extends State&lt;MyHomePage&gt; {
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/06/12/Flutter开发-Dart语言基础-3/">
+                <a href="/2019/06/13/Flutter开发-Demo项目结构解读/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="Flutter开发-Dart语言基础-3">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="Flutter开发-Demo项目结构解读">
                         
-                        <span class="card-title">Flutter开发-Dart语言基础-3</span>
+                        <span class="card-title">Flutter开发-Demo项目结构解读</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary block-with-text">接着上篇,这节继续Dart基础语法.
-类&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;类是一个实例的抽象,通过类来创建实例,创建实例的过程叫做初始化.
-构造函数&nbsp;&nbsp;&nb</div>
+                    <div class="summary block-with-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当我们用Flutter创建一个空的demo的时候，Flutter会为我们创建一个计数器的Demo.当点击”+”号时,页面中的数字会递增.而这个功</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-12
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-13
                             </span>
                         <span class="publish-author">
                             

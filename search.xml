@@ -4,6 +4,68 @@
   
     
     <entry>
+      <title>Flutter开发-加载本地资源(图片)</title>
+      <link href="/2019/06/13/Flutter%E5%BC%80%E5%8F%91-%E5%8A%A0%E8%BD%BD%E6%9C%AC%E5%9C%B0%E8%B5%84%E6%BA%90-%E5%9B%BE%E7%89%87/"/>
+      <url>/2019/06/13/Flutter%E5%BC%80%E5%8F%91-%E5%8A%A0%E8%BD%BD%E6%9C%AC%E5%9C%B0%E8%B5%84%E6%BA%90-%E5%9B%BE%E7%89%87/</url>
+      
+        <content type="html"><![CDATA[<h4 id="Assests"><a href="#Assests" class="headerlink" title="Assests"></a>Assests</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Flutter加载本地资源文件需要将本地资源放入assets中,assets在iOS中就是一个folder,在这个assets里面你可以放你需要的一些资源文件:图片,json文件等,也可以添加自定义字体等,其配置在pubspec.yaml文件中:</p><pre><code>flutter:  # The following line ensures that the Material Icons font is  # included with your application, so that you can use the icons in  # the material Icons class.  uses-material-design: true  # To add assets to your application, add an assets section, like this:  # assets:  #  - images/a_dot_burr.jpeg  #  - images/a_dot_ham.jpeg  # An image asset can refer to one or more resolution-specific &quot;variants&quot;, see  # https://flutter.dev/assets-and-images/#resolution-aware.  # For details regarding adding assets from package dependencies, see  # https://flutter.dev/assets-and-images/#from-packages  # To add custom fonts to your application, add a fonts section here,  # in this &quot;flutter&quot; section. Each entry in this list should have a  # &quot;family&quot; key with the font family name, and a &quot;fonts&quot; key with a  # list giving the asset and other descriptors for the font. For  # example:  # fonts:  #   - family: Schyler  #     fonts:  #       - asset: fonts/Schyler-Regular.ttf  #       - asset: fonts/Schyler-Italic.ttf  #         style: italic  #   - family: Trajan Pro  #     fonts:  #       - asset: fonts/TrajanPro.ttf  #       - asset: fonts/TrajanPro_Bold.ttf  #         weight: 700  #  # For details regarding fonts from package dependencies,  # see https://flutter.dev/custom-fonts/#from-packages</code></pre><p>Flutter已经帮我们预留好怎么添加,只要打开下图中的注释即可:<br><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/Asset/asset.png?raw=true" alt="asset"><br>这里将我们自己的资源目录添加进去:</p><pre><code>  assets:    - lib/resource/</code></pre><p>这里lib/resource/的意思是加载resource下所有资源到assets中,如果你只想添加某个图片,把这个图片的相对路径加进去就行了.</p><pre><code>  assets:    - lib/resource/icon.png</code></pre><h4 id="加载Assets中的资源"><a href="#加载Assets中的资源" class="headerlink" title="加载Assets中的资源"></a>加载Assets中的资源</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;加载图片的方式有两种:Image.asset()和ew AssetImage(),这两种方式都会自动判断设备分辨自动加载@xx倍像素图片.</p><pre><code>children: &lt;Widget&gt;[            new Image.asset(&quot;lib/resource/friend.png&quot;),            new Image(              image: new AssetImage(&quot;lib/resource/friend.png&quot;),            ),            Text(              &#39;You have pushed the button this many times:&#39;,            ),            Text(              &#39;$_counter&#39;,              style: Theme.of(context).textTheme.display1,            ),          ],</code></pre><p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/Asset/load%20image.png?raw=true" alt="load image"><br>加载文本文件或者字体方法类似,后期在贴一下具体方法.</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Flutter开发 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Flutter 开发 </tag>
+            
+            <tag> Dart </tag>
+            
+            <tag> iOS </tag>
+            
+            <tag> Android </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Flutter开发-路由页面管理(导航)</title>
+      <link href="/2019/06/13/Flutter%E5%BC%80%E5%8F%91-%E8%B7%AF%E7%94%B1%E9%A1%B5%E9%9D%A2%E7%AE%A1%E7%90%86-%E5%AF%BC%E8%88%AA/"/>
+      <url>/2019/06/13/Flutter%E5%BC%80%E5%8F%91-%E8%B7%AF%E7%94%B1%E9%A1%B5%E9%9D%A2%E7%AE%A1%E7%90%86-%E5%AF%BC%E8%88%AA/</url>
+      
+        <content type="html"><![CDATA[<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;路由可以理解为页面的转发器,或者叫做导航器,其内部处理跳转逻辑,它规定页面具体跳转到哪里,怎么跳.在iOS中navigationController就是一个路由器,其通过栈来实现,跳转到新页面时压栈操作,将新页面添加到页面栈里面,pop操作时出栈操作.<br>接着上篇Demo,创建一个新的页面,叫做页面详情:</p><pre><code>class HomeDetailPage extends StatelessWidget {  String title;  HomeDetailPage(String title) {    this.title = title;  }  @override  Widget build(BuildContext context) {    // TODO: implement build    return Scaffold(      appBar: AppBar(        title: Text(&quot;$title&quot;),      ),      body: Center(        child: Text(&quot;这个详情页&quot;),      ),    );  }}</code></pre><p>然后将浮动按钮的回调方法改写一下:</p><pre><code>onPressed: (){          Navigator.push(context,            new MaterialPageRoute(builder: (context){                return new HomeDetailPage(&quot;详情页面&quot;);              },              fullscreenDialog: true            )          );        },</code></pre><p>点击按钮的时候可以看到推到详情页了:<br><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/Route/detail%20page.png?raw=true" alt="detail page"></p><h4 id="MaterialPageRoute"><a href="#MaterialPageRoute" class="headerlink" title="MaterialPageRoute"></a>MaterialPageRoute</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MaterialPageRoute当个路由处理页,继承自PageRoute,其将待弹出的新页面包裹起来,然后通过Navigator的push方法推出页面.这里MaterialPageRoute可以理解为Navigator页到new page的过渡页,这个MaterialPageRoute过渡页的内部处理了Android和iOS的跳转逻辑,处理跳转动画等.<br><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/Route/MaterialPageRoute.png?raw=true" alt="MaterialPageRoute"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可看到MaterialPageRoute构造函数除了我们用到的builder参数外,还有三个参数:settings,maintainState,fullscreenDialog这些参数来控制路由页面.<br>builder作用是返回即将弹出的新页面;<br>settings作用是配置路由的基本信息,其有三个参数:name,isInitialRoute,arguments;</p><pre><code>MaterialPageRoute({    @required this.builder,    RouteSettings settings,    this.maintainState = true,    bool fullscreenDialog = false,  }) : assert(builder != null),       assert(maintainState != null),       assert(fullscreenDialog != null),       assert(opaque),       super(settings: settings, fullscreenDialog: fullscreenDialog);</code></pre><p>maintainState:是否保存上个路由页面,也就是新页面出来后就业面要不要继续保存,默认是true,如果设为false,上个页面会被销毁;<br>fullscreenDilog:这个参数主要在iOS中控制页面动画方式,true的时候以模态方式弹出新页面;false时以push方式弹出新页面.</p><h4 id="Navigator"><a href="#Navigator" class="headerlink" title="Navigator"></a>Navigator</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Navigator就是一个管理MaterialPageRoute的StatefulWidget,它内部实现了一个栈容器,管理了压栈和出栈的路由页面.其内部多个静态方法,最主要的由两个:</p><pre><code>// 压栈@optionalTypeArgs  static Future&lt;T&gt; push&lt;T extends Object&gt;(BuildContext context, Route&lt;T&gt; route) {      return Navigator.of(context).push(route);  }//出栈@optionalTypeArgs  static bool pop&lt;T extends Object&gt;(BuildContext context, [ T result ]) {      return Navigator.of(context).pop&lt;T&gt;(result);  }</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Flutter开发 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Flutter 开发 </tag>
+            
+            <tag> Dart </tag>
+            
+            <tag> iOS </tag>
+            
+            <tag> Android </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Flutter开发-Demo项目结构解读</title>
       <link href="/2019/06/13/Flutter%E5%BC%80%E5%8F%91-Demo%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E8%A7%A3%E8%AF%BB/"/>
       <url>/2019/06/13/Flutter%E5%BC%80%E5%8F%91-Demo%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E8%A7%A3%E8%AF%BB/</url>
