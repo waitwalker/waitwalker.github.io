@@ -4,8 +4,11 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="Flutter开发-加载本地资源(图片), Swift, iOS, Python">
-    <meta name="description" content="Assests&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Flutter加载本地资源文件需要将本地资源放入assets中,assets在iOS中就是一个folder,在这个assets里面">
+    <meta name="keywords" content="Flutter开发-Text Widget(文本), Swift, iOS, Python">
+    <meta name="description" content="在Flutter中文本的显示可以用Text Widget来实现.Text的初始化方法必须带上一个string类型的参数,Text类中也定义了一些常用的属性.
+Text基本属性/// The text to display.
+  ///
+  ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +16,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Flutter开发-加载本地资源(图片) | waitwalker</title>
+    <title>Flutter开发-Text Widget(文本) | waitwalker</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -259,13 +262,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        Flutter开发-加载本地资源(图片)
+                        Flutter开发-Text Widget(文本)
                     </div>
                 </div>
             </div>
@@ -412,7 +415,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-06-13
+                    2019-06-14
                 </div>
 
                 
@@ -428,67 +431,193 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h4 id="Assests"><a href="#Assests" class="headerlink" title="Assests"></a>Assests</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Flutter加载本地资源文件需要将本地资源放入assets中,assets在iOS中就是一个folder,在这个assets里面你可以放你需要的一些资源文件:图片,json文件等,也可以添加自定义字体等,其配置在pubspec.yaml文件中:</p>
-<pre><code>flutter:
+                <p>在Flutter中文本的显示可以用Text Widget来实现.Text的初始化方法必须带上一个string类型的参数,Text类中也定义了一些常用的属性.</p>
+<h4 id="Text基本属性"><a href="#Text基本属性" class="headerlink" title="Text基本属性"></a>Text基本属性</h4><pre><code>/// The text to display.
+  ///
+  /// This will be null if a [textSpan] is provided instead.
+  final String data;
 
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
-  uses-material-design: true
+  /// The text to display as a [InlineSpan].
+  ///
+  /// This will be null if [data] is provided instead.
+  final InlineSpan textSpan;
 
-  # To add assets to your application, add an assets section, like this:
-  # assets:
-  #  - images/a_dot_burr.jpeg
-  #  - images/a_dot_ham.jpeg
+  /// If non-null, the style to use for this text.
+  ///
+  /// If the style&#39;s &quot;inherit&quot; property is true, the style will be merged with
+  /// the closest enclosing [DefaultTextStyle]. Otherwise, the style will
+  /// replace the closest enclosing [DefaultTextStyle].
+  final TextStyle style;
 
-  # An image asset can refer to one or more resolution-specific &quot;variants&quot;, see
-  # https://flutter.dev/assets-and-images/#resolution-aware.
+  /// {@macro flutter.painting.textPainter.strutStyle}
+  final StrutStyle strutStyle;
 
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/assets-and-images/#from-packages
+  /// How the text should be aligned horizontally.
+  final TextAlign textAlign;
 
-  # To add custom fonts to your application, add a fonts section here,
-  # in this &quot;flutter&quot; section. Each entry in this list should have a
-  # &quot;family&quot; key with the font family name, and a &quot;fonts&quot; key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages
-</code></pre><p>Flutter已经帮我们预留好怎么添加,只要打开下图中的注释即可:<br><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/Asset/asset.png?raw=true" alt="asset"><br>这里将我们自己的资源目录添加进去:</p>
-<pre><code>  assets:
-    - lib/resource/
-</code></pre><p>这里lib/resource/的意思是加载resource下所有资源到assets中,如果你只想添加某个图片,把这个图片的相对路径加进去就行了.</p>
-<pre><code>  assets:
-    - lib/resource/icon.png
-</code></pre><h4 id="加载Assets中的资源"><a href="#加载Assets中的资源" class="headerlink" title="加载Assets中的资源"></a>加载Assets中的资源</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;加载图片的方式有两种:Image.asset()和ew AssetImage(),这两种方式都会自动判断设备分辨自动加载@xx倍像素图片.</p>
-<pre><code>children: &lt;Widget&gt;[
-            new Image.asset(&quot;lib/resource/friend.png&quot;),
+  /// The directionality of the text.
+  ///
+  /// This decides how [textAlign] values like [TextAlign.start] and
+  /// [TextAlign.end] are interpreted.
+  ///
+  /// This is also used to disambiguate how to render bidirectional text. For
+  /// example, if the [data] is an English phrase followed by a Hebrew phrase,
+  /// in a [TextDirection.ltr] context the English phrase will be on the left
+  /// and the Hebrew phrase to its right, while in a [TextDirection.rtl]
+  /// context, the English phrase will be on the right and the Hebrew phrase on
+  /// its left.
+  ///
+  /// Defaults to the ambient [Directionality], if any.
+  final TextDirection textDirection;
 
-            new Image(
-              image: new AssetImage(&quot;lib/resource/friend.png&quot;),
+  /// Used to select a font when the same Unicode character can
+  /// be rendered differently, depending on the locale.
+  ///
+  /// It&#39;s rarely necessary to set this property. By default its value
+  /// is inherited from the enclosing app with `Localizations.localeOf(context)`.
+  ///
+  /// See [RenderParagraph.locale] for more information.
+  final Locale locale;
+
+  /// Whether the text should break at soft line breaks.
+  ///
+  /// If false, the glyphs in the text will be positioned as if there was unlimited horizontal space.
+  final bool softWrap;
+
+  /// How visual overflow should be handled.
+  final TextOverflow overflow;
+
+  /// The number of font pixels for each logical pixel.
+  ///
+  /// For example, if the text scale factor is 1.5, text will be 50% larger than
+  /// the specified font size.
+  ///
+  /// The value given to the constructor as textScaleFactor. If null, will
+  /// use the [MediaQueryData.textScaleFactor] obtained from the ambient
+  /// [MediaQuery], or 1.0 if there is no [MediaQuery] in scope.
+  final double textScaleFactor;
+
+  /// An optional maximum number of lines for the text to span, wrapping if necessary.
+  /// If the text exceeds the given number of lines, it will be truncated according
+  /// to [overflow].
+  ///
+  /// If this is 1, text will not wrap. Otherwise, text will be wrapped at the
+  /// edge of the box.
+  ///
+  /// If this is null, but there is an ambient [DefaultTextStyle] that specifies
+  /// an explicit number for its [DefaultTextStyle.maxLines], then the
+  /// [DefaultTextStyle] value will take precedence. You can use a [RichText]
+  /// widget directly to entirely override the [DefaultTextStyle].
+  final int maxLines;
+
+  /// An alternative semantics label for this text.
+  ///
+  /// If present, the semantics of this widget will contain this value instead
+  /// of the actual text. This will overwrite any of the semantics labels applied
+  /// directly to the [TextSpan]s.
+  ///
+  /// This is useful for replacing abbreviations or shorthands with the full
+  /// text value:
+  ///
+  /// Text(r&#39;$$&#39;, semanticsLabel: &#39;Double dollars&#39;)
+  final String semanticsLabel;
+
+  /// {@macro flutter.dart:ui.text.TextWidthBasis}
+  final TextWidthBasis textWidthBasis;
+</code></pre><h4 id="TextStyle属性"><a href="#TextStyle属性" class="headerlink" title="TextStyle属性"></a>TextStyle属性</h4><p>设置字体颜色,大小一些属性封装在TextStyle类中了:</p>
+<pre><code>/// Creates a text style.
+  ///
+  /// The `package` argument must be non-null if the font family is defined in a
+  /// package. It is combined with the `fontFamily` argument to set the
+  /// [fontFamily] property.
+  const TextStyle({
+    this.inherit = true,
+    this.color,
+    this.backgroundColor,
+    this.fontSize,
+    this.fontWeight,
+    this.fontStyle,
+    this.letterSpacing,
+    this.wordSpacing,
+    this.textBaseline,
+    this.height,
+    this.locale,
+    this.foreground,
+    this.background,
+    this.shadows,
+    this.fontFeatures,
+    this.decoration,
+    this.decorationColor,
+    this.decorationStyle,
+    this.decorationThickness,
+    this.debugLabel,
+    String fontFamily,
+    List&lt;String&gt; fontFamilyFallback,
+    String package,
+  }) : fontFamily = package == null ? fontFamily : &#39;packages/$package/$fontFamily&#39;,
+       _fontFamilyFallback = fontFamilyFallback,
+       _package = package,
+       assert(inherit != null),
+       assert(color == null || foreground == null, _kColorForegroundWarning),
+       assert(backgroundColor == null || background == null, _kColorBackgroundWarning);
+</code></pre><h4 id="Text基本使用"><a href="#Text基本使用" class="headerlink" title="Text基本使用"></a>Text基本使用</h4><p>常用的一些Text方法:</p>
+<pre><code>Text(&quot;Hello World, flutter is coming&quot; * 4,
+              textAlign: TextAlign.center,//文本对齐方式
+              maxLines: 10,//最大行数
+              textScaleFactor: 1.5,//字体大小缩放倍数
+              overflow: TextOverflow.ellipsis,//长度超过屏幕,显示方式
+              style: TextStyle(
+                color: Colors.black,//颜色
+                fontSize: 18.0,//字体大小
+                height: 1.5,//字体高度
+                // fontFamily: 字体
+                backgroundColor: Colors.orange,//背景颜色
+                decoration: TextDecoration.underline,//装饰 下划线
+                decorationColor: Colors.green,//下划线颜色
+                decorationStyle: TextDecorationStyle.double,//下划线样式
+              ),
             ),
-
-            Text(
-              &#39;You have pushed the button this many times:&#39;,
+</code></pre><h4 id="Text富文本"><a href="#Text富文本" class="headerlink" title="Text富文本"></a>Text富文本</h4><p>Text的富文本主要通过TextSpan来实现:</p>
+<pre><code>Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: &quot;Hello&quot;,
+                    style: TextStyle(
+                      color:Colors.purple,
+                      fontSize: 25.0,
+                      height: 2,
+                     ),
+                  ),
+                  TextSpan(
+                    text: &quot;I am .&quot;,
+                    style: TextStyle(
+                      height: 1.5,
+                      color: Colors.green,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18.0,
+                    ),
+                  ),
+                  TextSpan(
+                    text: &quot;Flutter&quot;,
+                    style: TextStyle(
+                      color: _toggle ? Colors.lime : Colors.pink,
+                      decoration: TextDecoration.underline,
+                      fontSize: 30.0,
+                      height: 2.5,
+                    ),
+                    recognizer: _tapGestureRecognizer
+                      ..onTap = (){
+                        setState(() {
+                          _toggle = !_toggle;
+                        });
+                      }
+                  ),
+                ]
+              ),
             ),
-            Text(
-              &#39;$_counter&#39;,
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
-</code></pre><p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/Asset/load%20image.png?raw=true" alt="load image"><br>加载文本文件或者字体方法类似,后期在贴一下具体方法.</p>
+</code></pre><p><img src="https://upload-images.jianshu.io/upload_images/1715253-5032ddf8905640b5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="text example"></p>
+<h4 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h4><p><a href="https://github.com/waitwalker/FlutterDemos/tree/master/text_demo" target="_blank" rel="noopener">demo地址</a></p>
 
             </div>
             <hr>
@@ -636,7 +765,7 @@
                     </span>
                     <a href="https://waitwalker.github.io" class="b-link-green">waitwalker</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/06/13/Flutter开发-加载本地资源-图片/" class="b-link-green">Flutter开发-加载本地资源(图片)</a>
+                    <a href="/2019/06/14/Flutter开发-Text-Widget-文本/" class="b-link-green">Flutter开发-Text Widget(文本)</a>
                 </p>
             </div>
         </div>
@@ -659,7 +788,8 @@
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2019/06/14/Flutter开发-Text-Widget-文本/">
                     <div class="card-image">
@@ -676,9 +806,9 @@ Text基本属性/// The text to display.
   ///
   </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-14
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-14
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -691,6 +821,7 @@ Text基本属性/// The text to display.
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -721,17 +852,17 @@ Text基本属性/// The text to display.
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/06/13/Flutter开发-路由页面管理-导航/">
+                <a href="/2019/06/13/Flutter开发-加载本地资源-图片/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="Flutter开发-路由页面管理(导航)">
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="Flutter开发-加载本地资源(图片)">
                         
-                        <span class="card-title">Flutter开发-路由页面管理(导航)</span>
+                        <span class="card-title">Flutter开发-加载本地资源(图片)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary block-with-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;路由可以理解为页面的转发器,或者叫做导航器,其内部处理跳转逻辑,它规定页面具体跳转到哪里,怎么跳.在iOS中navigationControll</div>
+                    <div class="summary block-with-text">Assests&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Flutter加载本地资源文件需要将本地资源放入assets中,assets在iOS中就是一个folder,在这个assets里面</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-13
