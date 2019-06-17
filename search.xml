@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>Flutter开发-Button Widget(按钮)</title>
+      <link href="/2019/06/17/Flutter%E5%BC%80%E5%8F%91-Button-Widget-%E6%8C%89%E9%92%AE/"/>
+      <url>/2019/06/17/Flutter%E5%BC%80%E5%8F%91-Button-Widget-%E6%8C%89%E9%92%AE/</url>
+      
+        <content type="html"><![CDATA[<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Material widget标准库中为我们提供了多种式样的Button Widget,RaisedButton, FlatButton,OutlineButton等,他们都是对RawMaterialButton的二次封装,继承了RawMaterialButton的属性和方法,所以MaterailButton都有一些共同特点:<br>按下的时候都有水波动画效果;<br>有一个onPressd属性来设置回调方法,如果不设置这个回调方法,则按钮不可交互,也就变成了”Text”.</p><h4 id="RaisedButton"><a href="#RaisedButton" class="headerlink" title="RaisedButton"></a>RaisedButton</h4><p>RaisedButton 是带有一定圆角和阴影以及灰色背景的按钮,并且在点击的时候会有动画效果,其接口:</p><pre><code>const RaisedButton({    Key key,    @required VoidCallback onPressed,//回调函数    ValueChanged&lt;bool&gt; onHighlightChanged,    ButtonTextTheme textTheme,    Color textColor,    Color disabledTextColor,    Color color,    Color disabledColor,    Color focusColor,    Color hoverColor,    Color highlightColor,    Color splashColor,    Brightness colorBrightness,    double elevation,    double focusElevation,    double hoverElevation,    double highlightElevation,    double disabledElevation,    EdgeInsetsGeometry padding,    ShapeBorder shape,    Clip clipBehavior,    FocusNode focusNode,    MaterialTapTargetSize materialTapTargetSize,    Duration animationDuration,    Widget child,  })</code></pre><p>基本用法:</p><pre><code>RaisedButton(              child: Text(&quot;RaisedButton&quot;,                style: TextStyle(color: isTouchRaisedButton ? Colors.orange : Colors.red),              ),              highlightColor: Colors.yellow,              textTheme: ButtonTextTheme.accent,              onPressed: _raisedButtonAction,            ),</code></pre><h4 id="FlatButton"><a href="#FlatButton" class="headerlink" title="FlatButton"></a>FlatButton</h4><p>FlatButton默认没有背景色并且也不带阴影,高亮状态会有阴影,其主要接口:</p><pre><code>const FlatButton({    Key key,    @required VoidCallback onPressed,    ValueChanged&lt;bool&gt; onHighlightChanged,    ButtonTextTheme textTheme,    Color textColor,    Color disabledTextColor,    Color color,    Color disabledColor,    Color focusColor,    Color hoverColor,    Color highlightColor,    Color splashColor,    Brightness colorBrightness,    EdgeInsetsGeometry padding,    ShapeBorder shape,    Clip clipBehavior,    FocusNode focusNode,    MaterialTapTargetSize materialTapTargetSize,    @required Widget child,  })</code></pre><p>基本用法:</p><pre><code>FlatButton(            child: Text(&quot;FlatButton&quot;,              style: TextStyle(color: isTouchRaisedButton ? Colors.orange : Colors.red),            ),            onPressed: _FlatButtonAction,          ),</code></pre><h4 id="OutlineButton"><a href="#OutlineButton" class="headerlink" title="OutlineButton"></a>OutlineButton</h4><p>OutlineButton是带有边框的按钮,其接口:</p><pre><code>const OutlineButton({    Key key,    @required VoidCallback onPressed,    ButtonTextTheme textTheme,    Color textColor,    Color disabledTextColor,    Color color,    Color focusColor,    Color hoverColor,    Color highlightColor,    Color splashColor,    double highlightElevation,    this.borderSide,    this.disabledBorderColor,    this.highlightedBorderColor,    EdgeInsetsGeometry padding,    ShapeBorder shape,    Clip clipBehavior,    FocusNode focusNode,    Widget child,  })</code></pre><p>基本用法:</p><pre><code>OutlineButton(            child: Text(&quot;OutlineButton&quot;,              style: TextStyle(color: isTouchRaisedButton ? Colors.orange : Colors.red),            ),            onPressed: _OutlineButtonAction,            highlightedBorderColor: Colors.red,          )</code></pre><h4 id="IconButton"><a href="#IconButton" class="headerlink" title="IconButton"></a>IconButton</h4><p>IconButton默认没有背景,点击有有背景色,其有一个icon属性,主要接口:</p><pre><code>IconButton(            icon: Icon(Icons.today),            onPressed: _IconButtonAction,            highlightColor: Colors.red,          ),</code></pre><p><img src="https://upload-images.jianshu.io/upload_images/1715253-c62a4bece6177318.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="button use"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Flutter开发 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Flutter 开发 </tag>
+            
+            <tag> Dart </tag>
+            
+            <tag> iOS </tag>
+            
+            <tag> Android </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Flutter开发-Text Widget(文本)</title>
       <link href="/2019/06/14/Flutter%E5%BC%80%E5%8F%91-Text-Widget-%E6%96%87%E6%9C%AC/"/>
       <url>/2019/06/14/Flutter%E5%BC%80%E5%8F%91-Text-Widget-%E6%96%87%E6%9C%AC/</url>
