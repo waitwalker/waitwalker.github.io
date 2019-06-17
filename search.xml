@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>Flutter开发-Layout -线性布局(Row和Column)</title>
+      <link href="/2019/06/17/Flutter%E5%BC%80%E5%8F%91-Layout-%E7%BA%BF%E6%80%A7%E5%B8%83%E5%B1%80-Row%E5%92%8CColumn/"/>
+      <url>/2019/06/17/Flutter%E5%BC%80%E5%8F%91-Layout-%E7%BA%BF%E6%80%A7%E5%B8%83%E5%B1%80-Row%E5%92%8CColumn/</url>
+      
+        <content type="html"><![CDATA[<h4 id="线性布局Row和Column"><a href="#线性布局Row和Column" class="headerlink" title="线性布局Row和Column"></a>线性布局Row和Column</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;线性布局可以理解为沿着水平或者垂直方向布局子Widget,Row指的是其子Widget横着排列,Column指的是其子Widget竖着排列.</p><h4 id="主轴和纵轴"><a href="#主轴和纵轴" class="headerlink" title="主轴和纵轴"></a>主轴和纵轴</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在线性布局中有主轴纵轴之分(mainAxisAlignment和crossAxisAlignment),主轴就是子Widget的排列方向,纵轴就是和其垂直的方向,例如,子Widget按照Row排列,即横着排,则其主轴就是横着方向,纵轴就是竖着方向;如果子Widget按照Column排列,即竖着排,则主轴就是竖着方向,纵轴就是横着方向.</p><h4 id="Row"><a href="#Row" class="headerlink" title="Row"></a>Row</h4><p>Row接口:</p><pre><code>Row({Key key,MainAxisAlignment mainAxisAlignment = MainAxisAlignment.start,//主轴从哪里开始排列子WidgetMainAxisSize mainAxisSize = MainAxisSize.max,//是否尽可能占满主轴的空间CrossAxisAlignment crossAxisAlignment = CrossAxisAlignment.center,//纵轴上子Widget怎么对齐(上中下)TextDirection textDirection,//文字从哪开始VerticalDirection verticalDirection = VerticalDirection.down,//纵轴上子Widget是怎么对齐,TextBaseline textBaseline,List&lt;Widget&gt; children = const &lt;Widget&gt;[],//子Widget})</code></pre><p>我们来看一下每个属性含义:</p><p>mainAxisAlignment:表示主轴上的子Widget从哪里开始排列,从左(MainAxisAlignment.start)还是从右(MainAxisAligenment.end),还是居中(MainAxisAlignment.center);</p><p>mainAxisSize:是否占满主轴方向size,例如MainAxisSize.max是Row中的子Widget要占满屏幕的宽度;</p><p>crossAxisAlignment:垂直方向上怎么排列每个子Widget,例如,有的子Widget高度特别高,有的子Widget比较矮,矮的子Widget相对于高的子Widget是靠上面一点(CrossAxisAlignment.start)还是靠下面一点(CrossAxisAligenment.down),还是他们都居中对齐(CrossAxisAlignment.center),这个属性受verticalDirection属性约束;</p><p>基本使用:</p><pre><code>Row(        mainAxisAlignment: isClick ? MainAxisAlignment.end : MainAxisAlignment.start,        crossAxisAlignment: isClick? CrossAxisAlignment.end : CrossAxisAlignment.start,        children: &lt;Widget&gt;[          Text(&quot;Flutter 1&quot;,            style: TextStyle(              color: Colors.blueGrey,              backgroundColor: Colors.cyan,              fontSize: 20,            ),          ),          RaisedButton(            child: Text(&quot;RaisedButton 1&quot;,              style: TextStyle(fontSize: 25),            ),            onPressed: buttonAction,          ),          Text(&quot;Flutter 2&quot;,            style: TextStyle(              fontSize: 20,              color: Colors.green,              backgroundColor: Colors.yellow,            ),          ),        ],      ),</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们开始的时候让所以子Widget按照Row排列,主轴上从左边开始布局,纵轴上居上对齐:<br><img src="https://upload-images.jianshu.io/upload_images/1715253-18d7bb067e418aeb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Row 1"><br>点击按钮后我们改变这些子Widget的布局方式,主轴从右开始布局,纵轴居下对齐:<br><img src="https://upload-images.jianshu.io/upload_images/1715253-c3194d83fab1ac0f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Row 2"></p><h4 id="Column"><a href="#Column" class="headerlink" title="Column"></a>Column</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Column布局是将其子Widget按照竖着方向排列,和Row的排列和布局是垂直关系,这里mainAxisAlignment还是子Widget从哪里开始布局,这里指的是上面,下面还是中间;corssAxisAlignment这里指的是所有子Widget靠哪边对齐,靠左还是靠右,还是居中.<br>基本使用:</p><pre><code>Column(        mainAxisAlignment: isClick ? MainAxisAlignment.center : MainAxisAlignment.start,        crossAxisAlignment: isClick? CrossAxisAlignment.end : CrossAxisAlignment.start,        children: &lt;Widget&gt;[          Text(&quot;Flutter 1&quot;,            style: TextStyle(              color: Colors.blueGrey,              backgroundColor: Colors.cyan,              fontSize: 20,            ),          ),          RaisedButton(            child: Text(&quot;RaisedButton 1&quot;,              style: TextStyle(fontSize: 25),            ),            onPressed: buttonAction,          ),          Text(&quot;Flutter 2&quot;,            style: TextStyle(              fontSize: 20,              color: Colors.green,              backgroundColor: Colors.yellow,            ),          ),        ],      ),</code></pre><p>我们开始让所以子Widget按照Column排列即竖着排,子Widget的宽度长短不一,我们先让他们都靠着左边对齐:<br><img src="https://upload-images.jianshu.io/upload_images/1715253-574be6b5c692efe9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Column 1.png"></p><p>当点击按钮的时候我们让这些子Widget在主轴上居中,纵轴上居右:<br><img src="https://upload-images.jianshu.io/upload_images/1715253-18a956044320d5d6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Column 2.png"><br>其实Row和Column是Flex布局中的一种,下篇讲一下Flex布局.</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Flutter开发 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Flutter 开发 </tag>
+            
+            <tag> Dart </tag>
+            
+            <tag> iOS </tag>
+            
+            <tag> Android </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Flutter开发-Button Widget(按钮)</title>
       <link href="/2019/06/17/Flutter%E5%BC%80%E5%8F%91-Button-Widget-%E6%8C%89%E9%92%AE/"/>
       <url>/2019/06/17/Flutter%E5%BC%80%E5%8F%91-Button-Widget-%E6%8C%89%E9%92%AE/</url>
