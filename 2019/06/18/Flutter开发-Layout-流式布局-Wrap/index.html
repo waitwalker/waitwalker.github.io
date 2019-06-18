@@ -4,8 +4,8 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="Swift_Equable, Swift, iOS, Python">
-    <meta name="description" content="一般判断两个对象是否相等方法:如果两个对象相等其hashValue一定相等,不能反过来倒推.1)如果两个对象的hashValue不相等,则认为这两个对象一定不相等2)如果两个对象的hashValue相等,则比较两个对象的指针和两对象的内容是">
+    <meta name="keywords" content="Flutter开发-Layout -流式布局(Wrap), Swift, iOS, Python">
+    <meta name="description" content="在Row和Column中,如果子Widget超出屏幕范围,则会报溢出错误:&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;因为Row只有一行,超出了屏幕范围也不会自动折行,我们可以采用Warp">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Swift_Equable | waitwalker</title>
+    <title>Flutter开发-Layout -流式布局(Wrap) | waitwalker</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -259,13 +259,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        Swift_Equable
+                        Flutter开发-Layout -流式布局(Wrap)
                     </div>
                 </div>
             </div>
@@ -376,12 +376,20 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Swift-开发/" target="_blank">
-                                <span class="chip bg-color">Swift 开发</span>
+                            <a href="/tags/Flutter-开发/" target="_blank">
+                                <span class="chip bg-color">Flutter 开发</span>
                             </a>
                         
-                            <a href="/tags/Extension/" target="_blank">
-                                <span class="chip bg-color">Extension</span>
+                            <a href="/tags/Dart/" target="_blank">
+                                <span class="chip bg-color">Dart</span>
+                            </a>
+                        
+                            <a href="/tags/iOS/" target="_blank">
+                                <span class="chip bg-color">iOS</span>
+                            </a>
+                        
+                            <a href="/tags/Android/" target="_blank">
+                                <span class="chip bg-color">Android</span>
                             </a>
                         
                     </div>
@@ -392,8 +400,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Swift开发/" class="post-category" target="_blank">
-                                Swift开发
+                            <a href="/categories/Flutter开发/" class="post-category" target="_blank">
+                                Flutter开发
                             </a>
                         
                     </div>
@@ -404,7 +412,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-04-09
+                    2019-06-18
                 </div>
 
                 
@@ -420,27 +428,73 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>一般判断两个对象是否相等方法:<br><br>如果两个对象相等其hashValue一定相等,不能反过来倒推.<br><br>1)如果两个对象的hashValue不相等,则认为这两个对象一定不相等<br><br>2)如果两个对象的hashValue相等,则比较两个对象的指针和两对象的内容是否相等,如果相等,则认为这两个对象是相等的<br><br>Swift中一些数据类型Int,Double,Bool等均已遵守实现Equable协议,所以在使用的时候可以用”==”操作符直接比较两个变量就行.<br></p>
-<p>如果有一些自定义类型需要比较,需要遵守Equable协议,并且重写 public static func == (lhs: Self, rhs: Self) -&gt; Bool方法.<br></p>
-<pre><code>class Person {
-    var name:String?
-    var age:Int?
-    init(name:String,age:Int) {
-        self.name = name
-        self.age = age
-    }
-}
+                <p>在Row和Column中,如果子Widget超出屏幕范围,则会报溢出错误:<br><img src="https://upload-images.jianshu.io/upload_images/1715253-a0a9f40cb537751e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Row error"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因为Row只有一行,超出了屏幕范围也不会自动折行,我们可以采用Warp来让它折行,我们把超出屏幕范围会自动折行的布局称为流式布局,Flutter中Wrap和Flow支持流式布局.</p>
+<h4 id="Wrap"><a href="#Wrap" class="headerlink" title="Wrap"></a>Wrap</h4><p>Wrap中的接口和Flex有些相同的属性,其表达的意义也是相同的:</p>
+<pre><code>Wrap({
+    Key key,
+    this.direction = Axis.horizontal,
+    this.alignment = WrapAlignment.start,
+    this.spacing = 0.0,
+    this.runAlignment = WrapAlignment.start,
+    this.runSpacing = 0.0,
+    this.crossAxisAlignment = WrapCrossAlignment.start,
+    this.textDirection,
+    this.verticalDirection = VerticalDirection.down,
+    List&lt;Widget&gt; children = const &lt;Widget&gt;[],
+  })
+</code></pre><p>Wrap中有几个独有的属性:<br>spacing:主轴方向上子Widget之间的间距;<br>runSpacing:纵轴方向上行或者列之间的间距;<br>runAlignment:纵轴方向上的对齐方式.</p>
+<p>基本用法:</p>
+<pre><code>Wrap(
+        spacing: 30.0,
+        runAlignment: WrapAlignment.center,
+        runSpacing: 10.0,
+        children: &lt;Widget&gt;[
+          Text(&quot;Flutter&quot;,
+            style: TextStyle(fontSize: 15.0),
+          ),
+          RaisedButton(
+            child: Text(&quot;Button&quot;),
+          ),
 
-extension Person:Equatable {
-    static func == (lhs: Person, rhs: Person) -&gt; Bool {
-        return lhs.name == rhs.name &amp;&amp; lhs.age == rhs.age
-    }
-}
+          Text(&quot;Increment Flutter&quot;,
+            style: TextStyle(fontSize: 25.0),
+          ),
 
-let person1 = Person(name: &quot;zhangsan&quot;, age: 18)
-let person2 = Person(name: &quot;lisi&quot;, age: 20)
-print(person1==person2) //false
-</code></pre>
+          RaisedButton(
+            child: Text(&quot;Button&quot;),
+          ),
+
+          Text(&quot;Increment Flutter&quot;,
+            style: TextStyle(fontSize: 10.0),
+          ),
+
+          RaisedButton(
+            child: Text(&quot;Button&quot;),
+          ),
+
+          Text(&quot;Increment Flutter&quot;,
+            style: TextStyle(fontSize: 12.0),
+          ),
+
+          RaisedButton(
+            child: Text(&quot;Button&quot;),
+          ),
+
+          Text(&quot;Increment Flutter&quot;,
+            style: TextStyle(fontSize: 24.0),
+          ),
+
+          RaisedButton(
+            child: Text(&quot;Button&quot;),
+          ),
+
+          Text(&quot;Increment Flutter&quot;,
+            style: TextStyle(fontSize: 10.0),
+          ),
+        ],
+      ),
+</code></pre><p><img src="https://upload-images.jianshu.io/upload_images/1715253-62e91e084137f918.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Wrap"></p>
+
             </div>
             <hr>
 
@@ -587,7 +641,7 @@ print(person1==person2) //false
                     </span>
                     <a href="https://waitwalker.github.io" class="b-link-green">waitwalker</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/04/09/Swift-Equable/" class="b-link-green">Swift_Equable</a>
+                    <a href="/2019/06/18/Flutter开发-Layout-流式布局-Wrap/" class="b-link-green">Flutter开发-Layout -流式布局(Wrap)</a>
                 </p>
             </div>
         </div>
@@ -610,49 +664,54 @@ print(person1==person2) //false
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/04/09/Swift-Extension/">
+                <a href="/2019/06/18/Flutter开发-Layout-流式布局-Wrap/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Swift_Extension">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Flutter开发-Layout -流式布局(Wrap)">
                         
-                        <span class="card-title">Swift_Extension</span>
+                        <span class="card-title">Flutter开发-Layout -流式布局(Wrap)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary block-with-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Swift Extension 字面意思就是扩展.有点类似OC中Category,按照官方文档,Extension可以用来:
-1.添加计算型属性</div>
+                    <div class="summary block-with-text">在Row和Column中,如果子Widget超出屏幕范围,则会报溢出错误:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因为Row只有一行,超出了屏幕范围也不会自动折行,我们可以采用Warp</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-09
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-18
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Swift开发/" class="post-category" target="_blank">
-                                    Swift开发
+                            <a href="/categories/Flutter开发/" class="post-category" target="_blank">
+                                    Flutter开发
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Swift/" target="_blank">
-                        <span class="chip bg-color">Swift</span>
+                    <a href="/tags/Flutter-开发/" target="_blank">
+                        <span class="chip bg-color">Flutter 开发</span>
                     </a>
                     
-                    <a href="/tags/Swift-开发/" target="_blank">
-                        <span class="chip bg-color">Swift 开发</span>
+                    <a href="/tags/Dart/" target="_blank">
+                        <span class="chip bg-color">Dart</span>
                     </a>
                     
-                    <a href="/tags/Extension/" target="_blank">
-                        <span class="chip bg-color">Extension</span>
+                    <a href="/tags/iOS/" target="_blank">
+                        <span class="chip bg-color">iOS</span>
+                    </a>
+                    
+                    <a href="/tags/Android/" target="_blank">
+                        <span class="chip bg-color">Android</span>
                     </a>
                     
                 </div>
@@ -666,27 +725,27 @@ print(person1==person2) //false
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/04/09/链表/">
+                <a href="/2019/06/18/Flutter开发-Layout-弹性布局-Flex和Expanded/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="链表">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Flutter开发-Layout -弹性布局(Flex和Expanded)">
                         
-                        <span class="card-title">链表</span>
+                        <span class="card-title">Flutter开发-Layout -弹性布局(Flex和Expanded)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary block-with-text">表的简单定义:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们将处理一般的形如A1,A2,A3,…An的表,称这个表的大小是N.我们称大小为0的表为空表.表是一种线性的数据结构集合.对于除</div>
+                    <div class="summary block-with-text">Flex&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Flex弹性,从字面意义可以理解具有伸缩性,它允许子Widget按照一定的比例来分配父容器的空间,在Flutter中弹性布局功能很强大,</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-09
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-18
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/数据结构与算法/" class="post-category" target="_blank">
-                                    数据结构与算法
+                            <a href="/categories/Flutter开发/" class="post-category" target="_blank">
+                                    Flutter开发
                                 </a>
                             
                             
@@ -696,20 +755,20 @@ print(person1==person2) //false
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/数据结构/" target="_blank">
-                        <span class="chip bg-color">数据结构</span>
+                    <a href="/tags/Flutter-开发/" target="_blank">
+                        <span class="chip bg-color">Flutter 开发</span>
                     </a>
                     
-                    <a href="/tags/算法/" target="_blank">
-                        <span class="chip bg-color">算法</span>
+                    <a href="/tags/Dart/" target="_blank">
+                        <span class="chip bg-color">Dart</span>
                     </a>
                     
-                    <a href="/tags/Swift/" target="_blank">
-                        <span class="chip bg-color">Swift</span>
+                    <a href="/tags/iOS/" target="_blank">
+                        <span class="chip bg-color">iOS</span>
                     </a>
                     
-                    <a href="/tags/链表/" target="_blank">
-                        <span class="chip bg-color">链表</span>
+                    <a href="/tags/Android/" target="_blank">
+                        <span class="chip bg-color">Android</span>
                     </a>
                     
                 </div>
