@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>Flutter开发-Layout -弹性布局(Flex和Expanded)</title>
+      <link href="/2019/06/18/Flutter%E5%BC%80%E5%8F%91-Layout-%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80-Flex%E5%92%8CExpanded/"/>
+      <url>/2019/06/18/Flutter%E5%BC%80%E5%8F%91-Layout-%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80-Flex%E5%92%8CExpanded/</url>
+      
+        <content type="html"><![CDATA[<h4 id="Flex"><a href="#Flex" class="headerlink" title="Flex"></a>Flex</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Flex弹性,从字面意义可以理解具有伸缩性,它允许子Widget按照一定的比例来分配父容器的空间,在Flutter中弹性布局功能很强大,可以结合Expanded实现弹性布局.如果在已知主轴方向的情况下,使用Row或者Column会方便一些,因为这个两个Widget也是继承自Flex.</p><pre><code>Flex({    Key key,    @required this.direction,    this.mainAxisAlignment = MainAxisAlignment.start,    this.mainAxisSize = MainAxisSize.max,    this.crossAxisAlignment = CrossAxisAlignment.center,    this.textDirection,    this.verticalDirection = VerticalDirection.down,    this.textBaseline,    List&lt;Widget&gt; children = const &lt;Widget&gt;[],  })</code></pre><p>Flex中的接口属性和上篇中Row和Column几乎一样.</p><h4 id="Expanded"><a href="#Expanded" class="headerlink" title="Expanded"></a>Expanded</h4><p>Expanded可以按比例伸缩子Widget所占的空间:</p><pre><code>const Expanded({    Key key,    int flex = 1,    @required Widget child,  })</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;属性flex是弹性系数,如果flex=0或者=null,则子Widget没有弹性系数,如果flex大于0,则子Widget按照比例来分割主轴剩余的空间:</p><pre><code>Column(        mainAxisAlignment: isClick ? MainAxisAlignment.center : MainAxisAlignment.start,        crossAxisAlignment: isClick? CrossAxisAlignment.end : CrossAxisAlignment.start,        children: &lt;Widget&gt;[          Flex(            direction: Axis.horizontal,            children: &lt;Widget&gt;[              Expanded(                flex: 1,                child: Container(                  height: 50.0,                  color: Colors.red,                ),              ),              Expanded(                flex: 4,                child: Container(                  height: 80,                  color: Colors.green,                ),              ),            ],          ),          Padding(            padding: const EdgeInsets.only(top: 30.0),            child: SizedBox(              height: 100.0,              child: Flex(                direction: Axis.vertical,                children: &lt;Widget&gt;[                  Expanded(                    flex: 2,                    child: Container(                      height: 60,                      color: Colors.orange,                    ),                  ),                  Spacer(                    flex: 1,                  ),                  Expanded(                    flex: 2,                    child: Container(                      height: 80,                      color: Colors.purple,                    ),                  ),                ],              ),            ),          ),          Text(&quot;Flutter 1&quot;,            style: TextStyle(              color: Colors.blueGrey,              backgroundColor: Colors.cyan,              fontSize: 20,            ),          ),          RaisedButton(            child: Text(&quot;RaisedButton 1&quot;,              style: TextStyle(fontSize: 25),            ),            onPressed: buttonAction,          ),          Text(&quot;Flutter 2&quot;,            style: TextStyle(              fontSize: 20,              color: Colors.green,              backgroundColor: Colors.yellow,            ),          ),        ],      ),</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Flutter开发 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Flutter 开发 </tag>
+            
+            <tag> Dart </tag>
+            
+            <tag> iOS </tag>
+            
+            <tag> Android </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Flutter开发-Layout -线性布局(Row和Column)</title>
       <link href="/2019/06/17/Flutter%E5%BC%80%E5%8F%91-Layout-%E7%BA%BF%E6%80%A7%E5%B8%83%E5%B1%80-Row%E5%92%8CColumn/"/>
       <url>/2019/06/17/Flutter%E5%BC%80%E5%8F%91-Layout-%E7%BA%BF%E6%80%A7%E5%B8%83%E5%B1%80-Row%E5%92%8CColumn/</url>
@@ -1067,9 +1098,9 @@
             
             <tag> Swift </tag>
             
-            <tag> Swift 开发 </tag>
-            
             <tag> Extension </tag>
+            
+            <tag> Swift 开发 </tag>
             
         </tags>
       
@@ -1094,9 +1125,9 @@
       
         <tags>
             
-            <tag> Swift 开发 </tag>
-            
             <tag> Extension </tag>
+            
+            <tag> Swift 开发 </tag>
             
         </tags>
       
