@@ -8,9 +8,27 @@
       <link href="/2019/06/18/Flutter%E5%BC%80%E5%8F%91-Layout-%E5%B1%82%E5%8F%A0%E5%B8%83%E5%B1%80-Stack%E5%92%8CPositioned/"/>
       <url>/2019/06/18/Flutter%E5%BC%80%E5%8F%91-Layout-%E5%B1%82%E5%8F%A0%E5%B8%83%E5%B1%80-Stack%E5%92%8CPositioned/</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;层叠布局也可以称为相对布局,子Widget根据父容器的相对位置来确定布局,好比iOS中的AutoLayout,不过Flutter中是相对于父Widget,而AutoLayout不仅可以相对于父控件设置相对位置,还可以参考兄弟控件设置位置.Flutter中使用Stack和Positioned来实现子Widget的位置,Stack允许子Widget堆叠,Positioned可以给子Widget实现定位.</p><h4 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h4><pre><code>Stack({    Key key,    this.alignment = AlignmentDirectional.topStart,    this.textDirection,    this.fit = StackFit.loose,    this.overflow = Overflow.clip,    List&lt;Widget&gt; children = const &lt;Widget&gt;[],  })</code></pre><p>alignment:表示如何在某一轴上定位没有使用Positioned的子Widget;<br>textDirection:和Row,Wrap中textDirection功能一样,表示文字的从哪个方向开始;<br>fit:表示在没有使用Positioned的子Widget如何适应Stack的大小.StackFit.loose表示使用子Widget的大小,StackFit.expand表示扩展到Stack的大小.<br>overflow:表示子Widget如果有越界表示如何处理,Overflow.clip表示越界被裁剪;Overflow.visible表示越界正常显示,不裁剪.</p><h4 id="Positioned"><a href="#Positioned" class="headerlink" title="Positioned"></a>Positioned</h4><pre><code>const Positioned({    Key key,    this.left,    this.top,    this.right,    this.bottom,    this.width,    this.height,    @required Widget child,  })</code></pre><p>top,left,bottom,right指的是子Widget距离Stack上,左,下,右的距离,width,height指的是子Widget的宽高.</p><p>基本使用:</p><pre><code>ConstrainedBox(        constraints: BoxConstraints.expand(),        child: Stack(          fit: StackFit.loose,          alignment: Alignment.center,          children: &lt;Widget&gt;[            Container(              child: Text(&quot;Hello Flutter&quot;,                style: TextStyle(fontSize: 20.0),              ),              color: Colors.green,              height: 50.0,            ),            Positioned(              left: 20.0,              top: 80.0,              right: 120.0,              height: 60.0,              child: Text(&quot;Text 1&quot;,                style: TextStyle(                  backgroundColor: Colors.red                ),              ),            ),          ],        ),      ),</code></pre><p><img src="https://upload-images.jianshu.io/upload_images/1715253-72f5df8ec68e3d86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Stack"></p>]]></content>
       
       
+      <categories>
+          
+          <category> Flutter开发 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Flutter 开发 </tag>
+            
+            <tag> Dart </tag>
+            
+            <tag> iOS </tag>
+            
+            <tag> Android </tag>
+            
+        </tags>
       
     </entry>
     
