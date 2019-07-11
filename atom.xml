@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://waitwalker.github.io/"/>
-  <updated>2019-06-18T12:10:13.677Z</updated>
+  <updated>2019-07-11T13:57:04.232Z</updated>
   <id>https://waitwalker.github.io/</id>
   
   <author>
@@ -15,6 +15,38 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Flutter开发-仿携程App</title>
+    <link href="https://waitwalker.github.io/2019/07/11/Flutter%E5%BC%80%E5%8F%91-%E4%BB%BF%E6%90%BA%E7%A8%8BApp/"/>
+    <id>https://waitwalker.github.io/2019/07/11/Flutter开发-仿携程App/</id>
+    <published>2019-07-11T13:55:03.000Z</published>
+    <updated>2019-07-11T13:57:04.232Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Flutter是一个UI框架,其最重要的一块就是布局,就像官网所说的那样:”Flutter 布局的核心机制是 widgets。在 Flutter 中，几乎所有东西都是
+        
+      
+    
+    </summary>
+    
+      <category term="Flutter开发" scheme="https://waitwalker.github.io/categories/Flutter%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="Flutter 开发" scheme="https://waitwalker.github.io/tags/Flutter-%E5%BC%80%E5%8F%91/"/>
+    
+      <category term="Dart" scheme="https://waitwalker.github.io/tags/Dart/"/>
+    
+      <category term="iOS" scheme="https://waitwalker.github.io/tags/iOS/"/>
+    
+      <category term="Android" scheme="https://waitwalker.github.io/tags/Android/"/>
+    
+  </entry>
   
   <entry>
     <title>Flutter开发-Layout -层叠布局(Stack和Positioned)</title>
@@ -627,38 +659,6 @@
       <category term="Swift" scheme="https://waitwalker.github.io/tags/Swift/"/>
     
       <category term="栈" scheme="https://waitwalker.github.io/tags/%E6%A0%88/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>二叉搜索树</title>
-    <link href="https://waitwalker.github.io/2019/04/28/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/"/>
-    <id>https://waitwalker.github.io/2019/04/28/二叉搜索树/</id>
-    <published>2019-04-28T10:27:15.000Z</published>
-    <updated>2019-04-28T10:29:48.194Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;二叉查找树定义&quot;&gt;&lt;a href=&quot;#二叉查找树定义&quot; class=&quot;headerlink&quot; title=&quot;二叉查找树定义&quot;&gt;&lt;/a&gt;二叉查找树定义&lt;/h2&gt;&lt;p&gt;二叉搜索树也叫二叉查找树(Binary Search
-        
-      
-    
-    </summary>
-    
-      <category term="数据结构与算法" scheme="https://waitwalker.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
-    
-    
-      <category term="数据结构" scheme="https://waitwalker.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-      <category term="算法" scheme="https://waitwalker.github.io/tags/%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="Swift" scheme="https://waitwalker.github.io/tags/Swift/"/>
-    
-      <category term="二叉搜索树" scheme="https://waitwalker.github.io/tags/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/"/>
     
   </entry>
   

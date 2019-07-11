@@ -4,8 +4,8 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="Flutter开发-Layout -层叠布局(Stack和Positioned), Swift, iOS, Python">
-    <meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;层叠布局也可以称为相对布局,子Widget根据父容器的相对位置来确定布局,好比iOS中的AutoLayout,不过Flutter中是相对于父Wi">
+    <meta name="keywords" content="Flutter开发-仿携程App, Swift, iOS, Python">
+    <meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Flutter是一个UI框架,其最重要的一块就是布局,就像官网所说的那样:”Flutter 布局的核心机制是 widgets。在 Flutter">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Flutter开发-Layout -层叠布局(Stack和Positioned) | waitwalker</title>
+    <title>Flutter开发-仿携程App | waitwalker</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -259,13 +259,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        Flutter开发-Layout -层叠布局(Stack和Positioned)
+                        Flutter开发-仿携程App
                     </div>
                 </div>
             </div>
@@ -412,7 +412,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-06-18
+                    2019-07-11
                 </div>
 
                 
@@ -428,56 +428,98 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;层叠布局也可以称为相对布局,子Widget根据父容器的相对位置来确定布局,好比iOS中的AutoLayout,不过Flutter中是相对于父Widget,而AutoLayout不仅可以相对于父控件设置相对位置,还可以参考兄弟控件设置位置.Flutter中使用Stack和Positioned来实现子Widget的位置,Stack允许子Widget堆叠,Positioned可以给子Widget实现定位.</p>
-<h4 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h4><pre><code>Stack({
-    Key key,
-    this.alignment = AlignmentDirectional.topStart,
-    this.textDirection,
-    this.fit = StackFit.loose,
-    this.overflow = Overflow.clip,
-    List&lt;Widget&gt; children = const &lt;Widget&gt;[],
-  })
-</code></pre><p>alignment:表示如何在某一轴上定位没有使用Positioned的子Widget;<br>textDirection:和Row,Wrap中textDirection功能一样,表示文字的从哪个方向开始;<br>fit:表示在没有使用Positioned的子Widget如何适应Stack的大小.StackFit.loose表示使用子Widget的大小,StackFit.expand表示扩展到Stack的大小.<br>overflow:表示子Widget如果有越界表示如何处理,Overflow.clip表示越界被裁剪;Overflow.visible表示越界正常显示,不裁剪.</p>
-<h4 id="Positioned"><a href="#Positioned" class="headerlink" title="Positioned"></a>Positioned</h4><pre><code>const Positioned({
-    Key key,
-    this.left,
-    this.top,
-    this.right,
-    this.bottom,
-    this.width,
-    this.height,
-    @required Widget child,
-  })
-</code></pre><p>top,left,bottom,right指的是子Widget距离Stack上,左,下,右的距离,width,height指的是子Widget的宽高.</p>
-<p>基本使用:</p>
-<pre><code>ConstrainedBox(
-        constraints: BoxConstraints.expand(),
-        child: Stack(
-          fit: StackFit.loose,
-          alignment: Alignment.center,
-          children: &lt;Widget&gt;[
-            Container(
-              child: Text(&quot;Hello Flutter&quot;,
-                style: TextStyle(fontSize: 20.0),
-              ),
-              color: Colors.green,
-              height: 50.0,
-            ),
-            Positioned(
-              left: 20.0,
-              top: 80.0,
-              right: 120.0,
-              height: 60.0,
-              child: Text(&quot;Text 1&quot;,
-                style: TextStyle(
-                  backgroundColor: Colors.red
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-</code></pre><p><img src="https://upload-images.jianshu.io/upload_images/1715253-72f5df8ec68e3d86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Stack"></p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Flutter是一个UI框架,其最重要的一块就是布局,就像官网所说的那样:”Flutter 布局的核心机制是 widgets。在 Flutter 中，几乎所有东西都是 widget —— 甚至布局模型都是 widgets。”采用何种布局方式视情况而定.</p>
+<h4 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;项目主要是根据贾鹏辉的一套教学视频跟着编写,项目现在放在<a href="https://github.com/waitwalker/flutter_trip" target="_blank" rel="noopener">GitHub</a>上,如果对你有帮助,请给一个星或者赞,谢谢!<br>主要结构:</p>
+<pre><code>.
+├── common //包含主题和语言国际化等
+│   ├── locale_mamager.dart
+│   ├── localizations.dart
+│   ├── localizations_delegate.dart
+│   ├── string_base.dart
+│   ├── string_en.dart
+│   ├── string_zh.dart
+│   └── theme_manager.dart
+├── data_manager /// 数据管理层 负责数据的请求&amp;组装等(Java中叫dao)
+│   ├── home_data_manager.dart
+│   ├── search_data_manager.dart
+│   ├── travel_item_data_manager.dart
+│   └── travel_tab_data_manager.dart
+├── main.dart /// 入口
+├── models /// model 层
+│   ├── common_model.dart
+│   ├── config_model.dart
+│   ├── grid_nav_model.dart
+│   ├── home_model.dart
+│   ├── sales_box_model.dart
+│   ├── search_model.dart
+│   ├── travel_item_model.dart
+│   └── travel_tab_model.dart
+├── navigator /// 导航
+│   └── tab_navigator.dart
+├── pages /// 页面
+│   ├── home_drawer.dart
+│   ├── home_page.dart
+│   ├── my_page.dart
+│   ├── search_page.dart
+│   ├── speak_page.dart
+│   ├── travel_page.dart
+│   └── travel_tab_page.dart
+├── plugin /// 插件
+│   └── asr_manager.dart
+├── redux /// redux
+│   ├── app_state.dart
+│   ├── local_redux.dart
+│   └── theme_data_reducer.dart
+└── widget /// 组件
+├── grid_nav.dart
+├── loading_container.dart
+├── local_nav.dart
+├── sales_box.dart
+├── search_bar.dart
+├── sub_nav.dart
+└── webview.dart
+</code></pre><h4 id="主要模块"><a href="#主要模块" class="headerlink" title="主要模块"></a>主要模块</h4><p>项目主要分为4个主要的模块:首页,搜索,旅拍,我的.</p>
+<h4 id="iOS"><a href="#iOS" class="headerlink" title="iOS"></a>iOS</h4><h5 id="首页"><a href="#首页" class="headerlink" title="首页"></a>首页</h5><p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/flutter_trip/iOS/home/home_join.jpg?raw=true" alt="home"></p>
+<h5 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h5><p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/flutter_trip/iOS/search/search_join.png?raw=true" alt="search"></p>
+<h5 id="旅拍"><a href="#旅拍" class="headerlink" title="旅拍"></a>旅拍</h5><p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/flutter_trip/iOS/travel/travel_join.jpg?raw=true" alt="travel"></p>
+<h5 id="我的"><a href="#我的" class="headerlink" title="我的"></a>我的</h5><p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/flutter_trip/iOS/my/my_join.png?raw=true" alt="my"></p>
+<h4 id="Android"><a href="#Android" class="headerlink" title="Android"></a>Android</h4><h5 id="首页-1"><a href="#首页-1" class="headerlink" title="首页"></a>首页</h5><p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/flutter_trip/Android/home/home_join.jpg?raw=true" alt="home"></p>
+<h5 id="搜索-1"><a href="#搜索-1" class="headerlink" title="搜索"></a>搜索</h5><p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/flutter_trip/Android/search/search_join.png?raw=true" alt="search"></p>
+<h5 id="旅拍-1"><a href="#旅拍-1" class="headerlink" title="旅拍"></a>旅拍</h5><p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/flutter_trip/Android/travel/travel_join.jpg?raw=true" alt="travel"></p>
+<h5 id="我的-1"><a href="#我的-1" class="headerlink" title="我的"></a>我的</h5><p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/flutter_trip/Android/my/my_join.png?raw=true" alt="my"></p>
+<h4 id="Redux"><a href="#Redux" class="headerlink" title="Redux"></a>Redux</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;项目中通过Redux实现了主题的切换,Redux是响应式编程范畴,其在全局监听事件,然后驱动相关状态属性更新,主题切换主要在我的页面,把如下代码注释打开,并设置为Scaffold的body即可.</p>
+<pre><code>/// 主题切换
+//  _container(Store&lt;AppState&gt; store) {
+//    return Container(
+//      color: store.state.themeData.primaryColor,
+//      child: Center(
+//          child: Column(
+//            children: &lt;Widget&gt;[
+//              Text(&quot;我的&quot;),
+//              RaisedButton(
+//                child: Text(&quot;点击&quot;),
+//                onPressed: (){
+//                  RandomColor _randomColor = RandomColor();
+//                  ThemeData themeData = ThemeData(primaryColor: _randomColor.randomColor());
+//                  store.dispatch(RefreshThemeDataAction(themeData));
+//
+//                  Locale locale = store.state.platformLocale;
+//
+//                  isClicked = !isClicked;
+//                  if (isClicked) {
+//                    locale = Locale(&quot;zh&quot;,&quot;CH&quot;);
+//                  } else {
+//                    locale = Locale(&quot;en&quot;,&quot;US&quot;);
+//                  }
+//                  store.dispatch(RefreshLocaleAction(locale));
+//                },
+//              ),
+//            ],
+//          )
+//      ),
+//    );
+//  }
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;文章简要把项目结构展示了一下,以后有时间把其中用的布局,网络,缓存,数据处理,响应式等技术在详细说下.如果有需要可以先下载源码,详细参阅!</p>
 
             </div>
             <hr>
@@ -625,7 +667,7 @@
                     </span>
                     <a href="https://waitwalker.github.io" class="b-link-green">waitwalker</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/06/18/Flutter开发-Layout-层叠布局-Stack和Positioned/" class="b-link-green">Flutter开发-Layout -层叠布局(Stack和Positioned)</a>
+                    <a href="/2019/07/11/Flutter开发-仿携程App/" class="b-link-green">Flutter开发-仿携程App</a>
                 </p>
             </div>
         </div>
@@ -648,7 +690,8 @@
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2019/07/11/Flutter开发-仿携程App/">
                     <div class="card-image">
@@ -662,9 +705,9 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Flutter是一个UI框架,其最重要的一块就是布局,就像官网所说的那样:”Flutter 布局的核心机制是 widgets。在 Flutter</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-11
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-11
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -677,6 +720,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -707,17 +751,17 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/06/18/Flutter开发-Layout-流式布局-Wrap/">
+                <a href="/2019/06/18/Flutter开发-Layout-层叠布局-Stack和Positioned/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Flutter开发-Layout -流式布局(Wrap)">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="Flutter开发-Layout -层叠布局(Stack和Positioned)">
                         
-                        <span class="card-title">Flutter开发-Layout -流式布局(Wrap)</span>
+                        <span class="card-title">Flutter开发-Layout -层叠布局(Stack和Positioned)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary block-with-text">在Row和Column中,如果子Widget超出屏幕范围,则会报溢出错误:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因为Row只有一行,超出了屏幕范围也不会自动折行,我们可以采用Warp</div>
+                    <div class="summary block-with-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;层叠布局也可以称为相对布局,子Widget根据父容器的相对位置来确定布局,好比iOS中的AutoLayout,不过Flutter中是相对于父Wi</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-18

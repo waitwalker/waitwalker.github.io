@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>Flutter开发-仿携程App</title>
+      <link href="/2019/07/11/Flutter%E5%BC%80%E5%8F%91-%E4%BB%BF%E6%90%BA%E7%A8%8BApp/"/>
+      <url>/2019/07/11/Flutter%E5%BC%80%E5%8F%91-%E4%BB%BF%E6%90%BA%E7%A8%8BApp/</url>
+      
+        <content type="html"><![CDATA[<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Flutter是一个UI框架,其最重要的一块就是布局,就像官网所说的那样:”Flutter 布局的核心机制是 widgets。在 Flutter 中，几乎所有东西都是 widget —— 甚至布局模型都是 widgets。”采用何种布局方式视情况而定.</p><h4 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;项目主要是根据贾鹏辉的一套教学视频跟着编写,项目现在放在<a href="https://github.com/waitwalker/flutter_trip" target="_blank" rel="noopener">GitHub</a>上,如果对你有帮助,请给一个星或者赞,谢谢!<br>主要结构:</p><pre><code>.├── common //包含主题和语言国际化等│   ├── locale_mamager.dart│   ├── localizations.dart│   ├── localizations_delegate.dart│   ├── string_base.dart│   ├── string_en.dart│   ├── string_zh.dart│   └── theme_manager.dart├── data_manager /// 数据管理层 负责数据的请求&amp;组装等(Java中叫dao)│   ├── home_data_manager.dart│   ├── search_data_manager.dart│   ├── travel_item_data_manager.dart│   └── travel_tab_data_manager.dart├── main.dart /// 入口├── models /// model 层│   ├── common_model.dart│   ├── config_model.dart│   ├── grid_nav_model.dart│   ├── home_model.dart│   ├── sales_box_model.dart│   ├── search_model.dart│   ├── travel_item_model.dart│   └── travel_tab_model.dart├── navigator /// 导航│   └── tab_navigator.dart├── pages /// 页面│   ├── home_drawer.dart│   ├── home_page.dart│   ├── my_page.dart│   ├── search_page.dart│   ├── speak_page.dart│   ├── travel_page.dart│   └── travel_tab_page.dart├── plugin /// 插件│   └── asr_manager.dart├── redux /// redux│   ├── app_state.dart│   ├── local_redux.dart│   └── theme_data_reducer.dart└── widget /// 组件├── grid_nav.dart├── loading_container.dart├── local_nav.dart├── sales_box.dart├── search_bar.dart├── sub_nav.dart└── webview.dart</code></pre><h4 id="主要模块"><a href="#主要模块" class="headerlink" title="主要模块"></a>主要模块</h4><p>项目主要分为4个主要的模块:首页,搜索,旅拍,我的.</p><h4 id="iOS"><a href="#iOS" class="headerlink" title="iOS"></a>iOS</h4><h5 id="首页"><a href="#首页" class="headerlink" title="首页"></a>首页</h5><p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/flutter_trip/iOS/home/home_join.jpg?raw=true" alt="home"></p><h5 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h5><p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/flutter_trip/iOS/search/search_join.png?raw=true" alt="search"></p><h5 id="旅拍"><a href="#旅拍" class="headerlink" title="旅拍"></a>旅拍</h5><p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/flutter_trip/iOS/travel/travel_join.jpg?raw=true" alt="travel"></p><h5 id="我的"><a href="#我的" class="headerlink" title="我的"></a>我的</h5><p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/flutter_trip/iOS/my/my_join.png?raw=true" alt="my"></p><h4 id="Android"><a href="#Android" class="headerlink" title="Android"></a>Android</h4><h5 id="首页-1"><a href="#首页-1" class="headerlink" title="首页"></a>首页</h5><p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/flutter_trip/Android/home/home_join.jpg?raw=true" alt="home"></p><h5 id="搜索-1"><a href="#搜索-1" class="headerlink" title="搜索"></a>搜索</h5><p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/flutter_trip/Android/search/search_join.png?raw=true" alt="search"></p><h5 id="旅拍-1"><a href="#旅拍-1" class="headerlink" title="旅拍"></a>旅拍</h5><p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/flutter_trip/Android/travel/travel_join.jpg?raw=true" alt="travel"></p><h5 id="我的-1"><a href="#我的-1" class="headerlink" title="我的"></a>我的</h5><p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/flutter_trip/Android/my/my_join.png?raw=true" alt="my"></p><h4 id="Redux"><a href="#Redux" class="headerlink" title="Redux"></a>Redux</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;项目中通过Redux实现了主题的切换,Redux是响应式编程范畴,其在全局监听事件,然后驱动相关状态属性更新,主题切换主要在我的页面,把如下代码注释打开,并设置为Scaffold的body即可.</p><pre><code>/// 主题切换//  _container(Store&lt;AppState&gt; store) {//    return Container(//      color: store.state.themeData.primaryColor,//      child: Center(//          child: Column(//            children: &lt;Widget&gt;[//              Text(&quot;我的&quot;),//              RaisedButton(//                child: Text(&quot;点击&quot;),//                onPressed: (){//                  RandomColor _randomColor = RandomColor();//                  ThemeData themeData = ThemeData(primaryColor: _randomColor.randomColor());//                  store.dispatch(RefreshThemeDataAction(themeData));////                  Locale locale = store.state.platformLocale;////                  isClicked = !isClicked;//                  if (isClicked) {//                    locale = Locale(&quot;zh&quot;,&quot;CH&quot;);//                  } else {//                    locale = Locale(&quot;en&quot;,&quot;US&quot;);//                  }//                  store.dispatch(RefreshLocaleAction(locale));//                },//              ),//            ],//          )//      ),//    );//  }</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;文章简要把项目结构展示了一下,以后有时间把其中用的布局,网络,缓存,数据处理,响应式等技术在详细说下.如果有需要可以先下载源码,详细参阅!</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Flutter开发 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Flutter 开发 </tag>
+            
+            <tag> Dart </tag>
+            
+            <tag> iOS </tag>
+            
+            <tag> Android </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Flutter开发-Layout -层叠布局(Stack和Positioned)</title>
       <link href="/2019/06/18/Flutter%E5%BC%80%E5%8F%91-Layout-%E5%B1%82%E5%8F%A0%E5%B8%83%E5%B1%80-Stack%E5%92%8CPositioned/"/>
       <url>/2019/06/18/Flutter%E5%BC%80%E5%8F%91-Layout-%E5%B1%82%E5%8F%A0%E5%B8%83%E5%B1%80-Stack%E5%92%8CPositioned/</url>
