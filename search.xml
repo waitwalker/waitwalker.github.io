@@ -4,6 +4,41 @@
   
     
     <entry>
+      <title>独立开发的App</title>
+      <link href="/2019/08/08/%E7%8B%AC%E7%AB%8B%E5%BC%80%E5%8F%91%E7%9A%84App/"/>
+      <url>/2019/08/08/%E7%8B%AC%E7%AB%8B%E5%BC%80%E5%8F%91%E7%9A%84App/</url>
+      
+        <content type="html"><![CDATA[<p>本人独立开发完成的App主要有:</p><h4 id="1-Bedrock"><a href="#1-Bedrock" class="headerlink" title="1.Bedrock"></a>1.Bedrock</h4><p>Bedrock是一个实用的网络工具, 使用简单, 界面简洁, 可以助你触及到需要的网络角落. Bedrock功能会越来越完善, 体验会更加友好, 希望Bedrock可以帮助到你.<br>iOS扫码下载地址:<br><img src="https://github.com/waitwalker/Resources/blob/master/App/Bedrock_iOS.png?raw=true" alt="Bedrock"></p><h4 id="2-快识别"><a href="#2-快识别" class="headerlink" title="2.快识别"></a>2.快识别</h4><p>快识别依据强大的云技术识别平台,主要帮助用户快速识别图片中的文本,支持识别文本的拷贝,粘贴,编辑等功能.识别信息会保存在本地,您有任何操作本地数据的权限.您在使用App的过程中可能会让您授权访问相册,相机等,请知晓,权限由您操作.使用过程中有任何问题,可以在设置页面点击关注,然后进行相关问题反馈.<br>iOS扫码下载地址:<br><img src="https://github.com/waitwalker/Resources/blob/master/App/%E5%BF%AB%E8%AF%86%E5%88%AB_iOS.png?raw=true" alt="快识别-iOS"></p><p>Android扫码下载地址:<br><img src="https://github.com/waitwalker/Resources/blob/master/App/%E5%BF%AB%E8%AF%86%E5%88%AB_Android.png?raw=true" alt="快识别-Android"></p><h4 id="3-狗圈儿"><a href="#3-狗圈儿" class="headerlink" title="3.狗圈儿"></a>3.狗圈儿</h4><p>狗圈儿是一个宠物社交软件,目的是广纳狗友,深入交流,分享快乐.狗圈儿是一个包含前台和后台的完整项目,从代码编写,图形图标设计,再到部署,调试,上架发布都由本人完成,稀稀拉拉历经几个月完成.<br>iOS扫码下载地址:<br><img src="https://github.com/waitwalker/Resources/blob/master/App/%E7%8B%97%E5%9C%88%E5%84%BF_iOS.png?raw=true" alt="狗圈儿"><br><a href="https://www.jianshu.com/p/4f411e7e537c" target="_blank" rel="noopener">狗圈儿博客地址</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> App </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> Android </tag>
+            
+            <tag> App </tag>
+            
+            <tag> Python </tag>
+            
+            <tag> 移动 </tag>
+            
+            <tag> WebServer </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Flutter开发-仿携程App</title>
       <link href="/2019/07/11/Flutter%E5%BC%80%E5%8F%91-%E4%BB%BF%E6%90%BA%E7%A8%8BApp/"/>
       <url>/2019/07/11/Flutter%E5%BC%80%E5%8F%91-%E4%BB%BF%E6%90%BA%E7%A8%8BApp/</url>
