@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://waitwalker.github.io/"/>
-  <updated>2019-08-08T13:31:43.928Z</updated>
+  <updated>2019-08-15T13:11:26.754Z</updated>
   <id>https://waitwalker.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://waitwalker.github.io/2019/08/08/%E7%8B%AC%E7%AB%8B%E5%BC%80%E5%8F%91%E7%9A%84App/"/>
     <id>https://waitwalker.github.io/2019/08/08/独立开发的App/</id>
     <published>2019-08-08T13:16:19.000Z</published>
-    <updated>2019-08-08T13:31:43.928Z</updated>
+    <updated>2019-08-15T13:11:26.754Z</updated>
     
     <summary type="html">
     
@@ -29,8 +29,8 @@
       
         
         
-          &lt;p&gt;本人独立开发完成的App主要有:&lt;/p&gt;
-&lt;h4 id=&quot;1-Bedrock&quot;&gt;&lt;a href=&quot;#1-Bedrock&quot; class=&quot;headerlink&quot;
+          &lt;p&gt;&lt;strong&gt;群组&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;欢迎加入群组,闲聊工作&amp;amp;技术等&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img
         
       
     
@@ -520,7 +520,7 @@
     <link href="https://waitwalker.github.io/2019/06/05/SwiftUI/"/>
     <id>https://waitwalker.github.io/2019/06/05/SwiftUI/</id>
     <published>2019-06-05T14:17:53.000Z</published>
-    <updated>2019-06-08T05:24:38.223Z</updated>
+    <updated>2019-08-15T13:11:26.743Z</updated>
     
     <summary type="html">
     
@@ -528,7 +528,8 @@
       
         
         
-          &lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;2019 年 WWDC 大会上，苹果在压轴环节向大众宣布了基于 Swift 语言构建的全新 UI 框架 —— SwiftUI。开发者可通过它快速为所有的 Apple
+          &lt;p&gt;&lt;strong&gt;群组&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;欢迎加入群组,闲聊工作&amp;amp;技术等&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img
         
       
     
@@ -556,7 +557,7 @@
     <link href="https://waitwalker.github.io/2019/06/05/WWDC-2019/"/>
     <id>https://waitwalker.github.io/2019/06/05/WWDC-2019/</id>
     <published>2019-06-05T13:09:20.000Z</published>
-    <updated>2019-06-05T14:39:08.669Z</updated>
+    <updated>2019-08-15T13:11:26.746Z</updated>
     
     <summary type="html">
     
@@ -564,7 +565,8 @@
       
         
         
-          &lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;苹果在今天的WWDC 2019苹果开发者大会上发布了全新的iOS 13系统。传了很久期待很久的黑暗模式也出现在了全新的iOS
+          &lt;p&gt;&lt;strong&gt;群组&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;欢迎加入群组,闲聊工作&amp;amp;技术等&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img
         
       
     
@@ -588,7 +590,7 @@
     <link href="https://waitwalker.github.io/2019/05/15/%E5%AE%8C%E6%95%B4%E5%89%8D%E5%90%8E%E5%8F%B0%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE-%E7%8B%97%E5%9C%88%E5%84%BF/"/>
     <id>https://waitwalker.github.io/2019/05/15/完整前后台开源项目-狗圈儿/</id>
     <published>2019-05-15T10:35:19.000Z</published>
-    <updated>2019-05-15T10:38:51.779Z</updated>
+    <updated>2019-08-15T13:11:26.749Z</updated>
     
     <summary type="html">
     
@@ -596,7 +598,8 @@
       
         
         
-          &lt;p align=&quot;center&quot;&gt;&lt;br&gt;&lt;img
+          &lt;p&gt;&lt;strong&gt;群组&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;欢迎加入群组,闲聊工作&amp;amp;技术等&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img
         
       
     
@@ -646,7 +649,7 @@
     <link href="https://waitwalker.github.io/2019/04/30/%E5%A0%86/"/>
     <id>https://waitwalker.github.io/2019/04/30/堆/</id>
     <published>2019-04-30T10:48:57.000Z</published>
-    <updated>2019-04-30T10:49:25.280Z</updated>
+    <updated>2019-08-15T13:11:26.731Z</updated>
     
     <summary type="html">
     
@@ -654,7 +657,8 @@
       
         
         
-          &lt;p&gt;堆是二叉树的一种,分为最小堆:其根节点恒小于子节点;最大堆:其根节点恒大于子节点.堆总是一颗完全二叉树,除了最底层,其它层都被填满,且最底层尽可能从左往右填入.常见的堆有二叉堆,斐波那契堆等.&lt;br&gt;堆又名优先队列,但并不是队列.之前我们了解队列是满足FIFO的数据结构,而
+          &lt;p&gt;&lt;strong&gt;群组&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;欢迎加入群组,闲聊工作&amp;amp;技术等&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img
         
       
     
