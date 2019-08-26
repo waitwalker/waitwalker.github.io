@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://waitwalker.github.io/"/>
-  <updated>2019-08-20T22:44:37.561Z</updated>
+  <updated>2019-08-26T09:50:29.444Z</updated>
   <id>https://waitwalker.github.io/</id>
   
   <author>
@@ -15,6 +15,39 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Flutter开发-FlutterSocket插件</title>
+    <link href="https://waitwalker.github.io/2019/08/26/Flutter%E5%BC%80%E5%8F%91-FlutterSocket%E6%8F%92%E4%BB%B6/"/>
+    <id>https://waitwalker.github.io/2019/08/26/Flutter开发-FlutterSocket插件/</id>
+    <published>2019-08-26T09:41:02.000Z</published>
+    <updated>2019-08-26T09:50:29.444Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;strong&gt;群组&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;欢迎加入群组,闲聊工作&amp;amp;技术&amp;amp;问题等&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img
+        
+      
+    
+    </summary>
+    
+      <category term="Flutter开发" scheme="https://waitwalker.github.io/categories/Flutter%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="Flutter 开发" scheme="https://waitwalker.github.io/tags/Flutter-%E5%BC%80%E5%8F%91/"/>
+    
+      <category term="Dart" scheme="https://waitwalker.github.io/tags/Dart/"/>
+    
+      <category term="iOS" scheme="https://waitwalker.github.io/tags/iOS/"/>
+    
+      <category term="Android" scheme="https://waitwalker.github.io/tags/Android/"/>
+    
+  </entry>
   
   <entry>
     <title>交流群组</title>
@@ -565,9 +598,9 @@
       <category term="WWDC" scheme="https://waitwalker.github.io/categories/WWDC/"/>
     
     
-      <category term="iOS" scheme="https://waitwalker.github.io/tags/iOS/"/>
-    
       <category term="Swift" scheme="https://waitwalker.github.io/tags/Swift/"/>
+    
+      <category term="iOS" scheme="https://waitwalker.github.io/tags/iOS/"/>
     
       <category term="iOS 13.0" scheme="https://waitwalker.github.io/tags/iOS-13-0/"/>
     
@@ -635,39 +668,11 @@
       <category term="开源项目" scheme="https://waitwalker.github.io/categories/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/"/>
     
     
-      <category term="iOS" scheme="https://waitwalker.github.io/tags/iOS/"/>
-    
       <category term="Swift" scheme="https://waitwalker.github.io/tags/Swift/"/>
     
+      <category term="iOS" scheme="https://waitwalker.github.io/tags/iOS/"/>
+    
       <category term="开源" scheme="https://waitwalker.github.io/tags/%E5%BC%80%E6%BA%90/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>读《人生》</title>
-    <link href="https://waitwalker.github.io/2019/05/02/%E8%AF%BB%E3%80%8A%E4%BA%BA%E7%94%9F%E3%80%8B/"/>
-    <id>https://waitwalker.github.io/2019/05/02/读《人生》/</id>
-    <published>2019-05-02T09:50:59.000Z</published>
-    <updated>2019-05-02T10:04:59.923Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;读完路遥的人生之后，心情有点沉重。人生如戏,戏如人生。当我们旅途不顺时应该怎样调节;当我们面对这一系列的艰难抉择时，我们该怎么办;在一些诱惑面前我们，是否能够把握好自己。人生这条
-        
-      
-    
-    </summary>
-    
-      <category term="读书" scheme="https://waitwalker.github.io/categories/%E8%AF%BB%E4%B9%A6/"/>
-    
-    
-      <category term="人生" scheme="https://waitwalker.github.io/tags/%E4%BA%BA%E7%94%9F/"/>
-    
-      <category term="读后感" scheme="https://waitwalker.github.io/tags/%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
     
   </entry>
   
