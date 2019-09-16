@@ -423,7 +423,7 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p><strong>群组</strong><br><strong>欢迎加入群组,闲聊工作&amp;技术&amp;问题等</strong></p>
-<p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/group/flutter_development_0916.JPG?raw=true" width="350" height="480" align="center"></p>
+<p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/group/flutter_development_0923.JPG?raw=true" width="350" height="480" align="center"></p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iOS内存管理无论是早期的MRC还是现在的ARC本质都是通过引用计数(Reference Counting)机制管理内存,当一个对象被创建出来时,它的引用计数从0到1,当有外部对象对它进行强引用时,它的应用计数会+1,当该对象收到一条release消息时,它的引用计数会-1;当对象的引用计数为0时,对象将被释放,对象指向的内存被回收.</p>
 <h2 id="1-ARC内存管理的本质"><a href="#1-ARC内存管理的本质" class="headerlink" title="1. ARC内存管理的本质"></a>1. ARC内存管理的本质</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>MRC时代需要程序员手动管理对象的生命周期,也就是对象的引用计数有程序员来控制,什么时候retain,什么时候release,完全自己掌握.ARC(Automatic Reference Counting)自动引用计数是编译器的一个特性,能够自动管理OC对象内存生命周期.在ARC中你需要专注于写你的代码, retain ,release, autorelease操作交给编译器去处理就行了.</strong><br><img src="https://upload-images.jianshu.io/upload_images/1715253-27c80639ff2b00b5.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="MRC_ARC_示意图_来源_Apple_Document.jpg"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ARC 下编译器如何自动管理内存,其中,能想到的是在类的 dealloc 方法中，对该类的所持有的成员变量(strong)执行 release 操作,让所有成员变量的引用计数为0。对于局部变量,更可能是的对象在出作用域之前,编译器自动给对象加上一条 release消息.这些工作都是编译器为我们处理了.</p>
 <pre><code>// 作用域
