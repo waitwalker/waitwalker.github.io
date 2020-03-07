@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>Flutter Canvas绘制详解</title>
+      <link href="/2020/03/07/Flutter-Canvas%E7%BB%98%E5%88%B6%E8%AF%A6%E8%A7%A3/"/>
+      <url>/2020/03/07/Flutter-Canvas%E7%BB%98%E5%88%B6%E8%AF%A6%E8%A7%A3/</url>
+      
+        <content type="html"><![CDATA[<p><strong>群组</strong><br><strong>Flutter,iOS,Android,Python等,闲聊工作&amp;技术&amp;问题;<br>个人主页:<a href="https://waitwalker.cn" target="_blank" rel="noopener">https://waitwalker.cn</a><br>telegram群链接:<a href="https://t.me/joinchat/Ej0o0A1ntlq5ZFIMzzO5Pw" target="_blank" rel="noopener">https://t.me/joinchat/Ej0o0A1ntlq5ZFIMzzO5Pw</a></strong></p><p><img src="https://github.com/waitwalker/Resources/blob/master/Flutter/group/flutter_development_0923.JPG?raw=true" width="350" height="400" align="center"></p><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Flutter是一个UI框架,一切皆Widget.Flutter可以说和Android是无缝对接,毕竟都是出自Google,Material风格更是轻车熟路,对Android同学来说,上手较快.本文要讲的Canvas也和Android中Canvas也是极其相似,一脉相承.Canvas一般可以用来绘制比较难以实现的特殊图形,控件等,比如一些多边形,弧形等等吧.Canvas就是画布,内部封装了用于绘制绘制基本图形的接口,比如矩形,圆形,点,线等.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Flutter中为我们提供了封装好的组件CustomerPaint Widget,这个组件与画笔Paint Widget组合使用就可以绘制出需要的图形.</p><h4 id="1-CustomerPainter"><a href="#1-CustomerPainter" class="headerlink" title="1.CustomerPainter"></a>1.CustomerPainter</h4><p>CustomerPainter是真实绘制的基础类,需要绘制的图形和画笔都是在此类中实现,一般会自定义一个类继承此基类,然后重写两个方法:</p><h5 id="1-1-paint方法"><a href="#1-1-paint方法" class="headerlink" title="1.1 paint方法"></a>1.1 paint方法</h5><pre><code>@overridevoid paint(Canvas canvas, Size size) {  // TODO: implement paint}</code></pre><p>这个方法就是实现具体绘制的方法</p><h5 id="1-2-shouldRepaint方法"><a href="#1-2-shouldRepaint方法" class="headerlink" title="1.2 shouldRepaint方法"></a>1.2 shouldRepaint方法</h5><pre><code>@overridebool shouldRepaint(CustomPainter oldDelegate) {  // TODO: implement shouldRepaint  return null;}</code></pre><p>这个方法控制的是是否需要重绘</p><h4 id="2-Paint"><a href="#2-Paint" class="headerlink" title="2. Paint"></a>2. Paint</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Paint是画笔,画笔有多个属性,可以设置颜色,线宽,填充等样式.</p><h4 id="3-CustomerPaint"><a href="#3-CustomerPaint" class="headerlink" title="3. CustomerPaint"></a>3. CustomerPaint</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CustomerPaint可以理解为绘制的封装类,其内部成员变量就包含CustomerPainter,其构造函数:</p><pre><code>const CustomPaint({  Key key,  this.painter,  this.foregroundPainter,  this.size = Size.zero,  this.isComplex = false,  this.willChange = false,  Widget child,})</code></pre><p><strong>painter</strong>: 自定义绘制的基础类绘制效果会显示在child的下面,效果如下:<br><img src="https://raw.githubusercontent.com/waitwalker/Resources/master/Flutter/Canvas/draw_demo_1.png" width="400" height="520" align="center"></p><p><strong>foregroundPainter</strong>:自定义绘制的基础类绘制效果会显示在child的上面,效果如下:<br><img src="https://raw.githubusercontent.com/waitwalker/Resources/master/Flutter/Canvas/draw_demo_2.png" width="400" height="520" align="center"></p><p><strong>child</strong>:子控件,也就是上图中的绿色区域<br><strong>size</strong>:绘制区域大小,其取决于child<br>1)如果child == null,则绘制区域为size大小;<br>2)如果child != null,则绘制区域为child大小;<br>3)如果想child != null &amp;&amp; 指定size大小,可以用SizeBox包裹一下CustomPaint;<br><strong>isComplex</strong>:是否复杂绘制,默认false,如果true,则会开启缓存,避免一些不必要的绘制提高性能.<br><strong>willChange</strong>:这个和isComplex一起使用,默认false,如果isComplex == true,willChange表示绘制下一帧是否会改变.</p><h3 id="Flutter绘制的基本步骤"><a href="#Flutter绘制的基本步骤" class="headerlink" title="Flutter绘制的基本步骤"></a>Flutter绘制的基本步骤</h3><h4 id="1-创建继承于基类的绘制类"><a href="#1-创建继承于基类的绘制类" class="headerlink" title="1. 创建继承于基类的绘制类"></a>1. 创建继承于基类的绘制类</h4><pre><code>////// @ClassName FlutterPainter/// @Description 绘制类/// @Author waitwalker/// @Date 2020-03-07///class FlutterPainter extends CustomPainter {}</code></pre><h4 id="2-在绘制类中重写paint-和shouldRepaint-方法"><a href="#2-在绘制类中重写paint-和shouldRepaint-方法" class="headerlink" title="2. 在绘制类中重写paint()和shouldRepaint()方法"></a>2. 在绘制类中重写paint()和shouldRepaint()方法</h4><pre><code>////// @ClassName FlutterPainter/// @Description 绘制类/// @Author waitwalker/// @Date 2020-03-07///class FlutterPainter extends CustomPainter {  @override  void paint(Canvas canvas, Size size) {    // TODO: implement paint  }  @override  bool shouldRepaint(CustomPainter oldDelegate) {    // TODO: implement shouldRepaint    return null;  }}</code></pre><h4 id="3-初始化画笔Paint-amp-调用Canvas绘制图形"><a href="#3-初始化画笔Paint-amp-调用Canvas绘制图形" class="headerlink" title="3. 初始化画笔Paint&amp;调用Canvas绘制图形"></a>3. 初始化画笔Paint&amp;调用Canvas绘制图形</h4><pre><code>////// @ClassName FlutterPainter/// @Description 绘制类/// @Author waitwalker/// @Date 2020-03-07///class FlutterPainter extends CustomPainter {  @override  void paint(Canvas canvas, Size size) {    /// 初始化画笔    var paint = Paint()        ..strokeWidth = 25.0        ..color = Colors.red;    /// 通过canvas画一条直线    /// 这里可以根据需要绘制圆形,矩形等等    canvas.drawLine(Offset(95, 0), Offset(95, 300), paint);  }  @override  bool shouldRepaint(CustomPainter oldDelegate) {    return true;  }}</code></pre><h4 id="4-初始化CustomPaint添加成员变量绘制类-并把CustomPaint添加到Widget树中"><a href="#4-初始化CustomPaint添加成员变量绘制类-并把CustomPaint添加到Widget树中" class="headerlink" title="4. 初始化CustomPaint添加成员变量绘制类,并把CustomPaint添加到Widget树中"></a>4. 初始化CustomPaint添加成员变量绘制类,并把CustomPaint添加到Widget树中</h4><pre><code>class _HomeState extends State&lt;HomePage&gt; {  @override  Widget build(BuildContext context) {    return Scaffold(      body: Center(        child: CustomPaint(          foregroundPainter: FlutterPainter(),          child: Container(            width: 200,            height: 200,            color: Color(0x5a00C800),          ),        ),      ),    );  }}</code></pre><h3 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;随手写了一个涂鸦的demo,<a href="https://github.com/waitwalker/FlutterDemos/tree/master/canvas_paint/canvas_paint" target="_blank" rel="noopener">链接</a>,需要的可以下载看看.<br><img src="https://raw.githubusercontent.com/waitwalker/Resources/master/Flutter/Canvas/draw_demo_3.png" width="400" height="520" align="center"></p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Flutter Canvas绘制和Android中基本相同,难度不大,容易上手,轻量级的绘制这种绘制可以考虑,如果复杂性较大,可以深入研究.</p><h3 id="博客地址-amp-相关文章"><a href="#博客地址-amp-相关文章" class="headerlink" title="博客地址&amp;相关文章"></a>博客地址&amp;相关文章</h3><p><strong>博客地址:</strong> <a href="https://waitwalker.cn/" target="_blank" rel="noopener">https://waitwalker.cn/</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Flutter开发 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Flutter 开发 </tag>
+            
+            <tag> Dart </tag>
+            
+            <tag> iOS </tag>
+            
+            <tag> Android </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>群组</title>
       <link href="/2019/10/26/%E7%BE%A4%E7%BB%84/"/>
       <url>/2019/10/26/%E7%BE%A4%E7%BB%84/</url>

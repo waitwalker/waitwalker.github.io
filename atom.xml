@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://waitwalker.github.io/"/>
-  <updated>2019-10-26T13:45:56.629Z</updated>
+  <updated>2020-03-07T10:42:01.094Z</updated>
   <id>https://waitwalker.github.io/</id>
   
   <author>
@@ -15,6 +15,38 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Flutter Canvas绘制详解</title>
+    <link href="https://waitwalker.github.io/2020/03/07/Flutter-Canvas%E7%BB%98%E5%88%B6%E8%AF%A6%E8%A7%A3/"/>
+    <id>https://waitwalker.github.io/2020/03/07/Flutter-Canvas绘制详解/</id>
+    <published>2020-03-07T10:29:53.000Z</published>
+    <updated>2020-03-07T10:42:01.094Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;strong&gt;群组&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;Flutter,iOS,Android,Python等,闲聊工作&amp;amp;技术&amp;amp;问题;&lt;br&gt;个人主页:&lt;a href=&quot;https://waitwalker.cn&quot; target=&quot;_blank&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Flutter开发" scheme="https://waitwalker.github.io/categories/Flutter%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="Flutter 开发" scheme="https://waitwalker.github.io/tags/Flutter-%E5%BC%80%E5%8F%91/"/>
+    
+      <category term="Dart" scheme="https://waitwalker.github.io/tags/Dart/"/>
+    
+      <category term="iOS" scheme="https://waitwalker.github.io/tags/iOS/"/>
+    
+      <category term="Android" scheme="https://waitwalker.github.io/tags/Android/"/>
+    
+  </entry>
   
   <entry>
     <title>群组</title>
@@ -617,38 +649,6 @@
       <category term="WWDC" scheme="https://waitwalker.github.io/tags/WWDC/"/>
     
       <category term="Swift UI" scheme="https://waitwalker.github.io/tags/Swift-UI/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>WWDC 2019</title>
-    <link href="https://waitwalker.github.io/2019/06/05/WWDC-2019/"/>
-    <id>https://waitwalker.github.io/2019/06/05/WWDC-2019/</id>
-    <published>2019-06-05T13:09:20.000Z</published>
-    <updated>2019-10-26T13:44:31.605Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;&lt;strong&gt;群组&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;Flutter,iOS,Android,Python等,闲聊工作&amp;amp;技术&amp;amp;问题;&lt;br&gt;个人主页:&lt;a href=&quot;https://waitwalker.cn&quot; target=&quot;_blank&quot;
-        
-      
-    
-    </summary>
-    
-      <category term="WWDC" scheme="https://waitwalker.github.io/categories/WWDC/"/>
-    
-    
-      <category term="iOS" scheme="https://waitwalker.github.io/tags/iOS/"/>
-    
-      <category term="iOS 13.0" scheme="https://waitwalker.github.io/tags/iOS-13-0/"/>
-    
-      <category term="iPadOS 13.0" scheme="https://waitwalker.github.io/tags/iPadOS-13-0/"/>
-    
-      <category term="WWDC" scheme="https://waitwalker.github.io/tags/WWDC/"/>
     
   </entry>
   
